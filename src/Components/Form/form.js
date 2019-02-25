@@ -20,6 +20,7 @@ class Form extends React.Component {
     };
     this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   yearRange(){
@@ -36,7 +37,6 @@ class Form extends React.Component {
 
   yearRangeSell(){
     const currentYear = new Date().getFullYear(),
-          minYear = currentYear - 90,
           maxYear = currentYear + 15;
     let yearRangeSell = [];
 
@@ -55,6 +55,12 @@ class Form extends React.Component {
     return dayRange;
   }
 
+
+
+  timeDiff(){
+    console.log("time diff called");
+  }
+
   handleDate(event){
     this.setState({
       [event.target.name]: event.target.value
@@ -65,6 +71,35 @@ class Form extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+  isFormValid(){
+    const formValues = [
+      this.state.sellYear,
+      this.state.sellMonth,
+      this.state.sellDay,
+      this.state.sellPrice,
+      this.state.purchaseYear,
+      this.state.purchaseMonth,
+      this.state.purchaseDay,
+      this.state.purchasePrice,
+    ];
+    let isFormValid = false;
+
+    for( let i = 0; i < formValues.length; i++ ){
+      console.log("item", formValues[i].length);
+      if (formValues[i].length > 0){
+        isFormValid = true;
+      }
+    }
+
+    return isFormValid;
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    console.log("handleSubmit fired");
+    console.log("is form valid", this.isFormValid());
   }
 
   render() {
@@ -190,7 +225,21 @@ class Form extends React.Component {
             <label>Turiu dar</label>
           </div>
         </div>
-        <button className="btn btn-primary">Skaiciuoti</button>
+
+        <div className="form-group">
+          <button onClick={this.handleSubmit}
+            className="btn btn-primary">
+            Skaiciuoti
+          </button>
+        </div>
+
+        <div className="form-group">
+          <ul className="list-group list-group-horizontal">
+            <li className="list-group-item">Laiko skirtumas</li>
+            <li className="list-group-item">Kainu skirtumas</li>
+          </ul>
+        </div>
+
       </form>
     );
   }
