@@ -5,15 +5,16 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sellYear: "",
+      sellYear: new Date().getFullYear() + 1,
       sellMonth: "",
       sellDay: "",
       sellPrice: "",
-      purchaseYear: "",
+      purchaseYear: new Date().getFullYear(),
       purchaseMonth: "",
       purchaseDay: "",
       purchasePrice: "",
       yearRange: this.yearRange(),
+      yearRangeSell: this.yearRangeSell(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
       currentYear: new Date().getFullYear()
     };
@@ -22,15 +23,27 @@ class Form extends React.Component {
   }
 
   yearRange(){
-    const currentYear = new Date().getFullYear(),
-          minYear = currentYear - 90,
-          maxYear = currentYear + 11;
+    const currentYear = new Date().getFullYear();
+    const minYear = currentYear - 90;
+    const maxYear = currentYear + 1;
     let yearRange = [];
 
     for (  let i = minYear; i < maxYear; i++  ){
       yearRange.push(i);
     }
     return yearRange;
+  }
+
+  yearRangeSell(){
+    const currentYear = new Date().getFullYear(),
+          minYear = currentYear - 90,
+          maxYear = currentYear + 15;
+    let yearRangeSell = [];
+
+    for (  let i = currentYear; i < maxYear; i++  ){
+       yearRangeSell.push(i);
+     }
+    return yearRangeSell;
   }
 
   dayRange(year, month){
@@ -70,7 +83,7 @@ class Form extends React.Component {
                 onChange={this.handleDate}
                 name="purchaseYear"
                 className="form-control form-control-lg"
-                value={this.state.currentYear}>
+                value={this.state.purchaseYear}>
                 {this.state.yearRange.map((e, key) => {
                    return <option key={e} value={e} >{e}</option>;
                  })}
@@ -122,8 +135,9 @@ class Form extends React.Component {
               <select
                 onChange={this.handleDate}
                 name="sellYear"
-                className="form-control form-control-lg" value={this.state.currentYear}>
-                {this.state.yearRange.map((e, key) => {
+                className="form-control form-control-lg"
+                value={this.state.sellYear}>
+                {this.state.yearRangeSell.map((e, key) => {
                    return <option key={e} value={e}>{e}</option>;
                  })}
               </select>
@@ -138,7 +152,7 @@ class Form extends React.Component {
               </select>
               <select
                 onChange={this.handleDate}
-                name="purchaseDay"
+                name="sellDay"
                 className="form-control form-control-lg">
                 <option>Pasirinkite Diena</option>
                 {sellDays.map( (e) => {
