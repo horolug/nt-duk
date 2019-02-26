@@ -17,7 +17,8 @@ class Form extends React.Component {
       yearRangeSell: this.yearRangeSell(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
       currentYear: new Date().getFullYear(),
-      timeDiff: ""
+      timeDiff: "",
+      priceDiff: ""
     };
     this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
@@ -54,6 +55,13 @@ class Form extends React.Component {
       dayRange.push(i);
     }
     return dayRange;
+  }
+
+  priceDiff(){
+    console.log("price diff is called", this.state.sellPrice - this.state.purchasePrice);
+    this.setState({
+      priceDiff : this.state.sellPrice - this.state.purchasePrice
+    });
   }
 
   timeDiff(){
@@ -113,6 +121,7 @@ class Form extends React.Component {
     if ( this.isFormValid() ){
       console.log("form is valid, checking time diff");
       this.timeDiff();
+      this.priceDiff();
     }
   }
 
@@ -250,7 +259,7 @@ class Form extends React.Component {
         <div className="form-group">
           <ul className="list-group list-group-horizontal">
             <li className="list-group-item">Laiko skirtumas dienomis {this.state.timeDiff}</li>
-            <li className="list-group-item">Kainu skirtumas</li>
+            <li className="list-group-item">Kainu skirtumas {this.state.priceDiff}</li>
           </ul>
         </div>
 
