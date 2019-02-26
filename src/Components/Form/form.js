@@ -64,6 +64,10 @@ class Form extends React.Component {
     const sellDate = moment([this.state.sellYear,
                             this.state.sellMonth,
                             this.state.sellDay]);
+
+    this.setState({
+      timeDiff: sellDate.diff(purchaseDate, 'days')
+    });
     console.log("time diff is", sellDate.diff(purchaseDate, 'days') );
   }
 
@@ -245,7 +249,7 @@ class Form extends React.Component {
 
         <div className="form-group">
           <ul className="list-group list-group-horizontal">
-            <li className="list-group-item">Laiko skirtumas</li>
+            <li className="list-group-item">Laiko skirtumas dienomis {this.state.timeDiff}</li>
             <li className="list-group-item">Kainu skirtumas</li>
           </ul>
         </div>
