@@ -16,7 +16,8 @@ class Form extends React.Component {
       yearRange: this.yearRange(),
       yearRangeSell: this.yearRangeSell(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
-      currentYear: new Date().getFullYear()
+      currentYear: new Date().getFullYear(),
+      timeDiff: ""
     };
     this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
@@ -55,10 +56,15 @@ class Form extends React.Component {
     return dayRange;
   }
 
-
-
   timeDiff(){
     console.log("time diff called");
+    const purchaseDate = moment([this.state.purchaseYear,
+                                this.state.purchaseMonth,
+                                this.state.purchaseDay]);
+    const sellDate = moment([this.state.sellYear,
+                            this.state.sellMonth,
+                            this.state.sellDay]);
+    console.log("time diff is", sellDate.diff(purchaseDate, 'days') );
   }
 
   handleDate(event){
@@ -99,7 +105,11 @@ class Form extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     console.log("handleSubmit fired");
-    console.log("is form valid", this.isFormValid());
+
+    if ( this.isFormValid() ){
+      console.log("form is valid, checking time diff");
+      this.timeDiff();
+    }
   }
 
   render() {
