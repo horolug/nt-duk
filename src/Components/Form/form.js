@@ -17,8 +17,11 @@ class Form extends React.Component {
       yearRangeSell: this.yearRangeSell(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
       currentYear: new Date().getFullYear(),
+      purchaseDate: "",
+      sellDate: "",
       timeDiff: "",
-      priceDiff: ""
+      priceDiff: "",
+      taxAmount: "Moketi nereikia"
     };
     this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
@@ -64,6 +67,28 @@ class Form extends React.Component {
     });
   }
 
+  isTaxRequired(yearsPassed, purchase, sell){
+    if ( yearsPassed > 10 ) {
+      return false;
+    } else {
+      this.setState({
+        taxAmount: this.calculateTax(purchase, sell)
+      });
+      return true;
+    }
+
+  }
+
+  calculateTax(purchase, sell){
+    // const purchasePrice = this.state.purchasePrice;
+    // const sellPrice = this.state.sellPrice;
+
+    const priceDiff = sell - purchase;
+    const taxRate = 0.15;
+
+    return priceDiff * taxRate;
+  }
+
   timeDiff(){
     console.log("time diff called");
     const purchaseDate = moment([this.state.purchaseYear,
@@ -72,11 +97,14 @@ class Form extends React.Component {
     const sellDate = moment([this.state.sellYear,
                             this.state.sellMonth,
                             this.state.sellDay]);
+    const yearsPassed = sellDate.diff(purchaseDate, 'years');
+
+    console.log( "is tax required", this.isTaxRequired(yearsPassed, this.state.purchasePrice, this.state.sellPrice) );
+    console.log("time diff is", yearsPassed );
 
     this.setState({
-      timeDiff: sellDate.diff(purchaseDate, 'days')
+      timeDiff: yearsPassed
     });
-    console.log("time diff is", sellDate.diff(purchaseDate, 'days') );
   }
 
   handleDate(event){
@@ -258,8 +286,9 @@ class Form extends React.Component {
 
         <div className="form-group">
           <ul className="list-group list-group-horizontal">
-            <li className="list-group-item">Laiko skirtumas dienomis {this.state.timeDiff}</li>
+            <li className="list-group-item">Laiko skirtumas metais {this.state.timeDiff}</li>
             <li className="list-group-item">Kainu skirtumas {this.state.priceDiff}</li>
+            <li className="list-group-item">Moketi mokesciu {this.state.taxAmount}</li>
           </ul>
         </div>
 
