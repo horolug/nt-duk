@@ -60,37 +60,24 @@ class Form extends React.Component {
     return dayRange;
   }
 
-  priceDiff(){
-    console.log("price diff is called", this.state.sellPrice - this.state.purchasePrice);
+  calculateTax( timeDiff ){
+    const priceDiff = this.state.sellPrice - this.state.purchasePrice;
+    const taxRate = 0.15;
+    let taxAmount = "Moketi nereikia";
+
+    // FIXME - if tax required to be a separate function with set of rules
+    if ( timeDiff < 10 ){
+      taxAmount = priceDiff * taxRate;
+    }
+
     this.setState({
-      priceDiff : this.state.sellPrice - this.state.purchasePrice
+      taxAmount: taxAmount,
+      priceDiff: priceDiff,
+      timeDiff: timeDiff
     });
   }
 
-  isTaxRequired(yearsPassed, purchase, sell){
-    if ( yearsPassed > 10 ) {
-      return false;
-    } else {
-      this.setState({
-        taxAmount: this.calculateTax(purchase, sell)
-      });
-      return true;
-    }
-
-  }
-
-  calculateTax(purchase, sell){
-    // const purchasePrice = this.state.purchasePrice;
-    // const sellPrice = this.state.sellPrice;
-
-    const priceDiff = sell - purchase;
-    const taxRate = 0.15;
-
-    return priceDiff * taxRate;
-  }
-
   timeDiff(){
-    console.log("time diff called");
     const purchaseDate = moment([this.state.purchaseYear,
                                 this.state.purchaseMonth,
                                 this.state.purchaseDay]);
@@ -98,13 +85,7 @@ class Form extends React.Component {
                             this.state.sellMonth,
                             this.state.sellDay]);
     const yearsPassed = sellDate.diff(purchaseDate, 'years');
-
-    console.log( "is tax required", this.isTaxRequired(yearsPassed, this.state.purchasePrice, this.state.sellPrice) );
-    console.log("time diff is", yearsPassed );
-
-    this.setState({
-      timeDiff: yearsPassed
-    });
+    return yearsPassed;
   }
 
   handleDate(event){
@@ -133,7 +114,6 @@ class Form extends React.Component {
     let isFormValid = false;
 
     for( let i = 0; i < formValues.length; i++ ){
-      console.log("item", formValues[i].length);
       if (formValues[i].length > 0){
         isFormValid = true;
       }
@@ -147,9 +127,8 @@ class Form extends React.Component {
     console.log("handleSubmit fired");
 
     if ( this.isFormValid() ){
-      console.log("form is valid, checking time diff");
-      this.timeDiff();
-      this.priceDiff();
+      console.log("form is valid, calculating due tax");
+      this.calculateTax( this.timeDiff() );
     }
   }
 
@@ -288,7 +267,9 @@ class Form extends React.Component {
           <ul className="list-group list-group-horizontal">
             <li className="list-group-item">Laiko skirtumas metais {this.state.timeDiff}</li>
             <li className="list-group-item">Kainu skirtumas {this.state.priceDiff}</li>
-            <li className="list-group-item">Moketi mokesciu {this.state.taxAmount}</li>
+            <li className="list-group-item">
+              Moketi mokesciu <strong>{this.state.taxAmount}</strong>
+            </li>
           </ul>
         </div>
 
