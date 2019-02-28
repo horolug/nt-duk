@@ -41,6 +41,8 @@ class Form extends React.Component {
   }
 
   yearRangeSell(){
+    // FIXME sell year range should be updated to allign with purchase yars.
+    // example : to check sell scenario that happened in the past
     const currentYear = new Date().getFullYear(),
           maxYear = currentYear + 15;
     let yearRangeSell = [];
@@ -60,7 +62,22 @@ class Form extends React.Component {
     return dayRange;
   }
 
+  isTaxRequired (){
+    // 1. Income tax (15%) is due if sell happened less than 10 years after purchaseDay
+    // 2. Income tax is not required if ( all conditions must apply ):
+    // 2.1 sold property was primary dwelling for less than 2 years
+    // 2.2 sell happened less than 10 years after purchase
+    // 2.3  money were used to buy another primary dwelling
+    // 3. Income tax is not requried if:
+    // 3.1 sold property was primary dwelling for more than 2 years
+  }
+
   calculateTax( timeDiff ){
+    // FIXME - add following logic
+    // 1. when calculating due tax following expenses must be included:
+    // 1.1. Notary expense for the sale
+    // 1.2. TBC - real estate agent fees
+
     const priceDiff = this.state.sellPrice - this.state.purchasePrice;
     const taxRate = 0.15;
     let taxAmount = "Moketi nereikia";
@@ -75,6 +92,14 @@ class Form extends React.Component {
       priceDiff: priceDiff,
       timeDiff: timeDiff
     });
+  }
+
+  taxDueDate(){
+    // sell is to be declared before [year]-05-01, say 2018-05-01
+    // tax is to be paid on [year + 1]-05-01, say 2019-05-01
+    // tax due date can be only a work day, so of [year]-05-01 is a holiday,
+    // next working day is selected
+
   }
 
   timeDiff(){
