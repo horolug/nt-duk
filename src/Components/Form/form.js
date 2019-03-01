@@ -13,6 +13,7 @@ class Form extends React.Component {
       purchaseMonth: "",
       purchaseDay: "",
       purchasePrice: "",
+      dwellingStatus: "",
       yearRange: this.yearRange(),
       yearRangeSell: this.yearRangeSell(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
@@ -26,6 +27,7 @@ class Form extends React.Component {
     this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOptions = this.handleOptions.bind(this);
   }
 
   yearRange(){
@@ -62,14 +64,27 @@ class Form extends React.Component {
     return dayRange;
   }
 
-  isTaxRequired (){
+  isTaxRequired (timeDiff){
     // 1. Income tax (15%) is due if sell happened less than 10 years after purchaseDay
     // 2. Income tax is not required if ( all conditions must apply ):
     // 2.1 sold property was primary dwelling for less than 2 years
     // 2.2 sell happened less than 10 years after purchase
-    // 2.3  money were used to buy another primary dwelling
+    // 2.3 money was used to buy another primary dwelling
     // 3. Income tax is not requried if:
     // 3.1 sold property was primary dwelling for more than 2 years
+    console.log("===", this.state.dwellingStatus);
+
+    //3.
+    // disable option in markup if time diff is less than 2
+    if ( timeDiff >= 2  && this.state.dwellingStatus === "primaryDwelling"){
+      console.log("got primary dwelling, no taxes");
+      return false;
+    }
+    // 1.
+    if ( timeDiff < 10 ){
+      return true;
+    }
+
   }
 
   calculateNotaryFee( sellPrice ){
@@ -88,7 +103,6 @@ class Form extends React.Component {
   calculateTax( timeDiff ){
     // FIXME - add following logic
     // 1. when calculating due tax following expenses must be included:
-    // 1.1. Notary expense for the sale
     // 1.2. TBC - real estate agent fees
 
     const priceDiff = this.state.sellPrice - this.state.purchasePrice;
@@ -97,7 +111,7 @@ class Form extends React.Component {
     let taxAmount = "Moketi nereikia";
 
     // FIXME - if tax required to be a separate function with set of rules
-    if ( timeDiff < 10 && priceDiff > notaryFee ){
+    if ( this.isTaxRequired (timeDiff) && priceDiff > notaryFee ){
       taxAmount = (priceDiff-notaryFee) * taxRate;
     }
 
@@ -131,6 +145,11 @@ class Form extends React.Component {
   handleDate(event){
     this.setState({
       [event.target.name]: event.target.value
+    });
+  }
+  handleOptions(event){
+    this.setState({
+      dwellingStatus: event.target.id
     });
   }
 
@@ -287,12 +306,35 @@ class Form extends React.Component {
 
         <div className="form-group">
           <div className="form-check">
-            <input className="form-check-input" name="option" type="radio" value="" />
-            <label>Vienintelis turtas</label>
+            <input className="form-check-input"
+              id="primaryDwelling"
+              name="option"
+              onChange={this.handleOptions}
+              type="radio" value="" />
+            <label htmlFor="primaryDwelling">
+              Parduodamas turtas - paskutinius 2 metus deklaruota gyvenamoji vieta
+            </label>
           </div>
           <div className="form-check">
-            <input className="form-check-input" name="option" type="radio" value="" />
-            <label>Turiu dar</label>
+            <input className="form-check-input"
+              id="primaryDwellingShort"
+              name="option"
+              onChange={this.handleOptions}
+              type="radio" value="" />
+            <label htmlFor="primaryDwellingShort">
+              Parduodamas turtas - maziau nei paskutinius 2 metus deklaruota gyvenamoji vieta
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+            className="form-check-input"
+              id="notPrimaryDwelling"
+              name="option"
+              onChange={this.handleOptions}
+              type="radio" value="" />
+            <label htmlFor="notPrimaryDwelling">
+              Parduodamas turtas - gyvenamoji vieta nedeklaruota
+            </label>
           </div>
         </div>
 
