@@ -72,6 +72,19 @@ class Form extends React.Component {
     // 3.1 sold property was primary dwelling for more than 2 years
   }
 
+  calculateNotaryFee( sellPrice ){
+     // notary fee : 0.45 procento nuo sumos, bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur
+    let notaryFee = sellPrice * 0.0045;
+    console.log('notaryFee', notaryFee);
+    if ( notaryFee < 28.96  ){
+      notaryFee = 28.96;
+    } else if (notaryFee > 5792.4){
+      notaryFee = 5792.4;
+    }
+    return notaryFee;
+  }
+
+
   calculateTax( timeDiff ){
     // FIXME - add following logic
     // 1. when calculating due tax following expenses must be included:
@@ -79,17 +92,19 @@ class Form extends React.Component {
     // 1.2. TBC - real estate agent fees
 
     const priceDiff = this.state.sellPrice - this.state.purchasePrice;
+    const notaryFee = this.calculateNotaryFee(this.state.sellPrice);
     const taxRate = 0.15;
     let taxAmount = "Moketi nereikia";
 
     // FIXME - if tax required to be a separate function with set of rules
-    if ( timeDiff < 10 ){
-      taxAmount = priceDiff * taxRate;
+    if ( timeDiff < 10 && priceDiff > notaryFee ){
+      taxAmount = (priceDiff-notaryFee) * taxRate;
     }
 
     this.setState({
       taxAmount: taxAmount,
       priceDiff: priceDiff,
+      notaryFee: notaryFee,
       timeDiff: timeDiff
     });
   }
@@ -292,6 +307,7 @@ class Form extends React.Component {
           <ul className="list-group list-group-horizontal">
             <li className="list-group-item">Laiko skirtumas metais {this.state.timeDiff}</li>
             <li className="list-group-item">Kainu skirtumas {this.state.priceDiff}</li>
+            <li className="list-group-item">Notaro mokestis {this.state.notaryFee}</li>
             <li className="list-group-item">
               Moketi mokesciu <strong>{this.state.taxAmount}</strong>
             </li>
