@@ -15,7 +15,7 @@ class Form extends React.Component {
       purchasePrice: "",
       dwellingStatus: "",
       yearRange: this.yearRange(),
-      yearRangeSell: this.yearRangeSell(),
+      //yearRangeSell: this.yearRangeSell(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
       currentYear: new Date().getFullYear(),
       purchaseDate: "",
@@ -42,16 +42,20 @@ class Form extends React.Component {
     return yearRange;
   }
 
-  yearRangeSell(){
+  yearRangeSell( purchaseYear ){
     // FIXME sell year range should be updated to allign with purchase yars.
     // example : to check sell scenario that happened in the past
-    const currentYear = new Date().getFullYear(),
-          maxYear = currentYear + 15;
+    // console.log("purchaseYear", purchaseYear);
+    // console.log("typeof ", typeof purchaseYear);
+
+    // const currentYear = new Date().getFullYear();
+    const maxYear = parseInt(purchaseYear, 10) + 15;
     let yearRangeSell = [];
 
-    for (  let i = currentYear; i < maxYear; i++  ){
+    for (  let i = purchaseYear; i < maxYear; i++  ){
        yearRangeSell.push(i);
      }
+
     return yearRangeSell;
   }
 
@@ -75,7 +79,7 @@ class Form extends React.Component {
     console.log("===", this.state.dwellingStatus);
 
     //3.
-    // disable option in markup if time diff is less than 2
+    // FIXME - disable option in markup if time diff is less than 2
     if ( timeDiff >= 2  && this.state.dwellingStatus === "primaryDwelling"){
       console.log("got primary dwelling, no taxes");
       return false;
@@ -90,7 +94,6 @@ class Form extends React.Component {
   calculateNotaryFee( sellPrice ){
      // notary fee : 0.45 procento nuo sumos, bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur
     let notaryFee = sellPrice * 0.0045;
-    console.log('notaryFee', notaryFee);
     if ( notaryFee < 28.96  ){
       notaryFee = 28.96;
     } else if (notaryFee > 5792.4){
@@ -143,10 +146,24 @@ class Form extends React.Component {
   }
 
   handleDate(event){
+    // if ( event.target.name === "purchaseYear" ){
+    //   this.setState({
+    //     yearRangeSell: this.yearRangeSell( event.target.value ),
+    //     [event.target.name]: event.target.value
+    //   });
+    // } else {
+    //   this.setState({
+    //     [event.target.name]: event.target.value
+    //   });
+    // }
+
     this.setState({
       [event.target.name]: event.target.value
     });
+
   }
+
+
   handleOptions(event){
     this.setState({
       dwellingStatus: event.target.id
@@ -237,7 +254,7 @@ class Form extends React.Component {
                 type="number"
                 name="purchasePrice"
                 onChange={this.handlePrice}
-                className="form-control" type="text"/>
+                className="form-control"/>
             </div>
           </div>
           <div className="col">
@@ -260,8 +277,9 @@ class Form extends React.Component {
                 onChange={this.handleDate}
                 name="sellYear"
                 className="form-control form-control-lg"
-                value={this.state.sellYear}>
-                {this.state.yearRangeSell.map((e, key) => {
+                value={this.state.sellYear}
+              >
+                {this.yearRangeSell(this.state.purchaseYear).map((e, key) => {
                    return <option key={e} value={e}>{e}</option>;
                  })}
               </select>
@@ -290,7 +308,7 @@ class Form extends React.Component {
                 type="number"
                 name="sellPrice"
                 onChange={this.handlePrice}
-                className="form-control" type="text"/>
+                className="form-control"/>
             </div>
           </div>
           <div className="col">
