@@ -25,7 +25,7 @@ class Form extends React.Component {
       priceDiff: "",
       taxAmount: "Moketi nereikia"
     };
-    // this.handleDate = this.handleDate.bind(this);
+    this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOptions = this.handleOptions.bind(this);
@@ -44,12 +44,6 @@ class Form extends React.Component {
   }
 
   yearRangeSell( purchaseYear ){
-    // FIXME sell year range should be updated to allign with purchase yars.
-    // example : to check sell scenario that happened in the past
-    // console.log("purchaseYear", purchaseYear);
-    // console.log("typeof ", typeof purchaseYear);
-
-    // const currentYear = new Date().getFullYear();
     const maxYear = parseInt(purchaseYear, 10) + 15;
     let yearRangeSell = [];
 
@@ -147,8 +141,6 @@ class Form extends React.Component {
   }
 
   handleDate(event){
-    console.log("this is what handleDate is getting", event.target.name);
-    console.log("this is what handleDate is getting", event.target.value);
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -190,8 +182,6 @@ class Form extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    console.log("handleSubmit fired");
-
     if ( this.isFormValid() ){
       console.log("form is valid, calculating due tax");
       this.calculateTax( this.timeDiff() );
@@ -211,7 +201,7 @@ class Form extends React.Component {
             <h4>Data</h4>
             <DateBlock
               blockType="purchase"
-              onChange={ this.handleDate.bind(this) }
+              onChange={this.handleDate}
               year={this.state.purchaseYear}
               years={this.yearRange().map((e, key) => {
                  return <option key={e} value={e}>{e}</option>;
@@ -249,7 +239,7 @@ class Form extends React.Component {
             <h3> Data </h3>
             <DateBlock
               blockType="sell"
-              onChange={this.handleDate.bind(this)}
+              onChange={this.handleDate}
               year={this.state.sellYear}
               years={this.yearRangeSell(this.state.purchaseYear).map((e, key) => {
                  return <option key={e} value={e}>{e}</option>;
