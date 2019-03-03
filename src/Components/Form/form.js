@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment'
+import DateBlock from '../DateBlock/dateBlock'
 
 class Form extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Form extends React.Component {
       priceDiff: "",
       taxAmount: "Moketi nereikia"
     };
-    this.handleDate = this.handleDate.bind(this);
+    // this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOptions = this.handleOptions.bind(this);
@@ -146,23 +147,12 @@ class Form extends React.Component {
   }
 
   handleDate(event){
-    // if ( event.target.name === "purchaseYear" ){
-    //   this.setState({
-    //     yearRangeSell: this.yearRangeSell( event.target.value ),
-    //     [event.target.name]: event.target.value
-    //   });
-    // } else {
-    //   this.setState({
-    //     [event.target.name]: event.target.value
-    //   });
-    // }
-
+    console.log("this is what handleDate is getting", event.target.name);
+    console.log("this is what handleDate is getting", event.target.value);
     this.setState({
       [event.target.name]: event.target.value
     });
-
   }
-
 
   handleOptions(event){
     this.setState({
@@ -219,35 +209,20 @@ class Form extends React.Component {
         <div className="row">
           <div className="col">
             <h4>Data</h4>
-            <div className="form-group">
-              <select
-                onChange={this.handleDate}
-                name="purchaseYear"
-                className="form-control form-control-lg"
-                value={this.state.purchaseYear}>
-                {this.state.yearRange.map((e, key) => {
-                   return <option key={e} value={e} >{e}</option>;
-                 })}
-              </select>
-              <select
-                onChange={this.handleDate}
-                name="purchaseMonth"
-                className="form-control form-control-lg" >
-                <option>Pasirinkite Menesi</option>
-                {this.state.monthRange.map((e, key) => {
-                   return <option key={e} value={e}>{e}</option>;
-                 })}
-              </select>
-              <select
-                onChange={this.handleDate}
-                name="purchaseDay"
-                className="form-control form-control-lg">
-                <option>Pasirinkite Diena</option>
-                {purchaseDays.map( (e) => {
-                  return <option key={e} value={e}>{e}</option>;
-                })}
-              </select>
-            </div>
+            <DateBlock
+              blockType="purchase"
+              onChange={ this.handleDate.bind(this) }
+              year={this.state.purchaseYear}
+              years={this.yearRange().map((e, key) => {
+                 return <option key={e} value={e}>{e}</option>;
+              })}
+              months={this.state.monthRange.map((e, key) => {
+                 return <option key={e} value={e}>{e}</option>;
+               })}
+              days={purchaseDays.map( (e) => {
+                return <option key={e} value={e}>{e}</option>;
+              })}
+            />
             <h4>Kaina</h4>
             <div className="form-group">
               <input
@@ -272,36 +247,20 @@ class Form extends React.Component {
         <div className="row">
           <div className="col">
             <h3> Data </h3>
-            <div className="form-group">
-              <select
-                onChange={this.handleDate}
-                name="sellYear"
-                className="form-control form-control-lg"
-                value={this.state.sellYear}
-              >
-                {this.yearRangeSell(this.state.purchaseYear).map((e, key) => {
-                   return <option key={e} value={e}>{e}</option>;
-                 })}
-              </select>
-              <select
-                onChange={this.handleDate}
-                name="sellMonth"
-                className="form-control form-control-lg">
-                <option>Pasirinkite Menesi</option>
-                {this.state.monthRange.map((e, key) => {
-                   return <option key={e} value={e}>{e}</option>;
-                 })}
-              </select>
-              <select
-                onChange={this.handleDate}
-                name="sellDay"
-                className="form-control form-control-lg">
-                <option>Pasirinkite Diena</option>
-                {sellDays.map( (e) => {
-                  return <option key={e} value={e}>{e}</option>;
-                })}
-              </select>
-            </div>
+            <DateBlock
+              blockType="sell"
+              onChange={this.handleDate.bind(this)}
+              year={this.state.sellYear}
+              years={this.yearRangeSell(this.state.purchaseYear).map((e, key) => {
+                 return <option key={e} value={e}>{e}</option>;
+              })}
+              months={this.state.monthRange.map((e, key) => {
+                 return <option key={e} value={e}>{e}</option>;
+               })}
+              days={sellDays.map( (e) => {
+                return <option key={e} value={e}>{e}</option>;
+              })}
+            />
             <h4>Kaina</h4>
             <div className="form-group">
               <input
