@@ -11,7 +11,6 @@ class DateBlock extends React.Component {
   render() {
     return (
       <div className="form-group">
-        <h3>this is dateblock {this.props.blockType}</h3>
         <select
           onChange={this.props.onChange}
           name={this.props.blockType+"Year"}
@@ -34,7 +33,6 @@ class DateBlock extends React.Component {
           <option>Pasirinkite Diena</option>
           {this.props.days}
         </select>
-        <h3>end of dateblock</h3>
       </div>
     );
   }

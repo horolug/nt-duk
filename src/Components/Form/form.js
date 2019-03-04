@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment'
 import DateBlock from '../DateBlock/dateBlock'
+import OptionList from '../OptionList/optionList'
 
 class Form extends React.Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class Form extends React.Component {
       purchasePrice: "",
       dwellingStatus: "",
       yearRange: this.yearRange(),
-      //yearRangeSell: this.yearRangeSell(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
       currentYear: new Date().getFullYear(),
       purchaseDate: "",
@@ -68,7 +68,7 @@ class Form extends React.Component {
     // 2. Income tax is not required if ( all conditions must apply ):
     // 2.1 sold property was primary dwelling for less than 2 years
     // 2.2 sell happened less than 10 years after purchase
-    // 2.3 money was used to buy another primary dwelling
+    // 2.3 money was used to buy another primary dwelling within a year of selling the first one
     // 3. Income tax is not requried if:
     // 3.1 sold property was primary dwelling for more than 2 years
     console.log("===", this.state.dwellingStatus);
@@ -102,13 +102,13 @@ class Form extends React.Component {
     // FIXME - add following logic
     // 1. when calculating due tax following expenses must be included:
     // 1.2. TBC - real estate agent fees
+    // Improvement expenses - TBC the details
 
     const priceDiff = this.state.sellPrice - this.state.purchasePrice;
     const notaryFee = this.calculateNotaryFee(this.state.sellPrice);
     const taxRate = 0.15;
     let taxAmount = "Moketi nereikia";
 
-    // FIXME - if tax required to be a separate function with set of rules
     if ( this.isTaxRequired (timeDiff) && priceDiff > notaryFee ){
       taxAmount = (priceDiff-notaryFee) * taxRate;
     }
@@ -222,15 +222,13 @@ class Form extends React.Component {
                 className="form-control"/>
             </div>
           </div>
-          <div className="col">
-            <h3> pasirinkta:  </h3>
-            <ul className="list-group">
-              <li className="list-group-item">Metai {this.state.purchaseYear}</li>
-              <li className="list-group-item">Menuo {this.state.purchaseMonth}</li>
-              <li className="list-group-item">Diena {this.state.purchaseDay}</li>
-              <li className="list-group-item">Kaina {this.state.purchasePrice}</li>
-            </ul>
-          </div>
+
+          <OptionList
+            year={this.state.purchaseYear}
+            month={this.state.purchaseMonth}
+            day={this.state.purchaseDay}
+            price={this.state.purchasePrice}
+          />
         </div>
 
         <h3> Pardavimas </h3>
@@ -260,15 +258,12 @@ class Form extends React.Component {
                 className="form-control"/>
             </div>
           </div>
-          <div className="col">
-            <h3> pasirinkta: </h3>
-            <ul className="list-group">
-              <li className="list-group-item">Metai {this.state.sellYear}</li>
-              <li className="list-group-item">Menuo {this.state.sellMonth}</li>
-              <li className="list-group-item">Diena {this.state.sellDay}</li>
-              <li className="list-group-item">Kaina {this.state.sellPrice}</li>
-            </ul>
-          </div>
+          <OptionList
+            year={this.state.sellYear}
+            month={this.state.sellMonth}
+            day={this.state.sellDay}
+            price={this.state.sellPrice}
+          />
         </div>
 
         <div className="form-group">
