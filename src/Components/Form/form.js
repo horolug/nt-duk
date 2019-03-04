@@ -2,6 +2,8 @@ import React from 'react';
 import moment from 'moment'
 import DateBlock from '../DateBlock/dateBlock'
 import OptionList from '../OptionList/optionList'
+import business from 'moment-business';
+
 
 class Form extends React.Component {
   constructor(props) {
@@ -23,7 +25,8 @@ class Form extends React.Component {
       sellDate: "",
       timeDiff: "",
       priceDiff: "",
-      taxAmount: "Moketi nereikia"
+      taxAmount: "Moketi nereikia",
+      taxDueDate: ""
     };
     this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
@@ -71,7 +74,6 @@ class Form extends React.Component {
     // 2.3 money was used to buy another primary dwelling within a year of selling the first one
     // 3. Income tax is not requried if:
     // 3.1 sold property was primary dwelling for more than 2 years
-    console.log("===", this.state.dwellingStatus);
 
     //3.
     // FIXME - disable option in markup if time diff is less than 2
@@ -117,7 +119,8 @@ class Form extends React.Component {
       taxAmount: taxAmount,
       priceDiff: priceDiff,
       notaryFee: notaryFee,
-      timeDiff: timeDiff
+      timeDiff: timeDiff,
+      taxDueDate: this.taxDueDate()
     });
   }
 
@@ -126,7 +129,24 @@ class Form extends React.Component {
     // tax is to be paid on [year + 1]-05-01, say 2019-05-01
     // tax due date can be only a work day, so of [year]-05-01 is a holiday,
     // next working day is selected
+    // [year-05-01] - is a national holiday in Lithuania
+    // FIXME - check if next days are not weekend days
 
+    const sellDate = this.state.sellYear+"-"+this.state.sellMonth+"-"+this.state.sellDay;
+
+    // Some problems with library for this one
+    // console.log("business.isWeekDay ? ", business.isWeekDay( "2016-07-25 ") );
+
+    let taxPaymentDate = "";
+    if ( moment(sellDate).isBefore(this.state.sellYear+'-05-01') ){
+      // sale happened before tax report due date, so tax payment is due date is next year;
+      taxPaymentDate = (parseInt(this.state.sellYear)+1)+'-05-01';
+      return taxPaymentDate
+    } else {
+      // sale happened after tax report due date, so tax payment is due in 2 years;
+      taxPaymentDate = (parseInt(this.state.sellYear)+2)+'-05-01';
+      return taxPaymentDate
+    }
   }
 
   timeDiff(){
@@ -315,6 +335,13 @@ class Form extends React.Component {
             <li className="list-group-item">
               Moketi mokesciu <strong>{this.state.taxAmount}</strong>
             </li>
+          </ul>
+        </div>
+
+        <div className="form-group">
+          <ul className="list-group">
+            <li className="list-group-item">Pajamu deklaracija uzpildyti iki </li>
+            <li className="list-group-item">Pelno mokesti sumoketi iki {this.state.taxDueDate}</li>
           </ul>
         </div>
 
