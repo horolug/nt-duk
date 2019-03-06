@@ -138,7 +138,7 @@ class Form extends React.Component {
 
     const sellDate = this.state.sellYear+"-"+this.state.sellMonth+"-"+this.state.sellDay;
     // Some problems with library for this one
-    console.log("business.isWeekDay ? ", business.isWeekDay( "2016-07-25 ") );
+    // console.log("business.isWeekDay ? ", business.isWeekDay( "2016-07-25 ") );
 
     let taxPaymentDate = "";
     if ( moment(sellDate).isBefore(this.state.sellYear+'-05-01') ){
@@ -217,6 +217,8 @@ class Form extends React.Component {
   render() {
     const purchaseDays = this.dayRange(this.state.purchaseYear, this.state.purchaseMonth);
     const sellDays = this.dayRange(this.state.sellYear, this.state.sellMonth);
+    const sellDate = this.state.sellYear +"-"+this.state.sellMonth+"-"+this.state.sellDay;
+    const purchaseDate = this.state.purchaseYear +"-"+this.state.purchaseMonth+"-"+this.state.purchaseDay;
     return (
       <form>
         <h1>Form</h1>
@@ -332,8 +334,12 @@ class Form extends React.Component {
             Skaiciuoti
           </button>
         </div>
-        
+
         <Summary
+          purchaseDate={purchaseDate}
+          sellDate={sellDate}
+          purchasePrice={this.state.purchasePrice}
+          sellPrice={this.state.sellPrice}
           timeDiff={this.state.timeDiff}
           priceDiff={this.state.priceDiff}
           notaryFee={this.state.notaryFee}
