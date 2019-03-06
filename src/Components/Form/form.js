@@ -1,8 +1,9 @@
 import React from 'react';
 import moment from 'moment'
+import business from 'moment-business';
 import DateBlock from '../DateBlock/dateBlock'
 import OptionList from '../OptionList/optionList'
-import business from 'moment-business';
+import Summary from '../Summary/summary'
 
 
 class Form extends React.Component {
@@ -77,12 +78,10 @@ class Form extends React.Component {
 
     //3.
     // FIXME - disable option in markup if time diff is less than 2
-    if ( timeDiff >= 2  && this.state.dwellingStatus === "primaryDwelling"){
+    if ( timeDiff >= 2  && this.state.dwellingStatus === "primaryDwelling" ){
       console.log("got primary dwelling, no taxes");
       return false;
-    }
-    // 1.
-    if ( timeDiff < 10 ){
+    } else if ( timeDiff < 10 ){
       return true;
     }
 
@@ -91,7 +90,7 @@ class Form extends React.Component {
   calculateNotaryFee( sellPrice ){
      // notary fee : 0.45 procento nuo sumos, bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur
     let notaryFee = sellPrice * 0.0045;
-    if ( notaryFee < 28.96  ){
+    if ( notaryFee < 28.96 ){
       notaryFee = 28.96;
     } else if (notaryFee > 5792.4){
       notaryFee = 5792.4;
@@ -109,11 +108,16 @@ class Form extends React.Component {
     const priceDiff = this.state.sellPrice - this.state.purchasePrice;
     const notaryFee = this.calculateNotaryFee(this.state.sellPrice);
     const taxRate = 0.15;
+    const isTaxRequired = this.isTaxRequired(timeDiff);
     let taxAmount = "Moketi nereikia";
 
-    if ( this.isTaxRequired (timeDiff) && priceDiff > notaryFee ){
+    console.log("isTaxRequired", isTaxRequired);
+
+    if ( isTaxRequired && priceDiff > notaryFee ){
       taxAmount = (priceDiff-notaryFee) * taxRate;
     }
+
+    console.log("dwelling status", this.state.dwellingStatus);
 
     this.setState({
       taxAmount: taxAmount,
@@ -133,9 +137,8 @@ class Form extends React.Component {
     // FIXME - check if next days are not weekend days
 
     const sellDate = this.state.sellYear+"-"+this.state.sellMonth+"-"+this.state.sellDay;
-
     // Some problems with library for this one
-    // console.log("business.isWeekDay ? ", business.isWeekDay( "2016-07-25 ") );
+    console.log("business.isWeekDay ? ", business.isWeekDay( "2016-07-25 ") );
 
     let taxPaymentDate = "";
     if ( moment(sellDate).isBefore(this.state.sellYear+'-05-01') ){
@@ -188,12 +191,15 @@ class Form extends React.Component {
       this.state.purchaseMonth,
       this.state.purchaseDay,
       this.state.purchasePrice,
+      this.state.dwellingStatus
     ];
     let isFormValid = false;
 
     for( let i = 0; i < formValues.length; i++ ){
       if (formValues[i].length > 0){
         isFormValid = true;
+      } else {
+        isFormValid = false;
       }
     }
 
@@ -290,7 +296,7 @@ class Form extends React.Component {
           <div className="form-check">
             <input className="form-check-input"
               id="primaryDwelling"
-              name="option"
+              name="dwellingOption"
               onChange={this.handleOptions}
               type="radio" value="" />
             <label htmlFor="primaryDwelling">
@@ -300,7 +306,7 @@ class Form extends React.Component {
           <div className="form-check">
             <input className="form-check-input"
               id="primaryDwellingShort"
-              name="option"
+              name="dwellingOption"
               onChange={this.handleOptions}
               type="radio" value="" />
             <label htmlFor="primaryDwellingShort">
@@ -311,7 +317,7 @@ class Form extends React.Component {
             <input
             className="form-check-input"
               id="notPrimaryDwelling"
-              name="option"
+              name="dwellingOption"
               onChange={this.handleOptions}
               type="radio" value="" />
             <label htmlFor="notPrimaryDwelling">
@@ -326,24 +332,14 @@ class Form extends React.Component {
             Skaiciuoti
           </button>
         </div>
-
-        <div className="form-group">
-          <ul className="list-group list-group-horizontal">
-            <li className="list-group-item">Laiko skirtumas metais {this.state.timeDiff}</li>
-            <li className="list-group-item">Kainu skirtumas {this.state.priceDiff}</li>
-            <li className="list-group-item">Notaro mokestis {this.state.notaryFee}</li>
-            <li className="list-group-item">
-              Moketi mokesciu <strong>{this.state.taxAmount}</strong>
-            </li>
-          </ul>
-        </div>
-
-        <div className="form-group">
-          <ul className="list-group">
-            <li className="list-group-item">Pajamu deklaracija uzpildyti iki </li>
-            <li className="list-group-item">Pelno mokesti sumoketi iki {this.state.taxDueDate}</li>
-          </ul>
-        </div>
+        
+        <Summary
+          timeDiff={this.state.timeDiff}
+          priceDiff={this.state.priceDiff}
+          notaryFee={this.state.notaryFee}
+          taxAmount={this.state.taxAmount}
+          taxDueDate={this.state.taxDueDate}
+        />
 
       </form>
     );
