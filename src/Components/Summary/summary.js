@@ -53,7 +53,7 @@ class Summary extends React.Component {
               </div>
             </div>
           </li>
-          <li className="list-group-item">Pajamu deklaracija uzpildyti iki </li>
+          <li className="list-group-item">Pajamu deklaracija uzpildyti iki {this.props.taxReportDueDate}</li>
           <li className="list-group-item">Pelno mokesti sumoketi iki {this.props.taxDueDate}</li>
         </ul>
       </div>

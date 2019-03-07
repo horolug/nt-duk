@@ -27,7 +27,8 @@ class Form extends React.Component {
       timeDiff: "",
       priceDiff: "",
       taxAmount: "Moketi nereikia",
-      taxDueDate: ""
+      taxDueDate: "",
+      taxReportDueDate: ""
     };
     this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
@@ -124,8 +125,22 @@ class Form extends React.Component {
       priceDiff: priceDiff,
       notaryFee: notaryFee,
       timeDiff: timeDiff,
-      taxDueDate: this.taxDueDate()
+      taxDueDate: this.taxDueDate(),
+      taxReportDueDate: this.taxReportDueDate()
     });
+  }
+
+  taxReportDueDate(){
+    const sellDate = this.state.sellYear+"-"+this.state.sellMonth+"-"+this.state.sellDay;
+    let taxDueDate = "";
+    if ( moment(sellDate).isBefore(this.state.sellYear+'-05-01') ){
+      taxDueDate = this.state.sellYear+'-05-01';
+    } else {
+      // sale happened after tax report due date, so tax payment is due in 2 years;
+      taxDueDate = (parseInt(this.state.sellYear)+1)+'-05-01';
+    }
+
+    return taxDueDate;
   }
 
   taxDueDate(){
@@ -345,6 +360,7 @@ class Form extends React.Component {
           notaryFee={this.state.notaryFee}
           taxAmount={this.state.taxAmount}
           taxDueDate={this.state.taxDueDate}
+          taxReportDueDate={this.state.taxReportDueDate}
         />
 
       </form>
