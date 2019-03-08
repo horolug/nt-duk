@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment'
 import business from 'moment-business';
+import helpers from '../Helpers/helpers'
 import DateBlock from '../DateBlock/dateBlock'
 import OptionList from '../OptionList/optionList'
 import Summary from '../Summary/summary'
@@ -19,7 +20,7 @@ class Form extends React.Component {
       purchaseDay: "",
       purchasePrice: "",
       dwellingStatus: "",
-      yearRange: this.yearRange(),
+      yearRange: helpers.yearRange(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
       currentYear: new Date().getFullYear(),
       purchaseDate: "",
@@ -34,29 +35,6 @@ class Form extends React.Component {
     this.handlePrice = this.handlePrice.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOptions = this.handleOptions.bind(this);
-  }
-
-  yearRange(){
-    const currentYear = new Date().getFullYear();
-    const minYear = currentYear - 90;
-    const maxYear = currentYear + 1;
-    let yearRange = [];
-
-    for (  let i = minYear; i < maxYear; i++  ){
-      yearRange.push(i);
-    }
-    return yearRange;
-  }
-
-  yearRangeSell( purchaseYear ){
-    const maxYear = parseInt(purchaseYear, 10) + 15;
-    let yearRangeSell = [];
-
-    for (  let i = purchaseYear; i < maxYear; i++  ){
-       yearRangeSell.push(i);
-     }
-
-    return yearRangeSell;
   }
 
   dayRange(year, month){
@@ -246,7 +224,7 @@ class Form extends React.Component {
               blockType="purchase"
               onChange={this.handleDate}
               year={this.state.purchaseYear}
-              years={this.yearRange().map((e, key) => {
+              years={helpers.yearRange().map((e, key) => {
                  return <option key={e} value={e}>{e}</option>;
               })}
               months={this.state.monthRange.map((e, key) => {
@@ -282,7 +260,7 @@ class Form extends React.Component {
               blockType="sell"
               onChange={this.handleDate}
               year={this.state.sellYear}
-              years={this.yearRangeSell(this.state.purchaseYear).map((e, key) => {
+              years={helpers.yearRangeSell(this.state.purchaseYear).map((e, key) => {
                  return <option key={e} value={e}>{e}</option>;
               })}
               months={this.state.monthRange.map((e, key) => {
