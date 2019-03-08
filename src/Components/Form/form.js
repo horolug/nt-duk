@@ -63,20 +63,7 @@ class Form extends React.Component {
     } else if ( timeDiff < 10 ){
       return true;
     }
-
   }
-
-  calculateNotaryFee( sellPrice ){
-     // notary fee : 0.45 procento nuo sumos, bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur
-    let notaryFee = sellPrice * 0.0045;
-    if ( notaryFee < 28.96 ){
-      notaryFee = 28.96;
-    } else if (notaryFee > 5792.4){
-      notaryFee = 5792.4;
-    }
-    return notaryFee;
-  }
-
 
   calculateTax( timeDiff ){
     // FIXME - add following logic
@@ -85,7 +72,7 @@ class Form extends React.Component {
     // Improvement expenses - TBC the details
 
     const priceDiff = this.state.sellPrice - this.state.purchasePrice;
-    const notaryFee = this.calculateNotaryFee(this.state.sellPrice);
+    const notaryFee = helpers.calculateNotaryFee(this.state.sellPrice);
     const taxRate = 0.15;
     const isTaxRequired = this.isTaxRequired(timeDiff);
     let taxAmount = "Moketi nereikia";

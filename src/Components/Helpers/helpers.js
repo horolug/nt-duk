@@ -9,7 +9,7 @@ const helpers = {
       yearRange.push(i);
     }
     return yearRange;
-  },
+  }
 
   yearRangeSell( purchaseYear ){
     const maxYear = parseInt(purchaseYear, 10) + 15;
@@ -20,6 +20,17 @@ const helpers = {
      }
 
     return yearRangeSell;
+  }
+
+  calculateNotaryFee( sellPrice ){
+     // notary fee : 0.45 procento nuo sumos, bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur
+    let notaryFee = sellPrice * 0.0045;
+    if ( notaryFee < 28.96 ){
+      notaryFee = 28.96;
+    } else if (notaryFee > 5792.4){
+      notaryFee = 5792.4;
+    }
+    return notaryFee;
   }
 
 
