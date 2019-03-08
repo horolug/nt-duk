@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 const helpers = {
   yearRange(){
     const currentYear = new Date().getFullYear();
@@ -9,7 +11,7 @@ const helpers = {
       yearRange.push(i);
     }
     return yearRange;
-  }
+  },
 
   yearRangeSell( purchaseYear ){
     const maxYear = parseInt(purchaseYear, 10) + 15;
@@ -20,7 +22,16 @@ const helpers = {
      }
 
     return yearRangeSell;
-  }
+  },
+
+  dayRange(year, month){
+    const maxDays = moment(year+"-"+month, "YYYY-MM").daysInMonth();
+    let dayRange = [];
+    for (  let i = 1; i < maxDays; i++  ){
+      dayRange.push(i);
+    }
+    return dayRange;
+  },
 
   calculateNotaryFee( sellPrice ){
      // notary fee : 0.45 procento nuo sumos, bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur

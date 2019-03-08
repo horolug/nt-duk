@@ -37,15 +37,6 @@ class Form extends React.Component {
     this.handleOptions = this.handleOptions.bind(this);
   }
 
-  dayRange(year, month){
-    const maxDays = moment(year+"-"+month, "YYYY-MM").daysInMonth();
-    let dayRange = [];
-    for (  let i = 1; i < maxDays; i++  ){
-      dayRange.push(i);
-    }
-    return dayRange;
-  }
-
   isTaxRequired (timeDiff){
     // 1. Income tax (15%) is due if sell happened less than 10 years after purchaseDay
     // 2. Income tax is not required if ( all conditions must apply ):
@@ -195,8 +186,8 @@ class Form extends React.Component {
   }
 
   render() {
-    const purchaseDays = this.dayRange(this.state.purchaseYear, this.state.purchaseMonth);
-    const sellDays = this.dayRange(this.state.sellYear, this.state.sellMonth);
+    const purchaseDays = helpers.dayRange(this.state.purchaseYear, this.state.purchaseMonth);
+    const sellDays = helpers.dayRange(this.state.sellYear, this.state.sellMonth);
     const sellDate = this.state.sellYear +"-"+this.state.sellMonth+"-"+this.state.sellDay;
     const purchaseDate = this.state.purchaseYear +"-"+this.state.purchaseMonth+"-"+this.state.purchaseDay;
     return (
