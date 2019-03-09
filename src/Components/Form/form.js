@@ -87,6 +87,7 @@ class Form extends React.Component {
   }
 
   taxReportDueDate(){
+    // fixme - refactor so it can be moved to helpers.js
     const sellDate = this.state.sellYear+"-"+this.state.sellMonth+"-"+this.state.sellDay;
     let taxDueDate = "";
     if ( moment(sellDate).isBefore(this.state.sellYear+'-05-01') ){
@@ -153,6 +154,7 @@ class Form extends React.Component {
   }
 
   isFormValid(){
+    // FIXME - update validation logic
     const formValues = [
       this.state.sellYear,
       this.state.sellMonth,
@@ -173,7 +175,6 @@ class Form extends React.Component {
         isFormValid = false;
       }
     }
-
     return isFormValid;
   }
 
@@ -300,7 +301,9 @@ class Form extends React.Component {
         </div>
 
         <div className="form-group">
-          <button onClick={this.handleSubmit}
+          <button
+            disabled = {this.isFormValid() ? false : true }
+            onClick={this.handleSubmit}
             className="btn btn-primary">
             Skaiciuoti
           </button>
