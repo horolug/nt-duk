@@ -166,12 +166,9 @@ class Form extends React.Component {
       this.state.purchasePrice,
       this.state.dwellingStatus
     ];
-    let isFormValid = false;
-
+    let isFormValid = true;
     for( let i = 0; i < formValues.length; i++ ){
-      if (formValues[i].length > 0){
-        isFormValid = true;
-      } else {
+      if (formValues[i].length <= 0){
         isFormValid = false;
       }
     }
