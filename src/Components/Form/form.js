@@ -6,7 +6,6 @@ import DateBlock from '../DateBlock/dateBlock'
 import OptionList from '../OptionList/optionList'
 import Summary from '../Summary/summary'
 
-
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -68,13 +67,9 @@ class Form extends React.Component {
     const isTaxRequired = this.isTaxRequired(timeDiff);
     let taxAmount = "Moketi nereikia";
 
-    console.log("isTaxRequired", isTaxRequired);
-
     if ( isTaxRequired && priceDiff > notaryFee ){
       taxAmount = (priceDiff-notaryFee) * taxRate;
     }
-
-    console.log("dwelling status", this.state.dwellingStatus);
 
     this.setState({
       taxAmount: taxAmount,
@@ -188,6 +183,25 @@ class Form extends React.Component {
     const sellDays = helpers.dayRange(this.state.sellYear, this.state.sellMonth);
     const sellDate = this.state.sellYear +"-"+this.state.sellMonth+"-"+this.state.sellDay;
     const purchaseDate = this.state.purchaseYear +"-"+this.state.purchaseMonth+"-"+this.state.purchaseDay;
+    let summary = "";
+
+    if (this.isFormValid()) {
+      summary = <Summary
+        purchaseDate={purchaseDate}
+        sellDate={sellDate}
+        purchasePrice={this.state.purchasePrice}
+        sellPrice={this.state.sellPrice}
+        timeDiff={this.state.timeDiff}
+        priceDiff={this.state.priceDiff}
+        notaryFee={this.state.notaryFee}
+        taxAmount={this.state.taxAmount}
+        taxDueDate={this.state.taxDueDate}
+        taxReportDueDate={this.state.taxReportDueDate}
+      />;
+    } else {
+      summary = "";
+    }
+
     return (
       <form>
         <h1>Form</h1>
@@ -306,18 +320,7 @@ class Form extends React.Component {
           </button>
         </div>
 
-        <Summary
-          purchaseDate={purchaseDate}
-          sellDate={sellDate}
-          purchasePrice={this.state.purchasePrice}
-          sellPrice={this.state.sellPrice}
-          timeDiff={this.state.timeDiff}
-          priceDiff={this.state.priceDiff}
-          notaryFee={this.state.notaryFee}
-          taxAmount={this.state.taxAmount}
-          taxDueDate={this.state.taxDueDate}
-          taxReportDueDate={this.state.taxReportDueDate}
-        />
+        {summary}
 
       </form>
     );

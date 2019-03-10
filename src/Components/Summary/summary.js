@@ -38,8 +38,6 @@ class Summary extends React.Component {
                   vieta buvo nurodyta parduodamo busto adresu</li>
                 </ol>
                 <p className="card-text">Pelno mokescio uz busto pardavima moketi neprivalote</p>
-
-
                 <h5 className="card-title">Kito busto pirkimas</h5>
                 <p className="card-text">Jeigu ( visi punktai turi atitikti )</p>
                 <ol>
