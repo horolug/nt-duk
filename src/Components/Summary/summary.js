@@ -4,10 +4,30 @@ class Summary extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      taxDetailsOpen: false
+    };
+  }
+
+
+  handleClick(event){
+    this.setState({
+      taxDetailsOpen: !this.state.taxDetailsOpen
+    });
   }
 
   render() {
+    let infoOpen = {
+      display: 'none'
+    }
+    if(this.state.taxDetailsOpen) {
+      infoOpen = {
+        display: 'block'
+      };
+    }
+
+    const buttonText = this.state.taxDetailsOpen ? 'Slepti papildoma informacija' : 'Rodyti papildoma informacija';
+
     return (
       <div className="form-group">
         <ul className="list-group">
@@ -20,13 +40,23 @@ class Summary extends React.Component {
           <li className="list-group-item">
             <p>Islaidos susijusios su turto pardavimu</p>
             <ul>
-              <li>Notaro mokestis {this.props.notaryFee}</li>
+              <li>
+                Notaro mokestis {this.props.notaryFee} <button type="button" className="btn btn-link btn-sm">moketa kita suma</button>
+
+              </li>
             </ul>
           </li>
           <li className="list-group-item">
             <p>Pelno mokestis pardavus turta <strong>{this.props.taxAmount}</strong> </p>
 
-            <div className="card border-dark mb-3">
+            <button
+              onClick={(e) => this.handleClick(e) }
+              className="btn btn-info btn-sm"
+              type="button">
+              {buttonText}
+            </button>
+
+            <div className="card collapse border-dark mb-3" style={infoOpen}>
               <div className="card-header">Svarbu zinoti</div>
               <div className="card-body text-dark">
                 <h5 className="card-title">Deklaruota gyvenimo vieta</h5>

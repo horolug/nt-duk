@@ -278,7 +278,8 @@ class Form extends React.Component {
             price={this.state.sellPrice}
           />
         </div>
-        <Expenses />
+        <Expenses
+          notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)} />
         <div className="form-group">
           <div className="form-check">
             <input className="form-check-input"
