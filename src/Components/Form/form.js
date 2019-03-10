@@ -3,6 +3,7 @@ import moment from 'moment'
 import business from 'moment-business';
 import helpers from '../Helpers/helpers'
 import DateBlock from '../DateBlock/dateBlock'
+import Expenses from '../Expenses/expenses'
 import OptionList from '../OptionList/optionList'
 import Summary from '../Summary/summary'
 
@@ -27,6 +28,7 @@ class Form extends React.Component {
       timeDiff: "",
       priceDiff: "",
       taxAmount: "Moketi nereikia",
+      notaryFee: "",
       taxDueDate: "",
       taxReportDueDate: ""
     };
@@ -276,7 +278,7 @@ class Form extends React.Component {
             price={this.state.sellPrice}
           />
         </div>
-
+        <Expenses />
         <div className="form-group">
           <div className="form-check">
             <input className="form-check-input"
