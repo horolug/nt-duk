@@ -44,12 +44,13 @@ class Expenses extends React.Component {
           <label>Notaro mokestis</label>
           <p>Notaro mokestis : 0.45 procento nuo sumos,
             bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur.
-            Paskaiciuotas automatiskai.</p>
-          <p>Jeigu buvo sumoketa kita suma, prasome ivesti ja</p>
+            </p>
+          <p>Automatiskai paskaiciuota suma yra {this.props.notaryFee}.
+            Jeigu buvo sumoketa kita suma, prasome ivesti ja</p>
           <input
             type="number"
             name="purchasePrice"
-            // value={this.props.notaryFee}
+            onChange={(e) => this.props.handleNotaryFee(e)}
             className="form-control"/>
 
           <label>Islaidos turto remontui / renovacijai</label>

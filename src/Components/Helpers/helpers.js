@@ -33,8 +33,8 @@ const helpers = {
     return dayRange;
   },
 
-  calculateNotaryFee( sellPrice ){
-     // notary fee : 0.45 procento nuo sumos, bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur
+  calculateNotaryFee(sellPrice){
+    // notary fee : 0.45 procento nuo sumos, bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur
     let notaryFee = sellPrice * 0.0045;
     if ( notaryFee < 28.96 ){
       notaryFee = 28.96;
@@ -43,8 +43,6 @@ const helpers = {
     }
     return notaryFee;
   }
-
-
 }
 
 export default helpers;

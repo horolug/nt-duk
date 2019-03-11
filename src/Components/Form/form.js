@@ -29,6 +29,7 @@ class Form extends React.Component {
       priceDiff: "",
       taxAmount: "Moketi nereikia",
       notaryFee: "",
+      customNotaryFee: "",
       taxDueDate: "",
       taxReportDueDate: ""
     };
@@ -36,6 +37,7 @@ class Form extends React.Component {
     this.handlePrice = this.handlePrice.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOptions = this.handleOptions.bind(this);
+    this.handleNotaryFee = this.handleNotaryFee.bind(this);
   }
 
   isTaxRequired (timeDiff){
@@ -64,10 +66,15 @@ class Form extends React.Component {
     // Improvement expenses - TBC the details
 
     const priceDiff = this.state.sellPrice - this.state.purchasePrice;
-    const notaryFee = helpers.calculateNotaryFee(this.state.sellPrice);
     const taxRate = 0.15;
     const isTaxRequired = this.isTaxRequired(timeDiff);
     let taxAmount = "Moketi nereikia";
+    let notaryFee = "";
+    if ( this.state.customNotaryFee === "" ){
+      notaryFee = helpers.calculateNotaryFee(this.state.sellPrice);
+    } else {
+      notaryFee = this.state.customNotaryFee;
+    }
 
     if ( isTaxRequired && priceDiff > notaryFee ){
       taxAmount = (priceDiff-notaryFee) * taxRate;
@@ -147,6 +154,13 @@ class Form extends React.Component {
   handlePrice(event){
     this.setState({
       [event.target.name]: event.target.value
+    });
+  }
+
+  handleNotaryFee(event){
+    console.log("handleNotaryFee fired", event.target.value);
+    this.setState({
+      customNotaryFee: event.target.value
     });
   }
 
@@ -279,7 +293,9 @@ class Form extends React.Component {
           />
         </div>
         <Expenses
-          notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)} />
+          handleNotaryFee={(e) => this.handleNotaryFee(e) }
+          customNotaryFee={this.state.customNotaryFee}
+          notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)} />
         <div className="form-group">
           <div className="form-check">
             <input className="form-check-input"
