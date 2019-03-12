@@ -52,17 +52,7 @@ class Expenses extends React.Component {
             name="purchasePrice"
             onChange={(e) => this.props.handleNotaryFee(e)}
             className="form-control"/>
-
-          <label>Islaidos turto remontui / renovacijai</label>
-          <p>Jeigu renovacijai ar remontui buvo imta paskola, palukanos begali
-            buti itrauktos i islaidas</p>
-          <input
-            type="number"
-            name="purchasePrice"
-            className="form-control"/>
         </div>
-
-
       </div>
     );
   }

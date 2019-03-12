@@ -6,6 +6,7 @@ import DateBlock from '../DateBlock/dateBlock'
 import Expenses from '../Expenses/expenses'
 import OptionList from '../OptionList/optionList'
 import Summary from '../Summary/summary'
+import QuestionCard from '../QuestionCard/questionCard'
 
 class Form extends React.Component {
   constructor(props) {
@@ -296,6 +297,8 @@ class Form extends React.Component {
           handleNotaryFee={(e) => this.handleNotaryFee(e) }
           customNotaryFee={this.state.customNotaryFee}
           notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)} />
+
+        <QuestionCard />
         <div className="form-group">
           <div className="form-check">
             <input className="form-check-input"
