@@ -20,6 +20,7 @@ class Form extends React.Component {
       purchaseMonth: "",
       purchaseDay: "",
       purchasePrice: "",
+      primaryDwelling: false,
       dwellingStatus: "",
       yearRange: helpers.yearRange(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
@@ -144,6 +145,25 @@ class Form extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+  handleQuestionCard(event){
+
+    console.log(" handling question card ",event.target.id);
+    console.log(" handling question card ",event.target.checked);
+
+    if (event.target.name === "dwelling"){
+      this.setState({
+        primaryDwelling: event.target.checked
+      });
+    }
+
+    if (event.target.name === "dwellingOption"){
+      this.setState({
+        dwellingStatus: event.target.id
+      });
+    }
+
   }
 
   handleOptions(event){
@@ -298,40 +318,10 @@ class Form extends React.Component {
           customNotaryFee={this.state.customNotaryFee}
           notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)} />
 
-        <QuestionCard />
-        <div className="form-group">
-          <div className="form-check">
-            <input className="form-check-input"
-              id="primaryDwelling"
-              name="dwellingOption"
-              onChange={this.handleOptions}
-              type="radio" value="" />
-            <label htmlFor="primaryDwelling">
-              Parduodamas turtas - paskutinius 2 metus deklaruota gyvenamoji vieta
-            </label>
-          </div>
-          <div className="form-check">
-            <input className="form-check-input"
-              id="primaryDwellingShort"
-              name="dwellingOption"
-              onChange={this.handleOptions}
-              type="radio" value="" />
-            <label htmlFor="primaryDwellingShort">
-              Parduodamas turtas - maziau nei paskutinius 2 metus deklaruota gyvenamoji vieta
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-            className="form-check-input"
-              id="notPrimaryDwelling"
-              name="dwellingOption"
-              onChange={this.handleOptions}
-              type="radio" value="" />
-            <label htmlFor="notPrimaryDwelling">
-              Parduodamas turtas - gyvenamoji vieta nedeklaruota
-            </label>
-          </div>
-        </div>
+        <QuestionCard
+          onChange={(e) => this.handleQuestionCard(e)}
+          primaryDwelling={this.state.primaryDwelling}
+        />
 
         <div className="form-group">
           <button
