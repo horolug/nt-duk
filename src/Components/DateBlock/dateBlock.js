@@ -13,7 +13,7 @@ class DateBlock extends React.Component {
       <div className="row">
 
 
-        <div className="col">
+        <div className="col form-group">
           <select
             onChange={this.props.onChange}
             name={this.props.blockType+"Year"}
@@ -23,7 +23,7 @@ class DateBlock extends React.Component {
             {this.props.years}
           </select>
         </div>
-        <div className="col">
+        <div className="col form-group">
           <select
             onChange={this.props.onChange}
             name={this.props.blockType+"Month"}
@@ -32,7 +32,7 @@ class DateBlock extends React.Component {
             {this.props.months}
           </select>
         </div>
-        <div className="col">
+        <div className="col form-group">
           <select
             onChange={this.props.onChange}
             name={this.props.blockType+"Day"}

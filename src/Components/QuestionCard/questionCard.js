@@ -47,7 +47,7 @@ class questionCard extends React.Component {
     }
 
     return (
-      <div>
+      <div className="mb-2">
         <div className="card">
           <div className="card-body">
             <div className="form-check">

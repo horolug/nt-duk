@@ -241,8 +241,7 @@ class Form extends React.Component {
 
     return (
       <form>
-        <h1>Form</h1>
-        <div className="card">
+        <div className="card mb-2">
           <div className="card-header"> Pirkimas </div>
           <div className="card-body">
             <div className="row">
@@ -275,7 +274,7 @@ class Form extends React.Component {
 
           </div>
         </div>
-        <div className="card">
+        <div className="card mb-2">
           <div className="card-header"> Pardavimas </div>
           <div className="card-body">
 
