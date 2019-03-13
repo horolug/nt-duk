@@ -66,6 +66,7 @@ class Form extends React.Component {
     // 1. when calculating due tax following expenses must be included:
     // 1.2. TBC - real estate agent fees
     // Improvement expenses - TBC the details
+    // turn all money values into cents before doing any calculations and rounding
 
     const priceDiff = this.state.sellPrice - this.state.purchasePrice;
     const taxRate = 0.15;
@@ -83,9 +84,9 @@ class Form extends React.Component {
     }
 
     this.setState({
-      taxAmount: taxAmount,
+      taxAmount: taxAmount.toFixed(2),
       priceDiff: priceDiff,
-      notaryFee: notaryFee,
+      notaryFee: notaryFee.toFixed(2),
       timeDiff: timeDiff,
       taxDueDate: this.taxDueDate(),
       taxReportDueDate: this.taxReportDueDate()
@@ -311,9 +312,6 @@ class Form extends React.Component {
               notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)} />
           </div>
         </div>
-
-
-
 
         <QuestionCard
           onChange={(e) => this.handleQuestionCard(e)}
