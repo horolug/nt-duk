@@ -30,7 +30,7 @@ class Expenses extends React.Component {
 
     return (
       <div className="form-group">
-        <h3> Islaidos susijusios su pardavimu
+        <p> Islaidos susijusios su pardavimu</p>
           <button
             onClick={(e) => this.handleClick(e) }
             data-target="expensesOpen"
@@ -38,7 +38,7 @@ class Expenses extends React.Component {
             type="button">
             {buttonText}
           </button>
-        </h3>
+
 
         <div style={infoOpen}>
           <label>Notaro mokestis</label>

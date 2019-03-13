@@ -10,29 +10,37 @@ class DateBlock extends React.Component {
 
   render() {
     return (
-      <div className="form-group">
-        <select
-          onChange={this.props.onChange}
-          name={this.props.blockType+"Year"}
-          className="form-control form-control-lg"
-          value={this.props.year}
-        >
-          {this.props.years}
-        </select>
-        <select
-          onChange={this.props.onChange}
-          name={this.props.blockType+"Month"}
-          className="form-control form-control-lg">
-          <option>Pasirinkite Menesi</option>
-          {this.props.months}
-        </select>
-        <select
-          onChange={this.props.onChange}
-          name={this.props.blockType+"Day"}
-          className="form-control form-control-lg">
-          <option>Pasirinkite Diena</option>
-          {this.props.days}
-        </select>
+      <div className="row">
+
+
+        <div className="col">
+          <select
+            onChange={this.props.onChange}
+            name={this.props.blockType+"Year"}
+            className="form-control form-control-md"
+            value={this.props.year}
+          >
+            {this.props.years}
+          </select>
+        </div>
+        <div className="col">
+          <select
+            onChange={this.props.onChange}
+            name={this.props.blockType+"Month"}
+            className="form-control form-control-md">
+            <option>Menuo</option>
+            {this.props.months}
+          </select>
+        </div>
+        <div className="col">
+          <select
+            onChange={this.props.onChange}
+            name={this.props.blockType+"Day"}
+            className="form-control form-control-md">
+            <option>Diena</option>
+            {this.props.days}
+          </select>
+        </div>
       </div>
     );
   }

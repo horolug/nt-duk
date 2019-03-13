@@ -242,81 +242,79 @@ class Form extends React.Component {
     return (
       <form>
         <h1>Form</h1>
-
-        <h3> Pirkimas </h3>
-        <div className="row">
-          <div className="col">
-            <h4>Data</h4>
-            <DateBlock
-              blockType="purchase"
-              onChange={this.handleDate}
-              year={this.state.purchaseYear}
-              years={helpers.yearRange().map((e, key) => {
-                 return <option key={e} value={e}>{e}</option>;
-              })}
-              months={this.state.monthRange.map((e, key) => {
-                 return <option key={e} value={e}>{e}</option>;
-               })}
-              days={purchaseDays.map( (e) => {
-                return <option key={e} value={e}>{e}</option>;
-              })}
-            />
-            <h4>Kaina</h4>
-            <div className="form-group">
-              <input
-                type="number"
-                name="purchasePrice"
-                onChange={this.handlePrice}
-                className="form-control"/>
+        <div className="card">
+          <div className="card-header"> Pirkimas </div>
+          <div className="card-body">
+            <div className="row">
+              <div className="col">
+                <p>Data</p>
+                <DateBlock
+                  blockType="purchase"
+                  onChange={this.handleDate}
+                  year={this.state.purchaseYear}
+                  years={helpers.yearRange().map((e, key) => {
+                     return <option key={e} value={e}>{e}</option>;
+                  })}
+                  months={this.state.monthRange.map((e, key) => {
+                     return <option key={e} value={e}>{e}</option>;
+                   })}
+                  days={purchaseDays.map( (e) => {
+                    return <option key={e} value={e}>{e}</option>;
+                  })}
+                />
+                <p>Kaina</p>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="purchasePrice"
+                    onChange={this.handlePrice}
+                    className="form-control"/>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <OptionList
-            year={this.state.purchaseYear}
-            month={this.state.purchaseMonth}
-            day={this.state.purchaseDay}
-            price={this.state.purchasePrice}
-          />
+          </div>
+        </div>
+        <div className="card">
+          <div className="card-header"> Pardavimas </div>
+          <div className="card-body">
+
+            <div className="row">
+              <div className="col">
+                <p> Data </p>
+                <DateBlock
+                  blockType="sell"
+                  onChange={this.handleDate}
+                  year={this.state.sellYear}
+                  years={helpers.yearRangeSell(this.state.purchaseYear).map((e, key) => {
+                     return <option key={e} value={e}>{e}</option>;
+                  })}
+                  months={this.state.monthRange.map((e, key) => {
+                     return <option key={e} value={e}>{e}</option>;
+                   })}
+                  days={sellDays.map( (e) => {
+                    return <option key={e} value={e}>{e}</option>;
+                  })}
+                />
+                <p>Kaina</p>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="sellPrice"
+                    onChange={this.handlePrice}
+                    className="form-control"/>
+                </div>
+              </div>
+            </div>
+            <Expenses
+              handleNotaryFee={(e) => this.handleNotaryFee(e) }
+              customNotaryFee={this.state.customNotaryFee}
+              notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)} />
+          </div>
         </div>
 
-        <h3> Pardavimas </h3>
-        <div className="row">
-          <div className="col">
-            <h3> Data </h3>
-            <DateBlock
-              blockType="sell"
-              onChange={this.handleDate}
-              year={this.state.sellYear}
-              years={helpers.yearRangeSell(this.state.purchaseYear).map((e, key) => {
-                 return <option key={e} value={e}>{e}</option>;
-              })}
-              months={this.state.monthRange.map((e, key) => {
-                 return <option key={e} value={e}>{e}</option>;
-               })}
-              days={sellDays.map( (e) => {
-                return <option key={e} value={e}>{e}</option>;
-              })}
-            />
-            <h4>Kaina</h4>
-            <div className="form-group">
-              <input
-                type="number"
-                name="sellPrice"
-                onChange={this.handlePrice}
-                className="form-control"/>
-            </div>
-          </div>
-          <OptionList
-            year={this.state.sellYear}
-            month={this.state.sellMonth}
-            day={this.state.sellDay}
-            price={this.state.sellPrice}
-          />
-        </div>
-        <Expenses
-          handleNotaryFee={(e) => this.handleNotaryFee(e) }
-          customNotaryFee={this.state.customNotaryFee}
-          notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)} />
+
+
 
         <QuestionCard
           onChange={(e) => this.handleQuestionCard(e)}
