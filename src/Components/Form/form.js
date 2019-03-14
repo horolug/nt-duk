@@ -69,7 +69,8 @@ class Form extends React.Component {
     // Improvement expenses - TBC the details
     // turn all money values into cents before doing any calculations and rounding
 
-    const priceDiff = this.state.sellPrice - this.state.purchasePrice;
+    let priceDiff = (this.state.sellPrice - this.state.purchasePrice);
+    priceDiff = priceDiff.toFixed(2);
     const taxRate = 0.15;
     const isTaxRequired = this.isTaxRequired(timeDiff);
     let taxAmount = "Moketi nereikia";
@@ -82,11 +83,14 @@ class Form extends React.Component {
       notaryFee = parseFloat(notaryFee).toFixed(2);
     }
 
-    if ( isTaxRequired && priceDiff > notaryFee ){
+    console.log("isTaxRequired", isTaxRequired);
+    console.log("priceDiff", priceDiff);
+    console.log("notaryFee", notaryFee);
+    if ( isTaxRequired && (priceDiff > notaryFee) ){
       taxAmount = (priceDiff-notaryFee) * taxRate;
-      taxAmount.toFixed(2);
+      taxAmount = taxAmount.toFixed(2);
     }
-
+    console.log(" tax amount ", taxAmount);
     this.setState({
       taxAmount: taxAmount,
       priceDiff: priceDiff,
