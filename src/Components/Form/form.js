@@ -52,9 +52,7 @@ class Form extends React.Component {
     // 3. Income tax is not requried if:
     // 3.1 sold property was primary dwelling for more than 2 years
 
-    //3.
-    // FIXME - disable option in markup if time diff is less than 2
-    if ( timeDiff >= 2  && this.state.dwellingStatus === "primaryDwelling" ){
+    if ( (timeDiff >= 2)  && (this.state.dwellingStatus === "primaryDwelling") ){
       console.log("got primary dwelling, no taxes");
       return false;
     } else if ( timeDiff < 10 ){
@@ -85,8 +83,10 @@ class Form extends React.Component {
 
     console.log("isTaxRequired", isTaxRequired);
     console.log("priceDiff", priceDiff);
+    console.log("typeof priceDiff", typeof priceDiff);
     console.log("notaryFee", notaryFee);
-    if ( isTaxRequired && (priceDiff > notaryFee) ){
+    console.log("typeof notaryFee", typeof notaryFee);
+    if ( isTaxRequired && (parseFloat(priceDiff) > parseFloat(notaryFee)) ){
       taxAmount = (priceDiff-notaryFee) * taxRate;
       taxAmount = taxAmount.toFixed(2);
     }
@@ -202,7 +202,7 @@ class Form extends React.Component {
       this.state.purchaseMonth,
       this.state.purchaseDay,
       this.state.purchasePrice,
-      this.state.dwellingStatus
+      // this.state.dwellingStatus
     ];
     let isFormValid = true;
     for( let i = 0; i < formValues.length; i++ ){
