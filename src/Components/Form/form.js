@@ -33,7 +33,8 @@ class Form extends React.Component {
       notaryFee: "",
       customNotaryFee: "",
       taxDueDate: "",
-      taxReportDueDate: ""
+      taxReportDueDate: "",
+      isFormValid: false
     };
     this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
@@ -61,7 +62,7 @@ class Form extends React.Component {
     }
   }
 
-  calculateTax( timeDiff ){
+  calculateTax( timeDiff, isFormValid ){
     // FIXME - add following logic
     // 1. when calculating due tax following expenses must be included:
     // 1.2. TBC - real estate agent fees
@@ -75,21 +76,25 @@ class Form extends React.Component {
     let notaryFee = "";
     if ( this.state.customNotaryFee === "" ){
       notaryFee = helpers.calculateNotaryFee(this.state.sellPrice);
+      notaryFee = parseFloat(notaryFee).toFixed(2)
     } else {
       notaryFee = this.state.customNotaryFee;
+      notaryFee = parseFloat(notaryFee).toFixed(2);
     }
 
     if ( isTaxRequired && priceDiff > notaryFee ){
       taxAmount = (priceDiff-notaryFee) * taxRate;
+      taxAmount.toFixed(2);
     }
 
     this.setState({
-      taxAmount: taxAmount.toFixed(2),
+      taxAmount: taxAmount,
       priceDiff: priceDiff,
-      notaryFee: notaryFee.toFixed(2),
+      notaryFee: notaryFee,
       timeDiff: timeDiff,
       taxDueDate: this.taxDueDate(),
-      taxReportDueDate: this.taxReportDueDate()
+      taxReportDueDate: this.taxReportDueDate(),
+      isFormValid: isFormValid
     });
   }
 
@@ -149,10 +154,6 @@ class Form extends React.Component {
   }
 
   handleQuestionCard(event){
-
-    console.log(" handling question card ",event.target.id);
-    console.log(" handling question card ",event.target.checked);
-
     if (event.target.name === "dwelling"){
       this.setState({
         primaryDwelling: event.target.checked
@@ -208,22 +209,12 @@ class Form extends React.Component {
     return isFormValid;
   }
 
-  handleSubmit(e){
-    e.preventDefault();
-    if ( this.isFormValid() ){
-      console.log("form is valid, calculating due tax");
-      this.calculateTax( this.timeDiff() );
-    }
-  }
-
-  render() {
-    const purchaseDays = helpers.dayRange(this.state.purchaseYear, this.state.purchaseMonth);
-    const sellDays = helpers.dayRange(this.state.sellYear, this.state.sellMonth);
+  showformSummary(){
     const sellDate = this.state.sellYear +"-"+this.state.sellMonth+"-"+this.state.sellDay;
     const purchaseDate = this.state.purchaseYear +"-"+this.state.purchaseMonth+"-"+this.state.purchaseDay;
     let summary = "";
-
-    if (this.isFormValid()) {
+    if (this.state.isFormValid) {
+      console.log("is form valid?", this.state.isFormValid);
       summary = <Summary
         purchaseDate={purchaseDate}
         sellDate={sellDate}
@@ -239,6 +230,24 @@ class Form extends React.Component {
     } else {
       summary = "";
     }
+
+    return summary;
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    if ( this.isFormValid() ){
+      console.log("form is valid, calculating due tax");
+      this.calculateTax( this.timeDiff(), this.isFormValid() );
+    }
+  }
+
+  render() {
+    const purchaseDays = helpers.dayRange(this.state.purchaseYear, this.state.purchaseMonth);
+    const sellDays = helpers.dayRange(this.state.sellYear, this.state.sellMonth);
+    const sellDate = this.state.sellYear +"-"+this.state.sellMonth+"-"+this.state.sellDay;
+    const purchaseDate = this.state.purchaseYear +"-"+this.state.purchaseMonth+"-"+this.state.purchaseDay;
+
 
     return (
       <form>
@@ -327,7 +336,7 @@ class Form extends React.Component {
           </button>
         </div>
 
-        {summary}
+        {this.showformSummary()}
 
       </form>
     );
