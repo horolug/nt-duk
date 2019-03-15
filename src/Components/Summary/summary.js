@@ -41,8 +41,7 @@ class Summary extends React.Component {
             <p>Islaidos susijusios su turto pardavimu</p>
             <ul>
               <li>
-                Notaro mokestis {this.props.notaryFee} <button type="button" className="btn btn-link btn-sm">moketa kita suma</button>
-
+                Notaro mokestis {this.props.notaryFee}
               </li>
             </ul>
           </li>
