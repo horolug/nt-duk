@@ -88,7 +88,7 @@ class Form extends React.Component {
       taxAmount = (priceDiff-totalExpenses) * taxRate;
       taxAmount = taxAmount.toFixed(2);
     }
-    
+
     this.setState({
       taxAmount: taxAmount,
       priceDiff: priceDiff,
@@ -156,18 +156,31 @@ class Form extends React.Component {
   }
 
   handleQuestionCard(event){
-    if (event.target.name === "dwelling"){
-      this.setState({
-        primaryDwelling: event.target.checked
-      });
-    }
+    // if (event.target.name === "dwelling"){
+    //   this.setState({
+    //     primaryDwelling: event.target.checked
+    //   });
+    // }
 
     if (event.target.name === "dwellingOption"){
       this.setState({
         dwellingStatus: event.target.id
       });
     }
+  }
 
+  handleQuestionButton(event){
+    event.preventDefault();
+    console.log("event is", event.target.id);
+
+    let primaryDwellingFlag = false;
+    if (event.target.id === "isPrimaryDwelling"){
+      primaryDwellingFlag = true;
+    }
+
+    this.setState({
+      primaryDwelling: primaryDwellingFlag
+    });
   }
 
   handleOptions(event){
@@ -333,6 +346,7 @@ class Form extends React.Component {
 
         <QuestionCard
           onChange={(e) => this.handleQuestionCard(e)}
+          onClick={(e) => this.handleQuestionButton(e)}
           primaryDwelling={this.state.primaryDwelling}
         />
 
