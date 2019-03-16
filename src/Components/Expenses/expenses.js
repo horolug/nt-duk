@@ -26,11 +26,13 @@ class Expenses extends React.Component {
       };
     }
 
-    const buttonText = this.state.expensesOpen ? 'slepti' : 'rodyti';
+    const buttonText = this.state.expensesOpen ? 'slepti' : 'rodyti daugiau';
 
     return (
       <div className="form-group">
-        <p> Islaidos susijusios su pardavimu</p>
+        <h4> Islaidos susijusios su pardavimu</h4>
+
+        <p> Notaro mokestis <span className="badge badge-primary">{this.props.notaryFee}</span> </p>
           <button
             onClick={(e) => this.handleClick(e) }
             data-target="expensesOpen"
@@ -43,7 +45,7 @@ class Expenses extends React.Component {
         <div style={infoOpen}>
           <div className="mt-4">
             <label><strong>Notaro mokestis</strong></label>
-            <p>Notaro mokestis : 0.45 procento nuo sumos,
+            <p>Notaro mokestis : 0.45 procento nuo pardavimo sumos,
               bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur.
               </p>
             <p>Automatiskai paskaiciuota suma yra {this.props.notaryFee}.
@@ -57,7 +59,7 @@ class Expenses extends React.Component {
 
           <div className="mt-4">
             <label><strong>Kitos islaidos</strong></label>
-            <p>Islaidos sirtos padidinti turto verte, pavyzdziui, islaidos
+            <p>Islaidos skirtos padidinti turto verte, pavyzdziui, islaidos
               remontui</p>
             <input
               type="number"
