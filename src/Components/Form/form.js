@@ -83,7 +83,16 @@ class Form extends React.Component {
       notaryFee = parseFloat(notaryFee).toFixed(2);
     }
 
-    totalExpenses = parseFloat(notaryFee) + parseFloat(this.state.otherExpenses);
+    if (this.state.otherExpenses === ""){
+      totalExpenses = parseFloat(notaryFee);
+    } else {
+      totalExpenses = parseFloat(notaryFee) + parseFloat(this.state.otherExpenses);
+    }
+
+    console.log("totalExpenses", totalExpenses);
+    console.log("notaryFee", notaryFee);
+    console.log("this.state.otherExpenses", this.state.otherExpenses);
+
     if ( isTaxRequired && (parseFloat(priceDiff) > parseFloat(totalExpenses)) ){
       taxAmount = (priceDiff-totalExpenses) * taxRate;
       taxAmount = taxAmount.toFixed(2);
