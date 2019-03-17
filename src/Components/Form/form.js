@@ -165,12 +165,6 @@ class Form extends React.Component {
   }
 
   handleQuestionCard(event){
-    // if (event.target.name === "dwelling"){
-    //   this.setState({
-    //     primaryDwelling: event.target.checked
-    //   });
-    // }
-
     if (event.target.name === "dwellingOption"){
       this.setState({
         dwellingStatus: event.target.id
@@ -180,8 +174,6 @@ class Form extends React.Component {
 
   handleQuestionButton(event){
     event.preventDefault();
-    console.log("event is", event.target.id);
-
     let primaryDwellingFlag = false;
     if (event.target.id === "isPrimaryDwelling"){
       primaryDwellingFlag = true;
@@ -212,7 +204,6 @@ class Form extends React.Component {
   }
 
   handleOtherExpenses(event){
-    console.log("handleOtherExpenses", event.target.value);
     this.setState({
       otherExpenses: event.target.value
     });
@@ -238,32 +229,7 @@ class Form extends React.Component {
     }
     return isFormValid;
   }
-
-  showformSummary(){
-    const sellDate = this.state.sellYear +"-"+this.state.sellMonth+"-"+this.state.sellDay;
-    const purchaseDate = this.state.purchaseYear +"-"+this.state.purchaseMonth+"-"+this.state.purchaseDay;
-    let summary = "";
-    if (this.state.isFormValid) {
-      console.log("is form valid?", this.state.isFormValid);
-      summary = <Summary
-        purchaseDate={purchaseDate}
-        sellDate={sellDate}
-        purchasePrice={this.state.purchasePrice}
-        sellPrice={this.state.sellPrice}
-        timeDiff={this.state.timeDiff}
-        priceDiff={this.state.priceDiff}
-        notaryFee={this.state.notaryFee}
-        taxAmount={this.state.taxAmount}
-        taxDueDate={this.state.taxDueDate}
-        taxReportDueDate={this.state.taxReportDueDate}
-      />;
-    } else {
-      summary = "";
-    }
-
-    return summary;
-  }
-
+  
   handleSubmit(e){
     e.preventDefault();
     if ( this.isFormValid() ){
@@ -281,94 +247,110 @@ class Form extends React.Component {
 
     return (
       <form>
-        <div className="card mb-2">
-          <div className="card-header"> Pirkimas </div>
-          <div className="card-body">
-            <div className="row">
-              <div className="col">
-                <p>Data</p>
-                <DateBlock
-                  blockType="purchase"
-                  onChange={this.handleDate}
-                  year={this.state.purchaseYear}
-                  years={helpers.yearRange().map((e, key) => {
-                     return <option key={e} value={e}>{e}</option>;
-                  })}
-                  months={this.state.monthRange.map((e, key) => {
-                     return <option key={e} value={e}>{e}</option>;
-                   })}
-                  days={purchaseDays.map( (e) => {
-                    return <option key={e} value={e}>{e}</option>;
-                  })}
-                />
-                <p>Kaina</p>
-                <div className="form-group">
-                  <input
-                    type="number"
-                    name="purchasePrice"
-                    onChange={this.handlePrice}
-                    className="form-control"/>
+
+        <div className="row">
+          <div className="col">
+            <div className="card mb-2">
+              <div className="card-header"> Pirkimas </div>
+              <div className="card-body">
+                <div className="row">
+                  <div className="col">
+                    <p>Data</p>
+                    <DateBlock
+                      blockType="purchase"
+                      onChange={this.handleDate}
+                      year={this.state.purchaseYear}
+                      years={helpers.yearRange().map((e, key) => {
+                         return <option key={e} value={e}>{e}</option>;
+                      })}
+                      months={this.state.monthRange.map((e, key) => {
+                         return <option key={e} value={e}>{e}</option>;
+                       })}
+                      days={purchaseDays.map( (e) => {
+                        return <option key={e} value={e}>{e}</option>;
+                      })}
+                    />
+                    <p>Kaina</p>
+                    <div className="form-group">
+                      <input
+                        type="number"
+                        name="purchasePrice"
+                        onChange={this.handlePrice}
+                        className="form-control"/>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <div className="card mb-2">
+              <div className="card-header"> Pardavimas </div>
+              <div className="card-body">
 
-          </div>
-        </div>
-        <div className="card mb-2">
-          <div className="card-header"> Pardavimas </div>
-          <div className="card-body">
-
-            <div className="row">
-              <div className="col">
-                <p> Data </p>
-                <DateBlock
-                  blockType="sell"
-                  onChange={this.handleDate}
-                  year={this.state.sellYear}
-                  years={helpers.yearRangeSell(this.state.purchaseYear).map((e, key) => {
-                     return <option key={e} value={e}>{e}</option>;
-                  })}
-                  months={this.state.monthRange.map((e, key) => {
-                     return <option key={e} value={e}>{e}</option>;
-                   })}
-                  days={sellDays.map( (e) => {
-                    return <option key={e} value={e}>{e}</option>;
-                  })}
-                />
-                <p>Kaina</p>
-                <div className="form-group">
-                  <input
-                    type="number"
-                    name="sellPrice"
-                    onChange={this.handlePrice}
-                    className="form-control"/>
+                <div className="row">
+                  <div className="col">
+                    <p> Data </p>
+                    <DateBlock
+                      blockType="sell"
+                      onChange={this.handleDate}
+                      year={this.state.sellYear}
+                      years={helpers.yearRangeSell(this.state.purchaseYear).map((e, key) => {
+                         return <option key={e} value={e}>{e}</option>;
+                      })}
+                      months={this.state.monthRange.map((e, key) => {
+                         return <option key={e} value={e}>{e}</option>;
+                       })}
+                      days={sellDays.map( (e) => {
+                        return <option key={e} value={e}>{e}</option>;
+                      })}
+                    />
+                    <p>Kaina</p>
+                    <div className="form-group">
+                      <input
+                        type="number"
+                        name="sellPrice"
+                        onChange={this.handlePrice}
+                        className="form-control"/>
+                    </div>
+                  </div>
                 </div>
+                <Expenses
+                  handleNotaryFee={(e) => this.handleNotaryFee(e) }
+                  handleOtherExpenses={(e) => this.handleOtherExpenses(e)}
+                  customNotaryFee={this.state.customNotaryFee}
+                  notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)} />
               </div>
             </div>
-            <Expenses
-              handleNotaryFee={(e) => this.handleNotaryFee(e) }
-              handleOtherExpenses={(e) => this.handleOtherExpenses(e)}
-              customNotaryFee={this.state.customNotaryFee}
-              notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)} />
+
+            <QuestionCard
+              onChange={(e) => this.handleQuestionCard(e)}
+              onClick={(e) => this.handleQuestionButton(e)}
+              primaryDwelling={this.state.primaryDwelling}
+            />
+
+            <div className="form-group">
+              <button
+                disabled = {this.isFormValid() ? false : true }
+                onClick={this.handleSubmit}
+                className="btn btn-primary">
+                Skaiciuoti
+              </button>
+            </div>
+          </div>
+          <div className="col">
+            <Summary
+             purchaseDate={purchaseDate}
+             sellDate={sellDate}
+             purchasePrice={this.state.purchasePrice}
+             sellPrice={this.state.sellPrice}
+             timeDiff={this.state.timeDiff}
+             priceDiff={this.state.priceDiff}
+             notaryFee={this.state.notaryFee}
+             taxAmount={this.state.taxAmount}
+             taxDueDate={this.state.taxDueDate}
+             taxReportDueDate={this.state.taxReportDueDate}
+            />
           </div>
         </div>
-
-        <QuestionCard
-          onChange={(e) => this.handleQuestionCard(e)}
-          onClick={(e) => this.handleQuestionButton(e)}
-          primaryDwelling={this.state.primaryDwelling}
-        />
-
-        <div className="form-group">
-          <button
-            disabled = {this.isFormValid() ? false : true }
-            onClick={this.handleSubmit}
-            className="btn btn-primary">
-            Skaiciuoti
-          </button>
-        </div>
-
-        {this.showformSummary()}
 
       </form>
     );
