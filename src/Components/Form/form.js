@@ -7,6 +7,7 @@ import Expenses from '../Expenses/expenses'
 import OptionList from '../OptionList/optionList'
 import Summary from '../Summary/summary'
 import QuestionCard from '../QuestionCard/questionCard'
+import PurchaseCard from '../QuestionCard/purchaseCard'
 
 class Form extends React.Component {
   constructor(props) {
@@ -229,7 +230,7 @@ class Form extends React.Component {
     }
     return isFormValid;
   }
-  
+
   handleSubmit(e){
     e.preventDefault();
     if ( this.isFormValid() ){
@@ -244,48 +245,30 @@ class Form extends React.Component {
     const sellDate = this.state.sellYear +"-"+this.state.sellMonth+"-"+this.state.sellDay;
     const purchaseDate = this.state.purchaseYear +"-"+this.state.purchaseMonth+"-"+this.state.purchaseDay;
 
-
     return (
       <form>
-
         <div className="row">
           <div className="col">
-            <div className="card mb-2">
-              <div className="card-header"> Pirkimas </div>
-              <div className="card-body">
-                <div className="row">
-                  <div className="col">
-                    <p>Data</p>
-                    <DateBlock
-                      blockType="purchase"
-                      onChange={this.handleDate}
-                      year={this.state.purchaseYear}
-                      years={helpers.yearRange().map((e, key) => {
-                         return <option key={e} value={e}>{e}</option>;
-                      })}
-                      months={this.state.monthRange.map((e, key) => {
-                         return <option key={e} value={e}>{e}</option>;
-                       })}
-                      days={purchaseDays.map( (e) => {
-                        return <option key={e} value={e}>{e}</option>;
-                      })}
-                    />
-                    <p>Kaina</p>
-                    <div className="form-group">
-                      <input
-                        type="number"
-                        name="purchasePrice"
-                        onChange={this.handlePrice}
-                        className="form-control"/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            <PurchaseCard
+              dateChange={this.handleDate}
+              year={this.state.purchaseYear}
+              years={helpers.yearRange().map((e, key) => {
+                 return <option key={e} value={e}>{e}</option>;
+              })}
+              months={this.state.monthRange.map((e, key) => {
+                 return <option key={e} value={e}>{e}</option>;
+               })}
+              days={purchaseDays.map( (e) => {
+                return <option key={e} value={e}>{e}</option>;
+              })}
+
+              handlePrice={this.handlePrice}
+            />
+          
             <div className="card mb-2">
               <div className="card-header"> Pardavimas </div>
               <div className="card-body">
-
                 <div className="row">
                   <div className="col">
                     <p> Data </p>
