@@ -41,6 +41,7 @@ const helpers = {
     } else if (notaryFee > 5792.4){
       notaryFee = 5792.4;
     }
+    notaryFee = parseFloat(notaryFee, 10);
     return notaryFee;
   }
 }
