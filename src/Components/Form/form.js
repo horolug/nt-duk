@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment'
-import business from 'moment-business';
 import helpers from '../Helpers/helpers'
 import Summary from '../Summary/summary'
 import QuestionCard from '../QuestionCard/questionCard'
@@ -88,10 +87,6 @@ class Form extends React.Component {
       totalExpenses = parseFloat(notaryFee) + parseFloat(this.state.otherExpenses);
     }
 
-    console.log("totalExpenses", totalExpenses);
-    console.log("notaryFee", notaryFee);
-    console.log("this.state.otherExpenses", this.state.otherExpenses);
-
     if ( isTaxRequired && (parseFloat(priceDiff) > parseFloat(totalExpenses)) ){
       taxAmount = (priceDiff-totalExpenses) * taxRate;
       taxAmount = taxAmount.toFixed(2);
@@ -102,7 +97,7 @@ class Form extends React.Component {
       priceDiff: priceDiff,
       notaryFee: notaryFee,
       timeDiff: timeDiff,
-      taxDueDate: this.taxDueDate(),
+      taxDueDate: helpers.taxDueDate(this.state.sellYear, this.state.sellMonth, this.state.sellDay),
       taxReportDueDate: this.taxReportDueDate(),
       isFormValid: isFormValid
     });
@@ -111,39 +106,15 @@ class Form extends React.Component {
   taxReportDueDate(){
     // fixme - refactor so it can be moved to helpers.js
     const sellDate = this.state.sellYear+"-"+this.state.sellMonth+"-"+this.state.sellDay;
-    let taxDueDate = "";
+    let taxReportDueDate = "";
     if ( moment(sellDate).isBefore(this.state.sellYear+'-05-01') ){
-      taxDueDate = this.state.sellYear+'-05-01';
+      taxReportDueDate = this.state.sellYear+'-05-01';
     } else {
       // sale happened after tax report due date, so tax payment is due in 2 years;
-      taxDueDate = (parseInt(this.state.sellYear)+1)+'-05-01';
+      taxReportDueDate = (parseInt(this.state.sellYear)+1)+'-05-01';
     }
 
-    return taxDueDate;
-  }
-
-  taxDueDate(){
-    // sell is to be declared before [year]-05-01, say 2018-05-01
-    // tax is to be paid on [year + 1]-05-01, say 2019-05-01
-    // tax due date can be only a work day, so of [year]-05-01 is a holiday,
-    // next working day is selected
-    // [year-05-01] - is a national holiday in Lithuania
-    // FIXME - check if next days are not weekend days
-
-    const sellDate = this.state.sellYear+"-"+this.state.sellMonth+"-"+this.state.sellDay;
-    // Some problems with library for this one
-    // console.log("business.isWeekDay ? ", business.isWeekDay( "2016-07-25 ") );
-
-    let taxPaymentDate = "";
-    if ( moment(sellDate).isBefore(this.state.sellYear+'-05-01') ){
-      // sale happened before tax report due date, so tax payment is due date is next year;
-      taxPaymentDate = (parseInt(this.state.sellYear)+1)+'-05-01';
-      return taxPaymentDate
-    } else {
-      // sale happened after tax report due date, so tax payment is due in 2 years;
-      taxPaymentDate = (parseInt(this.state.sellYear)+2)+'-05-01';
-      return taxPaymentDate
-    }
+    return taxReportDueDate;
   }
 
   timeDiff(){

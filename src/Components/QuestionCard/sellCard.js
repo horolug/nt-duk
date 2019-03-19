@@ -4,10 +4,6 @@ import Expenses from '../Expenses/expenses'
 
 class SellCard extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="card mb-2">

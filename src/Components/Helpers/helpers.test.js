@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import moment from 'moment'
 import Helpers from './helpers';
 
 test('Minimum notary fee is 28.96', () => {

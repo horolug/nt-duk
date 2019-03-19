@@ -3,10 +3,6 @@ import DateBlock from '../DateBlock/dateBlock'
 
 class PurchaseCard extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="card mb-2">

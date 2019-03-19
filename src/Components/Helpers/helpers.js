@@ -1,4 +1,5 @@
 import moment from 'moment'
+import business from 'moment-business';
 
 const helpers = {
   yearRange(){
@@ -31,6 +32,30 @@ const helpers = {
       dayRange.push(i);
     }
     return dayRange;
+  },
+
+  taxDueDate(sellYear, sellMonth, sellDay){
+    // sell is to be declared before [year]-05-01, say 2018-05-01
+    // tax is to be paid on [year + 1]-05-01, say 2019-05-01
+    // tax due date can be only a work day, so of [year]-05-01 is a holiday,
+    // next working day is selected
+    // [year-05-01] - is a national holiday in Lithuania
+    // FIXME - check if next days are not weekend days
+
+    const sellDate = sellYear+"-"+sellMonth+"-"+sellDay;
+    // Some problems with library for this one
+    // console.log("business.isWeekDay ? ", business.isWeekDay( "2016-07-25 ") );
+
+    let taxPaymentDate = "";
+    if ( moment(sellDate).isBefore(sellYear+'-05-01') ){
+      // sale happened before tax report due date, so tax payment is due date is next year;
+      taxPaymentDate = (parseInt(sellYear)+1)+'-05-01';
+      return taxPaymentDate
+    } else {
+      // sale happened after tax report due date, so tax payment is due in 2 years;
+      taxPaymentDate = (parseInt(sellYear)+2)+'-05-01';
+      return taxPaymentDate
+    }
   },
 
   calculateNotaryFee(sellPrice){
