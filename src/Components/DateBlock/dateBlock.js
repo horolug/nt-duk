@@ -28,7 +28,7 @@ class DateBlock extends React.Component {
             onChange={this.props.onChange}
             name={this.props.blockType+"Month"}
             className="form-control form-control-md">
-            <option>Menuo</option>
+            <option value="">Menuo</option>
             {this.props.months}
           </select>
         </div>
@@ -37,7 +37,7 @@ class DateBlock extends React.Component {
             onChange={this.props.onChange}
             name={this.props.blockType+"Day"}
             className="form-control form-control-md">
-            <option>Diena</option>
+            <option value="">Diena</option>
             {this.props.days}
           </select>
         </div>

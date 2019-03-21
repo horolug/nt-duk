@@ -68,6 +68,20 @@ const helpers = {
     }
     notaryFee = parseFloat(notaryFee, 10);
     return notaryFee;
+  },
+
+  isCardFilled( card ){
+    let cardFilled = true;
+
+    for( let i = 0; i < card.length; i++ ){
+      console.log("card i", card[i]);
+      console.log("card i", card[i] === "");
+      if (card[i] === ""){
+        cardFilled = false;
+      }
+    }
+
+    return cardFilled;
   }
 }
 

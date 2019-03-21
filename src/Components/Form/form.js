@@ -34,6 +34,7 @@ class Form extends React.Component {
       taxDueDate: "",
       taxReportDueDate: "",
       isFormValid: false,
+      questionStep: 1,
     };
     this.handleDate = this.handleDate.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
@@ -179,6 +180,45 @@ class Form extends React.Component {
     });
   }
 
+  flipQuestionCard(event){
+    // purchase card is visible on load
+    // when purchase card is filled, sell card is shown
+    // when sell card is filled, dwelling options card is shown
+    event.preventDefault();
+
+    let questionStep = 1;
+
+    const purchaseCard = [
+      this.state.purchaseYear,
+      this.state.purchaseMonth,
+      this.state.purchaseDay,
+      this.state.purchasePrice,
+    ];
+    const saleCard = [
+      this.state.sellYear,
+      this.state.sellMonth,
+      this.state.sellDay,
+      this.state.sellPrice,
+    ];
+
+    let purhcaseCardFilled = helpers.isCardFilled(purchaseCard);
+    let sellCardFilled = helpers.isCardFilled(saleCard);
+
+    if ( purhcaseCardFilled === true ){
+      questionStep = 2;
+    }
+
+    if ( sellCardFilled === true && purhcaseCardFilled === true  ){
+      questionStep = 3;
+    }
+
+    console.log("going to show step", questionStep);
+
+    this.setState({
+      questionStep: questionStep
+    });
+  }
+
   isFormValid(){
     // FIXME - update validation logic
     const formValues = [
@@ -220,6 +260,7 @@ class Form extends React.Component {
           <div className="col">
 
             <PurchaseCard
+              isVisible={this.state.questionStep}
               dateChange={this.handleDate}
               year={this.state.purchaseYear}
               years={helpers.yearRange().map((e, key) => {
@@ -232,9 +273,11 @@ class Form extends React.Component {
                 return <option key={e} value={e}>{e}</option>;
               })}
               handlePrice={this.handlePrice}
+              nextQuestion={(e) => this.flipQuestionCard(e)}
             />
 
             <SellCard
+              isVisible={this.state.questionStep}
               dateChange={this.handleDate}
               year={this.state.sellYear}
               years={helpers.yearRangeSell(this.state.purchaseYear).map((e, key) => {
@@ -251,6 +294,7 @@ class Form extends React.Component {
               handleOtherExpenses={(e) => this.handleOtherExpenses(e)}
               customNotaryFee={this.state.customNotaryFee}
               notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)}
+              nextQuestion={(e) => this.flipQuestionCard(e)}
             />
 
             <QuestionCard
