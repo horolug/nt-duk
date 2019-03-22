@@ -180,6 +180,12 @@ class Form extends React.Component {
     });
   }
 
+  previousQuestion = (question) => {
+    this.setState({
+      questionStep: question
+    });
+  }
+
   flipQuestionCard(event){
     // purchase card is visible on load
     // when purchase card is filled, sell card is shown
@@ -295,14 +301,17 @@ class Form extends React.Component {
               customNotaryFee={this.state.customNotaryFee}
               notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)}
               nextQuestion={(e) => this.flipQuestionCard(e)}
+              previousQuestion={this.previousQuestion}
             />
 
             <QuestionCard
               isVisible={this.state.questionStep}
               isFormValid={this.isFormValid()}
+              handleSubmit={this.handleSubmit}
               onChange={(e) => this.handleQuestionCard(e)}
               onClick={(e) => this.handleQuestionButton(e)}
               primaryDwelling={this.state.primaryDwelling}
+              previousQuestion={this.previousQuestion}
             />
 
 

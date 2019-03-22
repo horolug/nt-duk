@@ -40,6 +40,10 @@ class SellCard extends React.Component {
               notaryFee={this.props.notaryFee} />
 
             <button
+              onClick={() => this.props.previousQuestion(1)}
+              className="btn btn-primary mr-4">Pirkimas </button>
+
+            <button
               onClick={this.props.nextQuestion}
               className="btn btn-primary">Kitas klausimas </button>
           </div>

@@ -64,8 +64,12 @@ class questionCard extends React.Component {
 
           <div className="form-group mt-2">
             <button
+              onClick={() => this.props.previousQuestion(2)}
+              className="btn btn-primary mr-4">Pardavimas </button>
+
+            <button
               disabled = {this.props.isFormValid ? false : true }
-              onClick={this.handleSubmit}
+              onClick={this.props.handleSubmit}
               className="btn btn-primary">
               Skaiciuoti
             </button>
