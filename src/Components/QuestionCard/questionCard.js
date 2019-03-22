@@ -38,29 +38,45 @@ class questionCard extends React.Component {
       </div>;
     }
 
-    return (
-      <div className="mb-2">
-        <div className="card">
-          <div className="card-body">
-            <label className="form-check-label" htmlFor="primaryDwelling">
-              Ar parduodamas turtas - deklaruota gyvenimo vieta
-            </label>
-            <div className="mt-4">
-              <button
-                id="isPrimaryDwelling"
-                onClick={(e)=>this.props.onClick(e)}
-                className={selectedButton}>Taip</button>
-              <button
-                id="notPrimaryDwelling"
-                onClick={(e)=>this.props.onClick(e)}
-                className="btn btn-info">Ne</button>
+    if ( this.props.isVisible === 3 ){
+      return (
+        <div className="mb-2">
+          <div className="card">
+            <div className="card-body">
+              <label className="form-check-label" htmlFor="primaryDwelling">
+                Ar parduodamas turtas - deklaruota gyvenimo vieta
+              </label>
+              <div className="mt-4">
+                <button
+                  id="isPrimaryDwelling"
+                  onClick={(e)=>this.props.onClick(e)}
+                  className={selectedButton}>Taip</button>
+                <button
+                  id="notPrimaryDwelling"
+                  onClick={(e)=>this.props.onClick(e)}
+                  className="btn btn-info">Ne</button>
+              </div>
             </div>
+          </div>
+
+          {questionCard2}
+
+
+          <div className="form-group mt-2">
+            <button
+              disabled = {this.props.isFormValid ? false : true }
+              onClick={this.handleSubmit}
+              className="btn btn-primary">
+              Skaiciuoti
+            </button>
           </div>
         </div>
 
-        {questionCard2}
-      </div>
-    );
+
+      );
+    } else {
+      return false
+    }
   }
 }
 

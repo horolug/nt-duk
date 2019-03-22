@@ -298,19 +298,14 @@ class Form extends React.Component {
             />
 
             <QuestionCard
+              isVisible={this.state.questionStep}
+              isFormValid={this.isFormValid()}
               onChange={(e) => this.handleQuestionCard(e)}
               onClick={(e) => this.handleQuestionButton(e)}
               primaryDwelling={this.state.primaryDwelling}
             />
 
-            <div className="form-group">
-              <button
-                disabled = {this.isFormValid() ? false : true }
-                onClick={this.handleSubmit}
-                className="btn btn-primary">
-                Skaiciuoti
-              </button>
-            </div>
+
           </div>
           <div className="col">
             <Summary
