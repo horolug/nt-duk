@@ -227,7 +227,7 @@ class Form extends React.Component {
 
   isFormValid(){
     // FIXME - update validation logic
-    const formValues = [
+    let formValues = [
       this.state.sellYear,
       this.state.sellMonth,
       this.state.sellDay,
@@ -237,6 +237,11 @@ class Form extends React.Component {
       this.state.purchaseDay,
       this.state.purchasePrice,
     ];
+
+    if ( this.state.primaryDwelling ){
+      formValues.push(this.state.dwellingStatus);
+    }
+
     let isFormValid = true;
     for( let i = 0; i < formValues.length; i++ ){
       if (formValues[i].length <= 0){
