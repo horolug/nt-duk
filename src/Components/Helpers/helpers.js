@@ -72,11 +72,9 @@ const helpers = {
 
   isCardFilled( card ){
     let cardFilled = true;
-
     for( let i = 0; i < card.length; i++ ){
-      console.log("card i", card[i]);
-      console.log("card i", card[i] === "");
-      if (card[i] === ""){
+      const numberInQuestion = parseFloat(card[i], 10);
+      if ( isNaN(numberInQuestion)  ) {
         cardFilled = false;
       }
     }

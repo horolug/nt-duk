@@ -22,3 +22,11 @@ test('If sell happened on 2017-01-01 tax is due next year ', () => {
 test('If sell happened after 2017-05-01 tax is due in 2 years ', () => {
   expect( Helpers.taxDueDate("2017", "05", "01")).toBe("2019-05-01");
 });
+
+test('Purchase card has filled flag with: 1998 12 11 10000', () => {
+  expect( Helpers.isCardFilled(["1998", "12", "11", "10000"])).toBe(true);
+});
+
+test('Purchase card has filled flag with: 1998 12 F 10000', () => {
+  expect( Helpers.isCardFilled(["1998", "12", "F", "10000"])).toBe(false);
+});
