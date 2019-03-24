@@ -8,9 +8,7 @@ class questionCard extends React.Component {
 
     if ( this.props.primaryDwelling){
       selectedButton = "btn-secondary btn mr-2";
-      questionCard2 =<div className="card">
-        <div className="card-body">
-          <div className="form-check">
+      questionCard2 =<div className="mt-4"><div className="form-check">
             <input className="form-check-input"
               id="primaryDwellingShort"
               name="dwellingOption"
@@ -34,8 +32,7 @@ class questionCard extends React.Component {
               Deklaruota gyvenimo vieta daugiau nei 2 metai
             </label>
           </div>
-        </div>
-      </div>;
+        </div>;
     }
 
     if ( this.props.isVisible === 3 ){
@@ -56,24 +53,28 @@ class questionCard extends React.Component {
                   onClick={(e)=>this.props.onClick(e)}
                   className="btn btn-info">Ne</button>
               </div>
+              {questionCard2}
+
+              <div className="mt-4">
+                <button
+                  onClick={() => this.props.previousQuestion(2)}
+                  className="btn btn-primary mr-4">Pardavimas </button>
+
+                <button
+                  disabled = {this.props.isFormValid ? false : true }
+                  onClick={this.props.handleSubmit}
+                  className="btn btn-primary">
+                  Skaiciuoti
+                </button>
+              </div>
+
             </div>
           </div>
 
-          {questionCard2}
 
 
-          <div className="form-group mt-2">
-            <button
-              onClick={() => this.props.previousQuestion(2)}
-              className="btn btn-primary mr-4">Pardavimas </button>
 
-            <button
-              disabled = {this.props.isFormValid ? false : true }
-              onClick={this.props.handleSubmit}
-              className="btn btn-primary">
-              Skaiciuoti
-            </button>
-          </div>
+
         </div>
 
 
