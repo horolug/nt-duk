@@ -149,10 +149,16 @@ class Form extends React.Component {
     if (event.target.id === "isPrimaryDwelling"){
       primaryDwellingFlag = true;
     }
-
-    this.setState({
-      primaryDwelling: primaryDwellingFlag
-    });
+    if (primaryDwellingFlag === false){
+      this.setState({
+        primaryDwelling: primaryDwellingFlag,
+        dwellingStatus: ""
+      });
+    } else {
+      this.setState({
+        primaryDwelling: primaryDwellingFlag
+      });
+    }
   }
 
   handleOptions(event){
@@ -218,8 +224,6 @@ class Form extends React.Component {
       questionStep = 3;
     }
 
-    console.log("going to show step", questionStep);
-
     this.setState({
       questionStep: questionStep
     });
@@ -238,7 +242,7 @@ class Form extends React.Component {
       this.state.purchasePrice,
     ];
 
-    if ( this.state.primaryDwelling ){
+    if ( this.state.primaryDwelling === true ){
       formValues.push(this.state.dwellingStatus);
     }
 
