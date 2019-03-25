@@ -43,23 +43,6 @@ class Form extends React.Component {
     this.handleNotaryFee = this.handleNotaryFee.bind(this);
   }
 
-  isTaxRequired (timeDiff){
-    // 1. Income tax (15%) is due if sell happened less than 10 years after purchaseDay
-    // 2. Income tax is not required if ( all conditions must apply ):
-    // 2.1 sold property was primary dwelling for less than 2 years
-    // 2.2 sell happened less than 10 years after purchase
-    // 2.3 money was used to buy another primary dwelling within a year of selling the first one
-    // 3. Income tax is not requried if:
-    // 3.1 sold property was primary dwelling for more than 2 years
-
-    if ( (timeDiff >= 2)  && (this.state.dwellingStatus === "primaryDwelling") ){
-      console.log("got primary dwelling, no taxes");
-      return false;
-    } else if ( timeDiff < 10 ){
-      return true;
-    }
-  }
-
   calculateTax( timeDiff, isFormValid ){
     // FIXME - add following logic
     // 1. when calculating due tax following expenses must be included:
@@ -67,7 +50,7 @@ class Form extends React.Component {
     // Improvement expenses - TBC the details
     // turn all money values into cents before doing any calculations and rounding
     const taxRate = 0.15;
-    const isTaxRequired = this.isTaxRequired(timeDiff);
+    const isTaxRequired = helpers.isTaxRequired(timeDiff, this.state.dwellingStatus);
     let priceDiff = (this.state.sellPrice - this.state.purchasePrice);
     priceDiff = priceDiff.toFixed(2);
     let taxAmount = "Moketi nereikia";

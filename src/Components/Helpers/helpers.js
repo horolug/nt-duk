@@ -34,6 +34,23 @@ const helpers = {
     return dayRange;
   },
 
+  isTaxRequired (timeDiff, dwellingStatus){
+    // 1. Income tax (15%) is due if sell happened less than 10 years after purchaseDay
+    // 2. Income tax is not required if ( all conditions must apply ):
+    // 2.1 sold property was primary dwelling for less than 2 years
+    // 2.2 sell happened less than 10 years after purchase
+    // 2.3 money was used to buy another primary dwelling within a year of selling the first one
+    // 3. Income tax is not requried if:
+    // 3.1 sold property was primary dwelling for more than 2 years
+
+    if ( (timeDiff >= 2)  && (dwellingStatus === "primaryDwelling") ){
+      console.log("got primary dwelling, no taxes");
+      return false;
+    } else if ( timeDiff < 10 ){
+      return true;
+    }
+  },
+
   taxDueDate(sellYear, sellMonth, sellDay){
     // sell is to be declared before [year]-05-01, say 2018-05-01
     // tax is to be paid on [year + 1]-05-01, say 2019-05-01
