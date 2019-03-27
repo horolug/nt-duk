@@ -82,23 +82,9 @@ class Form extends React.Component {
       notaryFee: notaryFee,
       timeDiff: timeDiff,
       taxDueDate: helpers.taxDueDate(this.state.sellYear, this.state.sellMonth, this.state.sellDay),
-      taxReportDueDate: this.taxReportDueDate(),
+      taxReportDueDate: helpers.this.taxReportDueDate(this.state.sellYear, this.state.sellMonth, this.state.sellDay),
       isFormValid: isFormValid
     });
-  }
-
-  taxReportDueDate(){
-    // fixme - refactor so it can be moved to helpers.js
-    const sellDate = this.state.sellYear+"-"+this.state.sellMonth+"-"+this.state.sellDay;
-    let taxReportDueDate = "";
-    if ( moment(sellDate).isBefore(this.state.sellYear+'-05-01') ){
-      taxReportDueDate = this.state.sellYear+'-05-01';
-    } else {
-      // sale happened after tax report due date, so tax payment is due in 2 years;
-      taxReportDueDate = (parseInt(this.state.sellYear)+1)+'-05-01';
-    }
-
-    return taxReportDueDate;
   }
 
   timeDiff(){

@@ -51,6 +51,19 @@ const helpers = {
     }
   },
 
+  taxReportDueDate(sellYear, sellMonth, sellDay){
+    const sellDate = sellYear+"-"+sellMonth+"-"+sellDay;
+    let taxReportDueDate = "";
+    if ( moment(sellDate).isBefore(sellYear+'-05-01') ){
+      taxReportDueDate = sellYear+'-05-01';
+    } else {
+      // sale happened after tax report due date, so tax payment is due in 2 years;
+      taxReportDueDate = (parseInt(sellYear)+1)+'-05-01';
+    }
+
+    return taxReportDueDate;
+  }
+
   taxDueDate(sellYear, sellMonth, sellDay){
     // sell is to be declared before [year]-05-01, say 2018-05-01
     // tax is to be paid on [year + 1]-05-01, say 2019-05-01
