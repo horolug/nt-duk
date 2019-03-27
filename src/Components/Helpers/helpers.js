@@ -62,7 +62,7 @@ const helpers = {
     }
 
     return taxReportDueDate;
-  }
+  },
 
   taxDueDate(sellYear, sellMonth, sellDay){
     // sell is to be declared before [year]-05-01, say 2018-05-01
