@@ -82,7 +82,7 @@ class Form extends React.Component {
       notaryFee: notaryFee,
       timeDiff: timeDiff,
       taxDueDate: helpers.taxDueDate(this.state.sellYear, this.state.sellMonth, this.state.sellDay),
-      taxReportDueDate: helpers.this.taxReportDueDate(this.state.sellYear, this.state.sellMonth, this.state.sellDay),
+      taxReportDueDate: helpers.taxReportDueDate(this.state.sellYear, this.state.sellMonth, this.state.sellDay),
       isFormValid: isFormValid
     });
   }

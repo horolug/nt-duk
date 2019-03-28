@@ -51,14 +51,24 @@ const helpers = {
     }
   },
 
+  businessDay ( date ){
+    let dueDate = moment(date, "YYYY-MM-DD");
+    while ( !business.isWeekDay( dueDate ) ){
+      dueDate = dueDate.add(1, 'd');
+    }
+
+    return dueDate.format('YYYY-MM-DD');
+  },
+
   taxReportDueDate(sellYear, sellMonth, sellDay){
     const sellDate = sellYear+"-"+sellMonth+"-"+sellDay;
+    const dueDate = sellYear+'-05-01';
     let taxReportDueDate = "";
-    if ( moment(sellDate).isBefore(sellYear+'-05-01') ){
-      taxReportDueDate = sellYear+'-05-01';
+    if ( moment(sellDate).isBefore(dueDate) ){
+      taxReportDueDate = helpers.businessDay(  dueDate );
     } else {
       // sale happened after tax report due date, so tax payment is due in 2 years;
-      taxReportDueDate = (parseInt(sellYear)+1)+'-05-01';
+      taxReportDueDate = helpers.businessDay(  (parseInt(sellYear)+1)+'-05-01'  );
     }
 
     return taxReportDueDate;
@@ -72,18 +82,15 @@ const helpers = {
     // [year-05-01] - is a national holiday in Lithuania
     // FIXME - check if next days are not weekend days
 
-    const sellDate = sellYear+"-"+sellMonth+"-"+sellDay;
-    // Some problems with library for this one
-    // console.log("business.isWeekDay ? ", business.isWeekDay( "2016-07-25 ") );
-
+    const sellDate = moment (sellYear+"-"+sellMonth+"-"+sellDay );
     let taxPaymentDate = "";
     if ( moment(sellDate).isBefore(sellYear+'-05-01') ){
       // sale happened before tax report due date, so tax payment is due date is next year;
-      taxPaymentDate = (parseInt(sellYear)+1)+'-05-01';
+      taxPaymentDate = helpers.businessDay(  (parseInt(sellYear)+1)+'-05-01' );
       return taxPaymentDate
     } else {
       // sale happened after tax report due date, so tax payment is due in 2 years;
-      taxPaymentDate = (parseInt(sellYear)+2)+'-05-01';
+      taxPaymentDate = helpers.businessDay(  (parseInt(sellYear)+2)+'-05-01' );
       return taxPaymentDate
     }
   },
