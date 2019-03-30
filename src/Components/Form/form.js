@@ -241,7 +241,7 @@ class Form extends React.Component {
     return (
       <form>
         <div className="row">
-          <div className="col">
+          <div className="col-sm-12 col-md-6">
 
             <PurchaseCard
               isVisible={this.state.questionStep}
@@ -294,7 +294,7 @@ class Form extends React.Component {
 
 
           </div>
-          <div className="col">
+          <div className="col-sm-12 col-md-6">
             <Summary
              purchaseDate={purchaseDate}
              sellDate={sellDate}
