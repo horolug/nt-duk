@@ -4,7 +4,7 @@ class questionCard extends React.Component {
 
   render() {
     let questionCard2 = "";
-    let selectedButton = "btn-info btn mr-2";
+    let selectedButton = "btn-light btn mr-2";
 
     if ( this.props.primaryDwelling){
       selectedButton = "btn-secondary btn mr-2";
@@ -51,7 +51,7 @@ class questionCard extends React.Component {
                 <button
                   id="notPrimaryDwelling"
                   onClick={(e)=>this.props.onClick(e)}
-                  className="btn btn-info">Ne</button>
+                  className="btn btn-light">Ne</button>
               </div>
               {questionCard2}
 

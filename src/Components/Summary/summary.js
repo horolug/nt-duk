@@ -9,7 +9,6 @@ class Summary extends React.Component {
     };
   }
 
-
   handleClick(event){
     this.setState({
       taxDetailsOpen: !this.state.taxDetailsOpen
@@ -35,7 +34,6 @@ class Summary extends React.Component {
           <li className="list-group-item">Isigijimo kaina {this.props.purchasePrice}</li>
           <li className="list-group-item">Turtas parduodamas {this.props.sellDate}</li>
           <li className="list-group-item">Pardavimo kaina {this.props.sellPrice}</li>
-          <li className="list-group-item">Laiko skirtumas metais {this.props.timeDiff}</li>
           <li className="list-group-item">Kainu skirtumas {this.props.priceDiff}</li>
           <li className="list-group-item">
             <p>Islaidos susijusios su turto pardavimu</p>
