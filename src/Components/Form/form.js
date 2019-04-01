@@ -155,7 +155,7 @@ class Form extends React.Component {
     });
   }
 
-  previousQuestion = (question) => {
+  jumpToQuestion = (question) => {
     this.setState({
       questionStep: question
     });
@@ -258,6 +258,7 @@ class Form extends React.Component {
               })}
               handlePrice={this.handlePrice}
               nextQuestion={(e) => this.flipQuestionCard(e)}
+              jumpToQuestion={this.jumpToQuestion}
             />
 
             <SellCard
@@ -279,7 +280,7 @@ class Form extends React.Component {
               customNotaryFee={this.state.customNotaryFee}
               notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)}
               nextQuestion={(e) => this.flipQuestionCard(e)}
-              previousQuestion={this.previousQuestion}
+              jumpToQuestion={this.jumpToQuestion}
             />
 
             <QuestionCard
@@ -289,7 +290,7 @@ class Form extends React.Component {
               onChange={(e) => this.handleQuestionCard(e)}
               onClick={(e) => this.handleQuestionButton(e)}
               primaryDwelling={this.state.primaryDwelling}
-              previousQuestion={this.previousQuestion}
+              jumpToQuestion={this.jumpToQuestion}
             />
 
 

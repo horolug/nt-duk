@@ -5,6 +5,34 @@ class questionCard extends React.Component {
   render() {
     let questionCard2 = "";
     let selectedButton = "btn-light btn mr-2";
+    const cardContent = <div className="card-body">
+            <label className="form-check-label" htmlFor="primaryDwelling">
+              Ar parduodamas turtas - deklaruota gyvenimo vieta
+            </label>
+            <div className="mt-4">
+              <button
+                id="isPrimaryDwelling"
+                onClick={(e)=>this.props.onClick(e)}
+                className={selectedButton}>Taip</button>
+              <button
+                id="notPrimaryDwelling"
+                onClick={(e)=>this.props.onClick(e)}
+                className="btn btn-light">Ne</button>
+            </div>
+            {questionCard2}
+
+            <div className="mt-4">
+              <button
+                onClick={() => this.props.previousQuestion(2)}
+                className="btn btn-primary mr-4">Pardavimas </button>
+              <button
+                disabled = {this.props.isFormValid ? false : true }
+                onClick={this.props.handleSubmit}
+                className="btn btn-primary">
+                Skaiciuoti
+              </button>
+            </div>
+          </div>;
 
     if ( this.props.primaryDwelling){
       selectedButton = "btn-secondary btn mr-2";
@@ -39,48 +67,23 @@ class questionCard extends React.Component {
       return (
         <div className="mb-2">
           <div className="card">
-            <div className="card-body">
-              <label className="form-check-label" htmlFor="primaryDwelling">
-                Ar parduodamas turtas - deklaruota gyvenimo vieta
-              </label>
-              <div className="mt-4">
-                <button
-                  id="isPrimaryDwelling"
-                  onClick={(e)=>this.props.onClick(e)}
-                  className={selectedButton}>Taip</button>
-                <button
-                  id="notPrimaryDwelling"
-                  onClick={(e)=>this.props.onClick(e)}
-                  className="btn btn-light">Ne</button>
-              </div>
-              {questionCard2}
-
-              <div className="mt-4">
-                <button
-                  onClick={() => this.props.previousQuestion(2)}
-                  className="btn btn-primary mr-4">Pardavimas </button>
-
-                <button
-                  disabled = {this.props.isFormValid ? false : true }
-                  onClick={this.props.handleSubmit}
-                  className="btn btn-primary">
-                  Skaiciuoti
-                </button>
-              </div>
-
-            </div>
+            <div className="card-header"> Deklaruota gyvenimo vieta </div>
+            {cardContent}
           </div>
-
-
-
-
-
         </div>
-
-
       );
     } else {
-      return false
+      return (
+        <div className="mb-2">
+          <div className="card">
+            <div
+              className="card-header"
+              onClick={() => this.props.jumpToQuestion(3)}>
+              Deklaruota gyvenimo vieta
+            </div>
+          </div>
+        </div>
+      );
     }
   }
 }
