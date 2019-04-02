@@ -5,22 +5,6 @@ class questionCard extends React.Component {
   render() {
     let questionCard2 = "";
     let selectedButton = "btn-light btn mr-2";
-    const cardContent = <div className="card-body">
-            <label className="form-check-label" htmlFor="primaryDwelling">
-              Ar parduodamas turtas - deklaruota gyvenimo vieta
-            </label>
-            <div className="mt-4">
-              <button
-                id="isPrimaryDwelling"
-                onClick={(e)=>this.props.onClick(e)}
-                className={selectedButton}>Taip</button>
-              <button
-                id="notPrimaryDwelling"
-                onClick={(e)=>this.props.onClick(e)}
-                className="btn btn-light">Ne</button>
-            </div>
-            {questionCard2}
-          </div>;
 
     if ( this.props.primaryDwelling){
       selectedButton = "btn-secondary btn mr-2";
@@ -50,6 +34,23 @@ class questionCard extends React.Component {
           </div>
         </div>;
     }
+
+    const cardContent = <div className="card-body">
+            <label className="form-check-label" htmlFor="primaryDwelling">
+              Ar parduodamas turtas - deklaruota gyvenimo vieta
+            </label>
+            <div className="mt-4">
+              <button
+                id="isPrimaryDwelling"
+                onClick={(e)=>this.props.onClick(e)}
+                className={selectedButton}>Taip</button>
+              <button
+                id="notPrimaryDwelling"
+                onClick={(e)=>this.props.onClick(e)}
+                className="btn btn-light">Ne</button>
+            </div>
+            {questionCard2}
+          </div>;
 
     if ( this.props.isVisible === 3 ){
       return (
