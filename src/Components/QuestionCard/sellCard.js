@@ -12,7 +12,7 @@ class SellCard extends React.Component {
           <DateBlock
             blockType="sell"
             onChange={this.props.dateChange}
-            year={this.props.year}
+            selectedDate={this.props.selectedDate}
             years={this.props.years}
             months={this.props.months}
             days={this.props.days}
@@ -22,6 +22,7 @@ class SellCard extends React.Component {
             <input
               type="number"
               name="sellPrice"
+              value={this.props.price}
               onChange={this.props.handlePrice}
               className="form-control"/>
           </div>
@@ -33,10 +34,6 @@ class SellCard extends React.Component {
         handleOtherExpenses={this.props.handleOtherExpenses}
         customNotaryFee={this.props.customNotaryFee}
         notaryFee={this.props.notaryFee} />
-
-      <button
-        onClick={() => this.props.previousQuestion(1)}
-        className="btn btn-primary mr-4">Pirkimas </button>
 
       <button
         onClick={this.props.nextQuestion}
@@ -54,7 +51,9 @@ class SellCard extends React.Component {
         <div
           className="card mb-2"
           onClick={() => this.props.jumpToQuestion(2)} >
-          <div className="card-header"> Pardavimas </div>
+          <div className="card-header">
+            <button className="btn btn-link"> Pardavimas </button>
+          </div>
         </div>
       );
     }

@@ -11,7 +11,7 @@ class PurchaseCard extends React.Component {
           <DateBlock
             blockType="purchase"
             onChange={this.props.dateChange}
-            year={this.props.year}
+            selectedDate={this.props.selectedDate}
             years={this.props.years}
             months={this.props.months}
             days={this.props.days}
@@ -21,6 +21,7 @@ class PurchaseCard extends React.Component {
             <input
               type="number"
               name="purchasePrice"
+              value={this.props.price}
               onChange={this.props.handlePrice}
               className="form-control"/>
           </div>
@@ -33,7 +34,9 @@ class PurchaseCard extends React.Component {
     if( this.props.isVisible === 1 ){
       return (
         <div className="card mb-2">
-          <div className="card-header"> Pirkimas </div>
+          <div className="card-header">
+            Pirkimas
+          </div>
           {cardContent}
         </div>
       );
@@ -43,7 +46,7 @@ class PurchaseCard extends React.Component {
           <div
             className="card-header"
             onClick={() => this.props.jumpToQuestion(1)} >
-            Pirkimas
+            <button className="btn btn-link">Pirkimas</button>
           </div>
         </div>
       );

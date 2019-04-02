@@ -23,9 +23,6 @@ class questionCard extends React.Component {
 
             <div className="mt-4">
               <button
-                onClick={() => this.props.previousQuestion(2)}
-                className="btn btn-primary mr-4">Pardavimas </button>
-              <button
                 disabled = {this.props.isFormValid ? false : true }
                 onClick={this.props.handleSubmit}
                 className="btn btn-primary">
@@ -79,7 +76,7 @@ class questionCard extends React.Component {
             <div
               className="card-header"
               onClick={() => this.props.jumpToQuestion(3)}>
-              Deklaruota gyvenimo vieta
+                <button className="btn btn-link"> Deklaruota gyvenimo vieta </button>
             </div>
           </div>
         </div>

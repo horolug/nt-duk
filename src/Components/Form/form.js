@@ -237,7 +237,16 @@ class Form extends React.Component {
     const sellDays = helpers.dayRange(this.state.sellYear, this.state.sellMonth);
     const sellDate = this.state.sellYear +"-"+this.state.sellMonth+"-"+this.state.sellDay;
     const purchaseDate = this.state.purchaseYear +"-"+this.state.purchaseMonth+"-"+this.state.purchaseDay;
-
+    const purchase = {
+      'year': this.state.purchaseYear,
+      'month': this.state.purchaseMonth,
+      'day': this.state.purchaseDay
+    };
+    const sell = {
+      'year': this.state.sellYear,
+      'month': this.state.sellMonth,
+      'day': this.state.sellDay
+    };
     return (
       <form>
         <div className="row">
@@ -246,7 +255,7 @@ class Form extends React.Component {
             <PurchaseCard
               isVisible={this.state.questionStep}
               dateChange={this.handleDate}
-              year={this.state.purchaseYear}
+              selectedDate={purchase}
               years={helpers.yearRange().map((e, key) => {
                  return <option key={e} value={e}>{e}</option>;
               })}
@@ -259,6 +268,7 @@ class Form extends React.Component {
               handlePrice={this.handlePrice}
               nextQuestion={(e) => this.flipQuestionCard(e)}
               jumpToQuestion={this.jumpToQuestion}
+              price={this.state.purchasePrice}
             />
 
             <SellCard
@@ -281,7 +291,9 @@ class Form extends React.Component {
               notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)}
               nextQuestion={(e) => this.flipQuestionCard(e)}
               jumpToQuestion={this.jumpToQuestion}
-            />
+              price={this.state.sellPrice}
+              selectedDate={sell}
+              />
 
             <QuestionCard
               isVisible={this.state.questionStep}
