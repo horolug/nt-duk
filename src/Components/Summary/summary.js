@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment'
 
 class Summary extends React.Component {
 
@@ -26,13 +27,17 @@ class Summary extends React.Component {
     }
 
     const buttonText = this.state.taxDetailsOpen ? 'Slepti papildoma informacija' : 'Rodyti papildoma informacija';
+    const sellString = this.props.sell.year+"-"+this.props.sell.month+"-"+this.props.sell.day;
+    const purchaseString = this.props.purchase.year+"-"+this.props.purchase.month+"-"+this.props.purchase.day;
+    const sellDate = moment(sellString).format('DD-MM-YYYY');
+    const purchaseDate = moment(purchaseString).format('DD-MM-YYYY');
 
     return (
       <div className="form-group">
         <ul className="list-group">
-          <li className="list-group-item">Turtas perejo i nusavybe {this.props.purchaseDate}</li>
+          <li className="list-group-item">Turtas perejo i nusavybe {purchaseDate}</li>
           <li className="list-group-item">Isigijimo kaina {this.props.purchasePrice}</li>
-          <li className="list-group-item">Turtas parduodamas {this.props.sellDate}</li>
+          <li className="list-group-item">Turtas parduodamas {sellDate}</li>
           <li className="list-group-item">Pardavimo kaina {this.props.sellPrice}</li>
           <li className="list-group-item">Kainu skirtumas {this.props.priceDiff}</li>
           <li className="list-group-item">

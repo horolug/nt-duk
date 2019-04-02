@@ -11,12 +11,12 @@ class Form extends React.Component {
     super(props);
     this.state = {
       sellYear: new Date().getFullYear() + 1,
-      sellMonth: "",
-      sellDay: "",
+      sellMonth: 1,
+      sellDay: 1,
       sellPrice: "",
       purchaseYear: new Date().getFullYear(),
-      purchaseMonth: "",
-      purchaseDay: "",
+      purchaseMonth: 1,
+      purchaseDay: 1,
       purchasePrice: "",
       primaryDwelling: false,
       dwellingStatus: "",
@@ -235,8 +235,7 @@ class Form extends React.Component {
   render() {
     const purchaseDays = helpers.dayRange(this.state.purchaseYear, this.state.purchaseMonth);
     const sellDays = helpers.dayRange(this.state.sellYear, this.state.sellMonth);
-    const sellDate = this.state.sellYear +"-"+this.state.sellMonth+"-"+this.state.sellDay;
-    const purchaseDate = this.state.purchaseYear +"-"+this.state.purchaseMonth+"-"+this.state.purchaseDay;
+
     const purchase = {
       'year': this.state.purchaseYear,
       'month': this.state.purchaseMonth,
@@ -297,20 +296,25 @@ class Form extends React.Component {
 
             <QuestionCard
               isVisible={this.state.questionStep}
-              isFormValid={this.isFormValid()}
-              handleSubmit={this.handleSubmit}
               onChange={(e) => this.handleQuestionCard(e)}
               onClick={(e) => this.handleQuestionButton(e)}
               primaryDwelling={this.state.primaryDwelling}
               jumpToQuestion={this.jumpToQuestion}
             />
 
-
+            <div className="mt-4">
+              <button
+                disabled = {this.isFormValid() ? false : true }
+                onClick={this.handleSubmit}
+                className="btn btn-primary">
+                Skaiciuoti
+              </button>
+            </div>
           </div>
           <div className="col-sm-12 col-md-6">
             <Summary
-             purchaseDate={purchaseDate}
-             sellDate={sellDate}
+             purchase={purchase}
+             sell={sell}
              purchasePrice={this.state.purchasePrice}
              sellPrice={this.state.sellPrice}
              timeDiff={this.state.timeDiff}
