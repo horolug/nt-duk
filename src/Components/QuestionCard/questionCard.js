@@ -20,15 +20,6 @@ class questionCard extends React.Component {
                 className="btn btn-light">Ne</button>
             </div>
             {questionCard2}
-
-            <div className="mt-4">
-              <button
-                disabled = {this.props.isFormValid ? false : true }
-                onClick={this.props.handleSubmit}
-                className="btn btn-primary">
-                Skaiciuoti
-              </button>
-            </div>
           </div>;
 
     if ( this.props.primaryDwelling){

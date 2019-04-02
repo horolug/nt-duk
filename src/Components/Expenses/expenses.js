@@ -41,7 +41,6 @@ class Expenses extends React.Component {
             {buttonText}
           </button>
 
-
         <div style={infoOpen}>
           <div className="mt-4">
             <label><strong>Notaro mokestis</strong></label>
@@ -53,6 +52,7 @@ class Expenses extends React.Component {
             <input
               type="number"
               name="purchasePrice"
+              value={this.props.notaryFee}
               onChange={(e) => this.props.handleNotaryFee(e)}
               className="form-control"/>
           </div>
@@ -64,6 +64,7 @@ class Expenses extends React.Component {
             <input
               type="number"
               name="purchasePrice"
+              value={this.props.otherExpenses}
               onChange={(e) => this.props.handleOtherExpenses(e)}
               className="form-control"/>
           </div>

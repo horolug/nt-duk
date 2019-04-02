@@ -287,7 +287,8 @@ class Form extends React.Component {
               handleNotaryFee={(e) => this.handleNotaryFee(e) }
               handleOtherExpenses={(e) => this.handleOtherExpenses(e)}
               customNotaryFee={this.state.customNotaryFee}
-              notaryFee={ helpers.calculateNotaryFee(this.state.sellPrice)}
+              notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)}
+              otherExpenses={this.state.otherExpenses}
               nextQuestion={(e) => this.flipQuestionCard(e)}
               jumpToQuestion={this.jumpToQuestion}
               price={this.state.sellPrice}
@@ -302,7 +303,7 @@ class Form extends React.Component {
               jumpToQuestion={this.jumpToQuestion}
             />
 
-            <div className="mt-4">
+            <div className="mt-4 text-center">
               <button
                 disabled = {this.isFormValid() ? false : true }
                 onClick={this.handleSubmit}
@@ -320,6 +321,7 @@ class Form extends React.Component {
              timeDiff={this.state.timeDiff}
              priceDiff={this.state.priceDiff}
              notaryFee={this.state.notaryFee}
+             otherExpenses={this.state.otherExpenses}
              taxAmount={this.state.taxAmount}
              taxDueDate={this.state.taxDueDate}
              taxReportDueDate={this.state.taxReportDueDate}

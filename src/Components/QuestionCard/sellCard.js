@@ -33,11 +33,15 @@ class SellCard extends React.Component {
         handleNotaryFee={this.props.handleNotaryFee}
         handleOtherExpenses={this.props.handleOtherExpenses}
         customNotaryFee={this.props.customNotaryFee}
+        otherExpenses={this.props.otherExpenses}
         notaryFee={this.props.notaryFee} />
 
-      <button
-        onClick={this.props.nextQuestion}
-        className="btn btn-primary">Kitas klausimas </button>
+      <div className="text-right">
+        <button
+          onClick={this.props.nextQuestion}
+          className="btn btn-primary">Kitas klausimas </button>
+      </div>
+
     </div>;
     if ( this.props.isVisible === 2 ){
       return (

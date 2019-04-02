@@ -46,6 +46,9 @@ class Summary extends React.Component {
               <li>
                 Notaro mokestis {this.props.notaryFee}
               </li>
+              <li>
+                Kitos islaidos susijusios su pardavimu {this.props.otherExpenses}
+              </li>
             </ul>
           </li>
           <li className="list-group-item">

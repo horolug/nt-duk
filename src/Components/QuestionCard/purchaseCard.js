@@ -27,9 +27,12 @@ class PurchaseCard extends React.Component {
           </div>
         </div>
       </div>
-      <button
-        onClick={this.props.nextQuestion}
-        className="btn btn-primary">Kitas klausimas </button>
+      <div className="text-right">
+        <button
+          onClick={this.props.nextQuestion}
+          className="btn btn-primary">Kitas klausimas </button>
+      </div>
+
     </div>;
     if( this.props.isVisible === 1 ){
       return (
