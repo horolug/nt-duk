@@ -61,16 +61,7 @@ const helpers = {
   },
 
   taxReportDueDate(sellYear, sellMonth, sellDay){
-    const sellDate = sellYear+"-"+sellMonth+"-"+sellDay;
-    const dueDate = sellYear+'-05-02';
-    let taxReportDueDate = "";
-    if ( moment(sellDate).isBefore(dueDate) ){
-      taxReportDueDate = helpers.businessDay(  dueDate );
-    } else {
-      // sale happened after tax report due date, so tax payment is due in 2 years;
-      taxReportDueDate = helpers.businessDay(  (parseInt(sellYear)+1)+'-05-02'  );
-    }
-
+    const taxReportDueDate = taxReportDueDate = helpers.businessDay( (parseInt(sellYear)+1)+'-05-02'  );
     return taxReportDueDate;
   },
 
@@ -81,18 +72,8 @@ const helpers = {
     // next working day is selected
     // [year-05-01] - is a national holiday in Lithuania
     // FIXME - check if next days are not weekend days
-
-    const sellDate = moment (sellYear+"-"+sellMonth+"-"+sellDay );
-    let taxPaymentDate = "";
-    if ( moment(sellDate).isBefore(sellYear+'-05-02') ){
-      // sale happened before tax report due date, so tax payment is due date is next year;
-      taxPaymentDate = helpers.businessDay(  (parseInt(sellYear)+1)+'-05-02' );
-      return taxPaymentDate
-    } else {
-      // sale happened after tax report due date, so tax payment is due in 2 years;
-      taxPaymentDate = helpers.businessDay(  (parseInt(sellYear)+2)+'-05-02' );
-      return taxPaymentDate
-    }
+    const taxPaymentDate = helpers.businessDay(  (parseInt(sellYear)+2)+'-05-02' );;
+    return taxPaymentDate;
   },
 
   calculateNotaryFee(sellPrice){

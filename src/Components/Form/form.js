@@ -52,7 +52,9 @@ class Form extends React.Component {
     const taxRate = 0.15;
     const isTaxRequired = helpers.isTaxRequired(timeDiff, this.state.dwellingStatus);
     let priceDiff = (this.state.sellPrice - this.state.purchasePrice);
+    console.log("priceDiff 54", priceDiff);
     priceDiff = priceDiff.toFixed(2);
+    console.log("priceDiff 56", priceDiff);
     let taxAmount = "Moketi nereikia";
     let notaryFee = "";
 
