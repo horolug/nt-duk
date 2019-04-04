@@ -10,6 +10,8 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      width: window.innerWidth,
+      showSummaryOnMobile: false,
       sellYear: new Date().getFullYear() + 1,
       sellMonth: 1,
       sellDay: 1,
@@ -41,6 +43,18 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOptions = this.handleOptions.bind(this);
     this.handleNotaryFee = this.handleNotaryFee.bind(this);
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
   }
 
   calculateTax( timeDiff, isFormValid ){
@@ -229,8 +243,10 @@ class Form extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     if ( this.isFormValid() ){
-      console.log("form is valid, calculating due tax");
       this.calculateTax( this.timeDiff(), this.isFormValid() );
+      this.setState({
+        showSummaryOnMobile: true
+      });
     }
   }
 
@@ -248,6 +264,28 @@ class Form extends React.Component {
       'month': this.state.sellMonth,
       'day': this.state.sellDay
     };
+    const { width } = this.state;
+    const isMobile = width < 768;
+
+    let summary = "";
+    if ( !isMobile || this.state.showSummaryOnMobile ){
+      summary = <div className="col-sm-12 col-md-6">
+        <Summary
+         purchase={purchase}
+         sell={sell}
+         purchasePrice={this.state.purchasePrice}
+         sellPrice={this.state.sellPrice}
+         timeDiff={this.state.timeDiff}
+         priceDiff={this.state.priceDiff}
+         notaryFee={this.state.notaryFee}
+         otherExpenses={this.state.otherExpenses}
+         taxAmount={this.state.taxAmount}
+         taxDueDate={this.state.taxDueDate}
+         taxReportDueDate={this.state.taxReportDueDate}
+        />
+      </div>
+    }
+
     return (
       <form>
         <div className="row">
@@ -305,7 +343,7 @@ class Form extends React.Component {
               jumpToQuestion={this.jumpToQuestion}
             />
 
-            <div className="mt-4 text-center">
+            <div className="mt-4 mb-4 text-center">
               <button
                 disabled = {this.isFormValid() ? false : true }
                 onClick={this.handleSubmit}
@@ -314,21 +352,9 @@ class Form extends React.Component {
               </button>
             </div>
           </div>
-          <div className="col-sm-12 col-md-6">
-            <Summary
-             purchase={purchase}
-             sell={sell}
-             purchasePrice={this.state.purchasePrice}
-             sellPrice={this.state.sellPrice}
-             timeDiff={this.state.timeDiff}
-             priceDiff={this.state.priceDiff}
-             notaryFee={this.state.notaryFee}
-             otherExpenses={this.state.otherExpenses}
-             taxAmount={this.state.taxAmount}
-             taxDueDate={this.state.taxDueDate}
-             taxReportDueDate={this.state.taxReportDueDate}
-            />
-          </div>
+
+          {summary}
+
         </div>
 
       </form>

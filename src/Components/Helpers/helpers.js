@@ -61,7 +61,7 @@ const helpers = {
   },
 
   taxReportDueDate(sellYear, sellMonth, sellDay){
-    const taxReportDueDate = taxReportDueDate = helpers.businessDay( (parseInt(sellYear)+1)+'-05-02'  );
+    const taxReportDueDate = helpers.businessDay( (parseInt(sellYear)+1)+'-05-02'  );
     return taxReportDueDate;
   },
 
