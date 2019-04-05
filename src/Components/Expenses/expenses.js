@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Expenses extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -73,7 +73,11 @@ class Expenses extends React.Component {
       </div>
     );
   }
+}
 
+Expenses.propTypes = {
+   notaryFee: PropTypes.number.isRequired,
+   otherExpenses: PropTypes.number
 }
 
 export default Expenses;

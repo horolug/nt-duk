@@ -1,5 +1,6 @@
 import React from 'react';
-import DateBlock from '../DateBlock/dateBlock'
+import DateBlock from '../DateBlock/dateBlock';
+import PropTypes from 'prop-types';
 
 class PurchaseCard extends React.Component {
 
@@ -55,6 +56,10 @@ class PurchaseCard extends React.Component {
       );
     }
   }
+}
+
+PurchaseCard.propTypes = {
+   price: PropTypes.number.isRequired
 }
 
 export default PurchaseCard;
