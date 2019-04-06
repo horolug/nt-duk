@@ -60,12 +60,12 @@ const helpers = {
     return dueDate.format('YYYY-MM-DD');
   },
 
-  taxReportDueDate(sellYear, sellMonth, sellDay){
+  taxReportDueDate(sellYear){
     const taxReportDueDate = helpers.businessDay( (parseInt(sellYear)+1)+'-05-02'  );
     return taxReportDueDate;
   },
 
-  taxDueDate(sellYear, sellMonth, sellDay){
+  taxDueDate(sellYear){
     // sell is to be declared before [year]-05-01, say 2018-05-01
     // tax is to be paid on [year + 1]-05-01, say 2019-05-01
     // tax due date can be only a work day, so of [year]-05-01 is a holiday,
