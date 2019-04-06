@@ -25,8 +25,6 @@ class Form extends React.Component {
       yearRange: helpers.yearRange(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
       currentYear: new Date().getFullYear(),
-      purchaseDate: "",
-      sellDate: "",
       timeDiff: "",
       priceDiff: "",
       taxAmount: "Moketi nereikia",
