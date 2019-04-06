@@ -19,7 +19,7 @@ class Summary extends React.Component {
   render() {
     let infoOpen = {
       display: 'none'
-    }
+    };
     if(this.state.taxDetailsOpen) {
       infoOpen = {
         display: 'block'
@@ -29,7 +29,6 @@ class Summary extends React.Component {
     const buttonText = this.state.taxDetailsOpen ? 'Slepti papildoma informacija' : 'Rodyti papildoma informacija';
     const sellString = this.props.sell.year+"-"+this.props.sell.month+"-"+this.props.sell.day;
     const purchaseString = this.props.purchase.year+"-"+this.props.purchase.month+"-"+this.props.purchase.day;
-
     let sellDate = moment(sellString).format('DD-MM-YYYY');
     let purchaseDate = moment(purchaseString).format('DD-MM-YYYY');
 

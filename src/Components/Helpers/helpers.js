@@ -26,7 +26,7 @@ const helpers = {
   },
 
   dayRange(year, month){
-    const maxDays = moment(year+"-"+month, "YYYY-MM").daysInMonth();
+    const maxDays = moment(month+"-"+year, "MM-YYYY").daysInMonth();
     let dayRange = [];
     for (  let i = 1; i < maxDays; i++  ){
       dayRange.push(i);
@@ -52,16 +52,16 @@ const helpers = {
   },
 
   businessDay ( date ){
-    let dueDate = moment(date, "YYYY-MM-DD");
+    let dueDate = moment(date, "DD-MM-YYYY");
     while ( !business.isWeekDay( dueDate ) ){
       dueDate = dueDate.add(1, 'd');
     }
 
-    return dueDate.format('YYYY-MM-DD');
+    return dueDate.format('DD-MM-YYYY');
   },
 
   taxReportDueDate(sellYear){
-    const taxReportDueDate = helpers.businessDay( (parseInt(sellYear)+1)+'-05-02'  );
+    const taxReportDueDate = helpers.businessDay( '02-05'+(parseInt(sellYear)+1) );
     return taxReportDueDate;
   },
 
@@ -72,7 +72,7 @@ const helpers = {
     // next working day is selected
     // [year-05-01] - is a national holiday in Lithuania
     // FIXME - check if next days are not weekend days
-    const taxPaymentDate = helpers.businessDay(  (parseInt(sellYear)+2)+'-05-02' );;
+    const taxPaymentDate = helpers.businessDay(  '02-05'+(parseInt(sellYear)+2) );
     return taxPaymentDate;
   },
 

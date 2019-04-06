@@ -65,8 +65,8 @@ class SellCard extends React.Component {
   }
 }
 
-SellCard.propTypes = {
-   price: PropTypes.number.isRequired
-}
+// SellCard.propTypes = {
+//    price: PropTypes.number.isRequired
+// }
 
 export default SellCard;

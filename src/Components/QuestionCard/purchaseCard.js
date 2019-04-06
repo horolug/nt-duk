@@ -58,8 +58,8 @@ class PurchaseCard extends React.Component {
   }
 }
 
-PurchaseCard.propTypes = {
-   price: PropTypes.number.isRequired
-}
+// PurchaseCard.propTypes = {
+//    price: PropTypes.number.isRequired
+// }
 
 export default PurchaseCard;
