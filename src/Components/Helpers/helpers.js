@@ -98,6 +98,10 @@ const helpers = {
     }
 
     return cardFilled;
+  },
+  validPrice( price ){
+    const formattedPrice =  Number.parseFloat(price).toFixed(2);
+    return Number.parseFloat(formattedPrice);
   }
 }
 

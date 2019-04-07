@@ -152,7 +152,7 @@ class Form extends React.Component {
 
   handlePrice(event){
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: helpers.validPrice(event.target.value)
     });
   }
 
@@ -165,7 +165,7 @@ class Form extends React.Component {
 
   handleOtherExpenses(event){
     this.setState({
-      otherExpenses: event.target.value
+      otherExpenses: helpers.validPrice(event.target.value)
     });
   }
 
