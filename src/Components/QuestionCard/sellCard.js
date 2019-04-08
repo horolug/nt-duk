@@ -1,11 +1,31 @@
 import React from 'react';
 import DateBlock from '../DateBlock/dateBlock';
-import Expenses from '../Expenses/expenses';
 import PropTypes from 'prop-types';
 
 class SellCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expensesOpen: false
+    };
+  }
+
+  handleClick(event){
+    this.setState({
+      expensesOpen: !this.state.expensesOpen
+    });
+  }
 
   render() {
+    let infoOpen = {
+      display: 'none'
+    }
+    if(this.state.expensesOpen) {
+      infoOpen = {
+        display: 'block'
+      };
+    }
+    const buttonText = this.state.expensesOpen ? 'slepti' : 'rodyti daugiau';
     const cardContent = <div className="card-body">
       <div className="row">
         <div className="col">
@@ -29,13 +49,32 @@ class SellCard extends React.Component {
           </div>
         </div>
       </div>
+      <div className="form-group">
+        <p> Notaro mokestis <span className="badge badge-primary">{this.props.notaryFee} Eur</span> </p>
+        <p>Sumokėjote kitokį notaro mokėstį? Įveskite:</p>
+        <input
+          type="number"
+          name="purchasePrice"
+          value={this.props.customNotaryFee}
+          onChange={(e) => this.props.handleNotaryFee(e)}
+          className="form-control"/>
+      </div>
 
-      <Expenses
-        handleNotaryFee={this.props.handleNotaryFee}
-        handleOtherExpenses={this.props.handleOtherExpenses}
-        customNotaryFee={this.props.customNotaryFee}
-        otherExpenses={this.props.otherExpenses}
-        notaryFee={this.props.notaryFee} />
+      <button
+        onClick={(e) => this.handleClick(e) }
+        data-target="expensesOpen"
+        className="btn btn-info btn-sm"
+        type="button">
+        {buttonText}
+      </button>
+
+      <div className="form-group mt-4" style={infoOpen}>
+        <label><strong>Notaro mokestis</strong></label>
+        <p>Notaro mokestis: 0.45% nuo pardavimo sumos,
+          bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.40 Eur.
+          </p>
+        <p>Automatiškai paskaičiuota suma yra {this.props.notaryFee} Eur.</p>
+      </div>
 
       <div className="text-right">
         <button

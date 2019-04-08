@@ -52,7 +52,7 @@ class questionCard extends React.Component {
             {questionCard2}
           </div>;
 
-    if ( this.props.isVisible === 3 ){
+    if ( this.props.isVisible === 4 ){
       return (
         <div className="mb-2">
           <div className="card">
@@ -67,7 +67,7 @@ class questionCard extends React.Component {
           <div className="card">
             <div
               className="card-header"
-              onClick={() => this.props.jumpToQuestion(3)}>
+              onClick={() => this.props.jumpToQuestion(4)}>
                 <button className="btn btn-link"> Deklaruota gyvenamoji vieta </button>
             </div>
           </div>

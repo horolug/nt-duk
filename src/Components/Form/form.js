@@ -5,6 +5,8 @@ import Summary from '../Summary/summary'
 import QuestionCard from '../QuestionCard/questionCard'
 import PurchaseCard from '../QuestionCard/purchaseCard'
 import SellCard from '../QuestionCard/sellCard'
+import Expenses from '../QuestionCard/expenses';
+
 
 class Form extends React.Component {
   constructor(props) {
@@ -157,7 +159,6 @@ class Form extends React.Component {
   }
 
   handleNotaryFee(event){
-    console.log("handleNotaryFee fired", event.target.value);
     this.setState({
       customNotaryFee: event.target.value
     });
@@ -321,17 +322,22 @@ class Form extends React.Component {
               days={sellDays.map( (e) => {
                 return <option key={e} value={e}>{e}</option>;
               })}
-              handlePrice={this.handlePrice}
-              handleNotaryFee={(e) => this.handleNotaryFee(e) }
-              handleOtherExpenses={(e) => this.handleOtherExpenses(e)}
+              handleNotaryFee={(e) => this.handleNotaryFee(e)}
               customNotaryFee={this.state.customNotaryFee}
+              handlePrice={this.handlePrice}
               notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)}
-              otherExpenses={this.state.otherExpenses}
               nextQuestion={(e) => this.flipQuestionCard(e)}
               jumpToQuestion={this.jumpToQuestion}
               price={this.state.sellPrice}
               selectedDate={sell}
               />
+
+            <Expenses
+              isVisible={this.state.questionStep}
+              handleOtherExpenses={(e) => this.handleOtherExpenses(e)}
+              otherExpenses={this.state.otherExpenses}
+              jumpToQuestion={this.jumpToQuestion}
+              notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)} />
 
             <QuestionCard
               isVisible={this.state.questionStep}
@@ -350,11 +356,8 @@ class Form extends React.Component {
               </button>
             </div>
           </div>
-
           {summary}
-
         </div>
-
       </form>
     );
   }
