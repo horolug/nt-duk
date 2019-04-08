@@ -16,6 +16,15 @@ class Summary extends React.Component {
     });
   }
 
+  priceSuffix( price ){
+    const suffix = ' Eur';
+
+    if ( typeof price === 'string' || price === ''){
+      return price;
+    }
+    return price + suffix;
+  }
+
   render() {
     let infoOpen = {
       display: 'none'
@@ -28,9 +37,8 @@ class Summary extends React.Component {
 
     const sellString = this.props.sell.year+"-"+this.props.sell.month+"-"+this.props.sell.day;
     const purchaseString = this.props.purchase.year+"-"+this.props.purchase.month+"-"+this.props.purchase.day;
-    let sellDate = moment(sellString).format('DD-MM-YYYY');
-    let purchaseDate = moment(purchaseString).format('DD-MM-YYYY');
-
+    let sellDate = moment(sellString).format('YYYY-MM-DD');
+    let purchaseDate = moment(purchaseString).format('YYYY-MM-DD');
     if (sellDate === "Invalid date") {
       sellDate = <span className="badge badge-warning"> Netinkama data</span>;
     }
@@ -43,23 +51,23 @@ class Summary extends React.Component {
       <div className="form-group">
         <ul className="list-group">
           <li className="list-group-item">Turtas perėjo nuosavybėn {purchaseDate}</li>
-          <li className="list-group-item">Įsigijimo kaina {this.props.purchasePrice} Eur</li>
+          <li className="list-group-item">Įsigijimo kaina {this.priceSuffix( this.props.purchasePrice )}</li>
           <li className="list-group-item">Turtas parduodamas {sellDate}</li>
-          <li className="list-group-item">Pardavimo kaina {this.props.sellPrice} Eur</li>
-          <li className="list-group-item">Kainų skirtumas {this.props.priceDiff} Eur</li>
+          <li className="list-group-item">Pardavimo kaina {this.priceSuffix(this.props.sellPrice)}</li>
+          <li className="list-group-item">Kainų skirtumas {this.priceSuffix(this.props.priceDiff)}</li>
           <li className="list-group-item">
             <p>Išlaidos susijusios su turto pardavimu</p>
             <ul>
               <li>
-                Notaro mokestis {this.props.notaryFee} Eur
+                Notaro mokestis {this.priceSuffix(this.props.notaryFee)}
               </li>
               <li>
-                Kitos išlaidos {this.props.otherExpenses} Eur
+                Kitos išlaidos {this.priceSuffix(this.props.otherExpenses)}
               </li>
             </ul>
           </li>
           <li className="list-group-item">
-            <p>GPM (Gyventojų pajamų mokestis) pardavus turtą <strong>{this.props.taxAmount}</strong> Eur</p>
+            <p>GPM (Gyventojų pajamų mokestis) pardavus turtą <strong> {this.priceSuffix(this.props.taxAmount)}</strong></p>
           </li>
           <li className="list-group-item">Pajamų deklaraciją užpildyti iki {this.props.taxReportDueDate}</li>
           <li className="list-group-item">GPM sumokėti iki {this.props.taxDueDate}</li>

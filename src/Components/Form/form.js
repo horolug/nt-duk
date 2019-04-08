@@ -78,7 +78,7 @@ class Form extends React.Component {
       notaryFee = parseFloat(notaryFee).toFixed(2)
     } else {
       notaryFee = this.state.customNotaryFee;
-      notaryFee = parseFloat(notaryFee).toFixed(2);
+      // notaryFee = helpers.validPrice( notaryFee );
     }
 
     if (this.state.otherExpenses === ""){
@@ -93,9 +93,9 @@ class Form extends React.Component {
     }
 
     this.setState({
-      taxAmount: taxAmount,
-      priceDiff: priceDiff,
-      notaryFee: notaryFee,
+      taxAmount: helpers.validPrice(taxAmount),
+      priceDiff: helpers.validPrice(priceDiff),
+      notaryFee: helpers.validPrice(notaryFee),
       timeDiff: timeDiff,
       taxDueDate: helpers.taxDueDate(this.state.sellYear),
       taxReportDueDate: helpers.taxReportDueDate(this.state.sellYear),
@@ -159,8 +159,11 @@ class Form extends React.Component {
   }
 
   handleNotaryFee(event){
+    console.log("=====");
+    console.log("typeof notary fee", typeof helpers.validPrice(event.target.value));
+    console.log("=====");
     this.setState({
-      customNotaryFee: event.target.value
+      customNotaryFee: helpers.validPrice(event.target.value)
     });
   }
 
@@ -277,6 +280,7 @@ class Form extends React.Component {
          timeDiff={this.state.timeDiff}
          priceDiff={this.state.priceDiff}
          notaryFee={this.state.notaryFee}
+         customNotaryFee={this.state.customNotaryFee}
          otherExpenses={this.state.otherExpenses}
          taxAmount={this.state.taxAmount}
          taxDueDate={this.state.taxDueDate}
