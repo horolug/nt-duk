@@ -30,9 +30,9 @@ class Expenses extends React.Component {
 
     return (
       <div className="form-group">
-        <h4> Islaidos susijusios su pardavimu</h4>
+        <h4> Išlaidos susijusios su pardavimu</h4>
 
-        <p> Notaro mokestis <span className="badge badge-primary">{this.props.notaryFee}</span> </p>
+        <p> Notaro mokestis <span className="badge badge-primary">{this.props.notaryFee} Eur</span> </p>
           <button
             onClick={(e) => this.handleClick(e) }
             data-target="expensesOpen"
@@ -44,11 +44,11 @@ class Expenses extends React.Component {
         <div style={infoOpen}>
           <div className="mt-4">
             <label><strong>Notaro mokestis</strong></label>
-            <p>Notaro mokestis : 0.45 procento nuo pardavimo sumos,
-              bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.4 Eur.
+            <p>Notaro mokestis: 0.45% nuo pardavimo sumos,
+              bet ne mažiau kaip 28.96 Eur ir ne daugiau kaip 5792.40 Eur.
               </p>
-            <p>Automatiskai paskaiciuota suma yra {this.props.notaryFee}.
-              Jeigu buvo sumoketa kita suma, prasome ivesti ja</p>
+            <p>Automatiškai paskaičiuota suma yra {this.props.notaryFee} Eur.</p>
+            <p>Sumokėjote kitokią sumą? Įveskite:</p>
             <input
               type="number"
               name="purchasePrice"
@@ -58,9 +58,11 @@ class Expenses extends React.Component {
           </div>
 
           <div className="mt-4">
-            <label><strong>Kitos islaidos</strong></label>
-            <p>Islaidos skirtos padidinti turto verte, pavyzdziui, islaidos
-              remontui</p>
+            <label><strong>Kitos išlaidos</strong></label>
+            <p>Ar turėjote kitų išlaidų skirtų padidinti turto vertę, pvz, išlaidų
+              remontui?</p>
+            <p>Svarbu: išlaidos turi būti pagrįstos dokumentais (vardiniais čekiais ir pan.)</p>
+            <p>Visų išlaidų suma, Eur:</p>
             <input
               type="number"
               name="purchasePrice"

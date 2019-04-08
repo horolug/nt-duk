@@ -17,7 +17,7 @@ class questionCard extends React.Component {
               onChange={(e)=>this.props.onChange(e)}
             />
             <label className="form-check-label" htmlFor="primaryDwellingShort">
-              Deklaruota gyvenimo vieta maziau nei 2 metai
+              Trumpiau nei 2 metai
             </label>
           </div>
           <div className="form-check">
@@ -29,7 +29,7 @@ class questionCard extends React.Component {
               onChange={(e)=>this.props.onChange(e)}
             />
             <label className="form-check-label" htmlFor="primaryDwelling">
-              Deklaruota gyvenimo vieta daugiau nei 2 metai
+              Ilgiau nei 2 metai
             </label>
           </div>
         </div>;
@@ -37,7 +37,7 @@ class questionCard extends React.Component {
 
     const cardContent = <div className="card-body">
             <label className="form-check-label" htmlFor="primaryDwelling">
-              Ar parduodamas turtas - deklaruota gyvenimo vieta
+              Ar parduodamame turte deklaruota jūsų gyvenamoji vieta?
             </label>
             <div className="mt-4">
               <button
@@ -56,7 +56,7 @@ class questionCard extends React.Component {
       return (
         <div className="mb-2">
           <div className="card">
-            <div className="card-header"> Deklaruota gyvenimo vieta </div>
+            <div className="card-header"> Deklaruota gyvenamoji vieta </div>
             {cardContent}
           </div>
         </div>
@@ -68,7 +68,7 @@ class questionCard extends React.Component {
             <div
               className="card-header"
               onClick={() => this.props.jumpToQuestion(3)}>
-                <button className="btn btn-link"> Deklaruota gyvenimo vieta </button>
+                <button className="btn btn-link"> Deklaruota gyvenamoji vieta </button>
             </div>
           </div>
         </div>

@@ -18,7 +18,7 @@ class SellCard extends React.Component {
             months={this.props.months}
             days={this.props.days}
           />
-          <p>Kaina</p>
+          <p>Kaina, Eur</p>
           <div className="form-group">
             <input
               type="number"

@@ -27,7 +27,7 @@ class Form extends React.Component {
       currentYear: new Date().getFullYear(),
       timeDiff: "",
       priceDiff: "",
-      taxAmount: "Moketi nereikia",
+      taxAmount: "Mokėti nereikia",
       notaryFee: "",
       otherExpenses: "",
       customNotaryFee: "",
@@ -67,7 +67,7 @@ class Form extends React.Component {
     console.log("priceDiff 54", priceDiff);
     priceDiff = priceDiff.toFixed(2);
     console.log("priceDiff 56", priceDiff);
-    let taxAmount = "Moketi nereikia";
+    let taxAmount = "Mokėti nereikia";
     let notaryFee = "";
 
     let totalExpenses = ""; // notary fee + other expenses
@@ -346,7 +346,7 @@ class Form extends React.Component {
                 disabled = {this.isFormValid() ? false : true }
                 onClick={this.handleSubmit}
                 className="btn btn-primary">
-                Skaiciuoti
+                Skaičiuoti
               </button>
             </div>
           </div>
