@@ -89,11 +89,11 @@ class Form extends React.Component {
 
     if ( isTaxRequired && (parseFloat(priceDiff) > parseFloat(totalExpenses)) ){
       taxAmount = (priceDiff-totalExpenses) * taxRate;
-      taxAmount = taxAmount.toFixed(2);
+      taxAmount = helpers.validPrice(taxAmount);
     }
 
     this.setState({
-      taxAmount: helpers.validPrice(taxAmount),
+      taxAmount: taxAmount,
       priceDiff: helpers.validPrice(priceDiff),
       notaryFee: helpers.validPrice(notaryFee),
       timeDiff: timeDiff,
@@ -159,9 +159,6 @@ class Form extends React.Component {
   }
 
   handleNotaryFee(event){
-    console.log("=====");
-    console.log("typeof notary fee", typeof helpers.validPrice(event.target.value));
-    console.log("=====");
     this.setState({
       customNotaryFee: helpers.validPrice(event.target.value)
     });
@@ -269,8 +266,6 @@ class Form extends React.Component {
     const { width } = this.state;
     const isMobile = width < 768;
     let questionCard = '';
-    console.log("time diff", this.timeDiff() );
-
     if ( this.timeDiff() >= 2 ){
       questionCard = <QuestionCard
         isVisible={this.state.questionStep}
@@ -280,7 +275,6 @@ class Form extends React.Component {
         jumpToQuestion={this.jumpToQuestion}
       />;
     }
-
 
     let summary = "";
     if ( !isMobile || this.state.showSummaryOnMobile ){

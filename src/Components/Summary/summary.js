@@ -18,7 +18,6 @@ class Summary extends React.Component {
 
   priceSuffix( price ){
     const suffix = ' Eur';
-
     if ( typeof price === 'string' || price === ''){
       return price;
     }
