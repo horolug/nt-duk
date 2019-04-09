@@ -1,6 +1,5 @@
 import React from 'react';
 import DateBlock from '../DateBlock/dateBlock';
-import PropTypes from 'prop-types';
 
 class SellCard extends React.Component {
   constructor(props) {
@@ -103,9 +102,5 @@ class SellCard extends React.Component {
     }
   }
 }
-
-// SellCard.propTypes = {
-//    price: PropTypes.number.isRequired
-// }
 
 export default SellCard;

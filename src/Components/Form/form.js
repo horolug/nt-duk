@@ -58,17 +58,10 @@ class Form extends React.Component {
   }
 
   calculateTax( timeDiff, isFormValid ){
-    // FIXME - add following logic
-    // 1. when calculating due tax following expenses must be included:
-    // 1.2. TBC - real estate agent fees
-    // Improvement expenses - TBC the details
-    // turn all money values into cents before doing any calculations and rounding
     const taxRate = 0.15;
     const isTaxRequired = helpers.isTaxRequired(timeDiff, this.state.dwellingStatus);
     let priceDiff = (this.state.sellPrice - this.state.purchasePrice);
-    console.log("priceDiff 54", priceDiff);
     priceDiff = priceDiff.toFixed(2);
-    console.log("priceDiff 56", priceDiff);
     let taxAmount = "Mokėti nereikia";
     let notaryFee = "";
 
@@ -78,7 +71,6 @@ class Form extends React.Component {
       notaryFee = parseFloat(notaryFee).toFixed(2)
     } else {
       notaryFee = this.state.customNotaryFee;
-      // notaryFee = helpers.validPrice( notaryFee );
     }
 
     if (this.state.otherExpenses === ""){

@@ -44,7 +44,6 @@ const helpers = {
     // 3.1 sold property was primary dwelling for more than 2 years
 
     if ( (timeDiff >= 2)  && (dwellingStatus === "primaryDwelling") ){
-      console.log("got primary dwelling, no taxes");
       return false;
     } else if ( timeDiff < 10 ){
       return true;
@@ -61,7 +60,7 @@ const helpers = {
   },
 
   taxReportDueDate(sellYear){
-    const taxReportDueDate = helpers.businessDay( '02-05'+(parseInt(sellYear)+1) );
+    const taxReportDueDate = helpers.businessDay( (parseInt(sellYear)+1)+'-05-02' );
     return taxReportDueDate;
   },
 
@@ -72,7 +71,7 @@ const helpers = {
     // next working day is selected
     // [year-05-01] - is a national holiday in Lithuania
     // FIXME - check if next days are not weekend days
-    const taxPaymentDate = helpers.businessDay(  '02-05'+(parseInt(sellYear)+2) );
+    const taxPaymentDate = helpers.businessDay( (parseInt(sellYear)+2)+'-05-02' );
     return taxPaymentDate;
   },
 
