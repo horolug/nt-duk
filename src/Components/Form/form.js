@@ -105,10 +105,10 @@ class Form extends React.Component {
 
   timeDiff(){
     const purchaseDate = moment([this.state.purchaseYear,
-                                this.state.purchaseMonth,
+                                this.state.purchaseMonth-1,
                                 this.state.purchaseDay]);
     const sellDate = moment([this.state.sellYear,
-                            this.state.sellMonth,
+                            this.state.sellMonth-1,
                             this.state.sellDay]);
     const yearsPassed = sellDate.diff(purchaseDate, 'years');
     return yearsPassed;
@@ -268,6 +268,19 @@ class Form extends React.Component {
     };
     const { width } = this.state;
     const isMobile = width < 768;
+    let questionCard = '';
+    console.log("time diff", this.timeDiff() );
+
+    if ( this.timeDiff() >= 2 ){
+      questionCard = <QuestionCard
+        isVisible={this.state.questionStep}
+        onChange={(e) => this.handleQuestionCard(e)}
+        onClick={(e) => this.handleQuestionButton(e)}
+        primaryDwelling={this.state.primaryDwelling}
+        jumpToQuestion={this.jumpToQuestion}
+      />;
+    }
+
 
     let summary = "";
     if ( !isMobile || this.state.showSummaryOnMobile ){
@@ -286,7 +299,7 @@ class Form extends React.Component {
          taxDueDate={this.state.taxDueDate}
          taxReportDueDate={this.state.taxReportDueDate}
         />
-      </div>
+      </div>;
     }
 
     return (
@@ -343,13 +356,7 @@ class Form extends React.Component {
               jumpToQuestion={this.jumpToQuestion}
               notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)} />
 
-            <QuestionCard
-              isVisible={this.state.questionStep}
-              onChange={(e) => this.handleQuestionCard(e)}
-              onClick={(e) => this.handleQuestionButton(e)}
-              primaryDwelling={this.state.primaryDwelling}
-              jumpToQuestion={this.jumpToQuestion}
-            />
+            {questionCard}
 
             <div className="mt-4 mb-4 text-center">
               <button
