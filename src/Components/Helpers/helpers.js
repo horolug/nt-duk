@@ -51,12 +51,12 @@ const helpers = {
   },
 
   businessDay ( date ){
-    let dueDate = moment(date, "DD-MM-YYYY");
+    let dueDate = moment(date, "YYYY-MM-DD");
     while ( !business.isWeekDay( dueDate ) ){
       dueDate = dueDate.add(1, 'd');
     }
 
-    return dueDate.format('DD-MM-YYYY');
+    return dueDate.format('YYYY-MM-DD');
   },
 
   taxReportDueDate(sellYear){
