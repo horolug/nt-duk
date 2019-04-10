@@ -18,9 +18,14 @@ class Summary extends React.Component {
 
   priceSuffix( price ){
     const suffix = ' Eur';
+    if ( isNaN(price) ){
+      return '';
+    }
+
     if ( typeof price === 'string' || price === ''){
       return price;
     }
+
     return price + suffix;
   }
 
