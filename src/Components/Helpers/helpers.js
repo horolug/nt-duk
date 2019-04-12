@@ -100,7 +100,12 @@ const helpers = {
   },
   validPrice( price ){
     const formattedPrice = Number.parseFloat(price).toFixed(2);
-    return Number.parseFloat(formattedPrice);
+
+    if ( isNaN( Number.parseFloat(formattedPrice) ) ){
+      return 'Netinkamas Kainos formatas';
+    } else {
+      return Number.parseFloat(formattedPrice);
+    }
   }
 }
 
