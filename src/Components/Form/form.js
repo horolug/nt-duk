@@ -1,11 +1,12 @@
 import React from 'react';
-import moment from 'moment'
-import helpers from '../Helpers/helpers'
-import Summary from '../Summary/summary'
-import QuestionCard from '../QuestionCard/questionCard'
-import PurchaseCard from '../QuestionCard/purchaseCard'
-import SellCard from '../QuestionCard/sellCard'
+import moment from 'moment';
+import helpers from '../Helpers/helpers';
+import Summary from '../Summary/summary';
+import QuestionCard from '../QuestionCard/questionCard';
+import PurchaseCard from '../QuestionCard/purchaseCard';
+import SellCard from '../QuestionCard/sellCard';
 import Expenses from '../QuestionCard/expenses';
+import NewPurchase from '../QuestionCard/newPurchase';
 
 
 class Form extends React.Component {
@@ -198,7 +199,13 @@ class Form extends React.Component {
 
     if ( sellCardFilled === true && purhcaseCardFilled === true  ){
       questionStep = 3;
+
+      if ( this.state.primaryDwelling  ){
+        questionStep = 5;
+      }
     }
+
+
 
     this.setState({
       questionStep: questionStep
@@ -343,6 +350,8 @@ class Form extends React.Component {
               notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)} />
 
             {questionCard}
+
+            <NewPurchase />
 
             <div className="mt-4 mb-4 text-center">
               <button
