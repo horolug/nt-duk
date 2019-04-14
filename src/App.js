@@ -19,7 +19,7 @@ class App extends Component {
           <Form />
 
           <div className="border p-2 rounded-sm mt-4">
-            <Disqus.DiscussionEmbed shortname={disqusShortname} />
+            {/*<Disqus.DiscussionEmbed shortname={disqusShortname} />*/}
 
           </div>
         </div>

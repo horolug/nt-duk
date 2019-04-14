@@ -164,6 +164,7 @@ class Form extends React.Component {
   }
 
   jumpToQuestion = (question) => {
+    console.log("jump to question called");
     this.setState({
       questionStep: question
     });
@@ -351,7 +352,9 @@ class Form extends React.Component {
 
             {questionCard}
 
-            <NewPurchase />
+            <NewPurchase
+              isVisible={this.state.questionStep}
+              jumpToQuestion={this.jumpToQuestion}/>
 
             <div className="mt-4 mb-4 text-center">
               <button
