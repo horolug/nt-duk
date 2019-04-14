@@ -14,14 +14,16 @@ class newPurchase extends React.Component {
 
   newDwellingPurchase(e){
     e.preventDefault();
-    let nextPurchase = false;
     if(e.target.id === "newPrimaryDwelling"){
-      nextPurchase = true;
+      this.setState({
+        purchaseWithinOneYear: true,
+      });
+    } else {
+      this.setState({
+        purchaseWithinOneYear: false,
+        newPrimaryDwelling: false,
+      });
     }
-    console.log("newDwellingPurcase called ==?", e.target.id );
-    this.setState({
-      purchaseWithinOneYear: nextPurchase,
-    });
   }
 
   purchaseWithinYear(e){
@@ -30,7 +32,6 @@ class newPurchase extends React.Component {
     if(e.target.id === "newDwellingInOneYear"){
       fastPurchase = true;
     }
-    console.log("purchaseWithinYear called", e.target.id);
     this.setState({
       newPrimaryDwelling: fastPurchase,
     });
