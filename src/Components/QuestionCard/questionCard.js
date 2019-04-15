@@ -6,7 +6,7 @@ class questionCard extends React.Component {
     let questionCard2 = "";
     let selectedButton = "btn-light btn mr-2";
 
-    if ( this.props.primaryDwelling){
+    if ( this.props.primaryDwelling ){
       selectedButton = "btn-secondary btn mr-2";
       questionCard2 =<div className="mt-4"><div className="form-check">
             <input className="form-check-input"

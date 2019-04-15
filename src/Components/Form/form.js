@@ -140,6 +140,7 @@ class Form extends React.Component {
   }
 
   handleOptions(event){
+    event.preventDefault();
     this.setState({
       dwellingStatus: event.target.id
     });
@@ -164,7 +165,6 @@ class Form extends React.Component {
   }
 
   jumpToQuestion = (question) => {
-    console.log("jump to question called");
     this.setState({
       questionStep: question
     });
@@ -355,6 +355,7 @@ class Form extends React.Component {
             <NewPurchase
               isVisible={this.state.questionStep}
               sellDate={sell}
+              handleLastQuestion={(e)=>this.handleOptions(e)}
               jumpToQuestion={this.jumpToQuestion}/>
 
             <div className="mt-4 mb-4 text-center">

@@ -38,9 +38,17 @@ class newPurchase extends React.Component {
     });
   }
 
+  taxExemption(){
+    if ( this.state.purchaseWithinOneYear &&  this.state.newPrimaryDwelling ){
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
     const dueYear = parseInt(this.props.sellDate.year, 10) + 1;
-    const formattedDate = moment( dueYear+"-"+this.props.sellDate.month+"-"+this.props.sellDate.day).format("YYYY-MM-DD"); 
+    const formattedDate = moment( dueYear+"-"+this.props.sellDate.month+"-"+this.props.sellDate.day).format("YYYY-MM-DD");
     const purchaseWithinOneYear = <div className="mt-4">
       <p>Ar naujas būstas bus perkamas iki {formattedDate}</p>
       <button
@@ -56,6 +64,7 @@ class newPurchase extends React.Component {
       <p>Ar naujai perkamame būste bus deklaruota gyvenamoji vieta iki {formattedDate}</p>
       <button
         id="primaryDwellingInOneYear"
+        onClick={(e)=>this.props.handleLastQuestion(e)}
         className="btn btn-light ">Taip</button>
       <button
         id="noPrimaryDwellingInOneYear"
