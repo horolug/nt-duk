@@ -354,6 +354,7 @@ class Form extends React.Component {
 
             <NewPurchase
               isVisible={this.state.questionStep}
+              sellDate={sell}
               jumpToQuestion={this.jumpToQuestion}/>
 
             <div className="mt-4 mb-4 text-center">

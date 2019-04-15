@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment'
 
 class newPurchase extends React.Component {
 
@@ -38,8 +39,10 @@ class newPurchase extends React.Component {
   }
 
   render() {
+    const dueYear = parseInt(this.props.sellDate.year, 10) + 1;
+    const formattedDate = moment( dueYear+"-"+this.props.sellDate.month+"-"+this.props.sellDate.day).format("YYYY-MM-DD"); 
     const purchaseWithinOneYear = <div className="mt-4">
-      <p>Ar naujas būstas bus perkamas iki [Insert sell date + 1 year]</p>
+      <p>Ar naujas būstas bus perkamas iki {formattedDate}</p>
       <button
         id="newDwellingInOneYear"
         onClick={(e) => this.purchaseWithinYear(e)}
@@ -50,7 +53,7 @@ class newPurchase extends React.Component {
         className="btn btn-light ml-2">Ne</button>
     </div>;
     const newPrimaryDwelling =  <div className="mt-4">
-      <p>Ar naujai perkamame būste bus deklaruota gyvenamoji vieta iki [Insert sell date + 1 year]</p>
+      <p>Ar naujai perkamame būste bus deklaruota gyvenamoji vieta iki {formattedDate}</p>
       <button
         id="primaryDwellingInOneYear"
         className="btn btn-light ">Taip</button>
