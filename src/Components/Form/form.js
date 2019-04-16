@@ -296,6 +296,15 @@ class Form extends React.Component {
       </div>;
     }
 
+    let newPurchase = "";
+    if ( this.state.primaryDwelling ){
+      newPurchase = <NewPurchase
+        isVisible={this.state.questionStep}
+        sellDate={sell}
+        handleLastQuestion={(e)=>this.handleOptions(e)}
+        jumpToQuestion={this.jumpToQuestion}/>;
+    }
+
     return (
       <form>
         <div className="row">
@@ -351,12 +360,7 @@ class Form extends React.Component {
               notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)} />
 
             {questionCard}
-
-            <NewPurchase
-              isVisible={this.state.questionStep}
-              sellDate={sell}
-              handleLastQuestion={(e)=>this.handleOptions(e)}
-              jumpToQuestion={this.jumpToQuestion}/>
+            {newPurchase}
 
             <div className="mt-4 mb-4 text-center">
               <button
