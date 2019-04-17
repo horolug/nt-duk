@@ -97,12 +97,10 @@ class Form extends React.Component {
   }
 
   timeDiff(){
-    const purchaseDate = moment([this.state.purchaseYear,
-                                this.state.purchaseMonth-1,
-                                this.state.purchaseDay]);
-    const sellDate = moment([this.state.sellYear,
-                            this.state.sellMonth-1,
-                            this.state.sellDay]);
+    const purchaseString = this.state.purchaseYear+'-'+this.state.purchaseMonth+'-'+this.state.purchaseDay;
+    const sellSrtring = this.state.sellYear+'-'+this.state.sellMonth+'-'+this.state.sellDay;
+    const purchaseDate = moment(purchaseString, "YYYY-MM-DD");
+    const sellDate = moment(sellSrtring, "YYYY-MM-DD");
     const yearsPassed = sellDate.diff(purchaseDate, 'years');
     return yearsPassed;
   }

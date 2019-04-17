@@ -28,19 +28,10 @@ class Summary extends React.Component {
   }
 
   render() {
-    let infoOpen = {
-      display: 'none'
-    };
-    if(this.state.taxDetailsOpen) {
-      infoOpen = {
-        display: 'block'
-      };
-    }
-
     const sellString = this.props.sell.year+"-"+this.props.sell.month+"-"+this.props.sell.day;
     const purchaseString = this.props.purchase.year+"-"+this.props.purchase.month+"-"+this.props.purchase.day;
-    let sellDate = moment(sellString).format('YYYY-MM-DD');
-    let purchaseDate = moment(purchaseString).format('YYYY-MM-DD');
+    let sellDate = moment(sellString, "YYYY-MM-DD").format("YYYY-MM-DD");
+    let purchaseDate = moment(purchaseString, "YYYY-MM-DD").format("YYYY-MM-DD");
     if (sellDate === "Invalid date") {
       sellDate = <span className="badge badge-warning"> Netinkama data</span>;
     }
