@@ -112,11 +112,9 @@ class Form extends React.Component {
   }
 
   handleQuestionCard(event){
-    if (event.target.name === "dwellingOption"){
-      this.setState({
-        dwellingStatus: event.target.id
-      });
-    }
+    this.setState({
+      dwellingStatus: event.target.id
+    });
   }
 
   handleQuestionButton(event){
@@ -198,13 +196,10 @@ class Form extends React.Component {
 
     if ( sellCardFilled === true && purhcaseCardFilled === true  ){
       questionStep = 3;
-
       if ( this.state.primaryDwelling  ){
         questionStep = 5;
       }
     }
-
-
 
     this.setState({
       questionStep: questionStep
@@ -295,7 +290,7 @@ class Form extends React.Component {
     }
 
     let newPurchase = "";
-    if ( this.state.primaryDwelling ){
+    if ( this.state.dwellingStatus === "primaryDwellingShort" ){
       newPurchase = <NewPurchase
         isVisible={this.state.questionStep}
         sellDate={sell}
