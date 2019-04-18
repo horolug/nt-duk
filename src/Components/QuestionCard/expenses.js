@@ -16,6 +16,12 @@ class Expenses extends React.Component {
 
         <p className="mt-4">Svarbu: išlaidos turi būti pagrįstos dokumentais (vardiniais čekiais ir pan.)</p>
         <p>Svarbu: Jeigu turto vertės didinimui buvo panaudota paskola, sumokėtos palūkanos negali būti įtrauktos į išlaidas.</p>
+
+        <div className="text-right">
+          <button
+            onClick={this.props.nextQuestion}
+            className="btn btn-primary">Kitas klausimas </button>
+        </div>
       </div>;
 
     if( this.props.isVisible === 3 ){

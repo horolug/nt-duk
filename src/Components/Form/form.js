@@ -171,7 +171,7 @@ class Form extends React.Component {
     // when purchase card is filled, sell card is shown
     // when sell card is filled, dwelling options card is shown
     event.preventDefault();
-
+    const currentStep = this.state.questionStep;
     let questionStep = 1;
 
     const purchaseCard = [
@@ -192,12 +192,15 @@ class Form extends React.Component {
 
     if ( purhcaseCardFilled === true ){
       questionStep = 2;
-    }
-
-    if ( sellCardFilled === true && purhcaseCardFilled === true  ){
-      questionStep = 3;
-      if ( this.state.primaryDwelling  ){
-        questionStep = 5;
+      if (sellCardFilled === true){
+        questionStep = 3;
+        if ( currentStep === 3 ){
+          // this question is optional
+          questionStep = 4;
+        }
+        if ( this.state.dwellingStatus === "primaryDwellingShort"  ){
+          questionStep = 5;
+        }
       }
     }
 
@@ -265,6 +268,8 @@ class Form extends React.Component {
         onChange={(e) => this.handleQuestionCard(e)}
         onClick={(e) => this.handleQuestionButton(e)}
         primaryDwelling={this.state.primaryDwelling}
+        dwellingStatus={this.state.dwellingStatus}
+        nextQuestion={(e) => this.flipQuestionCard(e)}
         jumpToQuestion={this.jumpToQuestion}
       />;
     }
@@ -348,6 +353,7 @@ class Form extends React.Component {
             <Expenses
               isVisible={this.state.questionStep}
               handleOtherExpenses={(e) => this.handleOtherExpenses(e)}
+              nextQuestion={(e) => this.flipQuestionCard(e)}
               otherExpenses={this.state.otherExpenses}
               jumpToQuestion={this.jumpToQuestion}
               notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)} />

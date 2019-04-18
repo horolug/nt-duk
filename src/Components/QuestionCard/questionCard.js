@@ -5,6 +5,16 @@ class questionCard extends React.Component {
   render() {
     let questionCard2 = "";
     let selectedButton = "btn-light btn mr-2";
+    let nextQuestion = "";
+
+
+    if ( this.props.dwellingStatus === "primaryDwellingShort" ){
+      nextQuestion = <div className="text-right">
+        <button
+          onClick={this.props.nextQuestion}
+          className="btn btn-primary mt-2">Kitas klausimas </button>
+      </div>;
+    }
 
     if ( this.props.primaryDwelling ){
       selectedButton = "btn-secondary btn mr-2";
@@ -50,6 +60,7 @@ class questionCard extends React.Component {
                 className="btn btn-light">Ne</button>
             </div>
             {questionCard2}
+            {nextQuestion}
           </div>;
 
     if ( this.props.isVisible === 4 ){
