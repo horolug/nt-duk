@@ -6,7 +6,8 @@ class newPurchase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      purchaseWithinOneYear: false,
+      newPurchase: false,
+      purchaseInOneYear: false,
       newPrimaryDwelling: false,
       newDwelling: 'btn-light btn',
       noNewDwelling: 'btn-light btn ml-2',
@@ -15,92 +16,105 @@ class newPurchase extends React.Component {
       newPrimary: 'btn-light btn',
       noNewPrimary: 'btn-light btn ml-2',
     };
-    this.newDwellingPurchase = this.newDwellingPurchase.bind(this);
-    this.purchaseWithinYear = this.purchaseWithinYear.bind(this);
   }
 
   newDwellingPurchase(e){
     e.preventDefault();
     if(e.target.id === "newDwelling"){
       this.setState({
-        purchaseWithinOneYear: true,
+        newPurchase: true,
       });
     } else {
       this.setState({
-        purchaseWithinOneYear: false,
+        purchaseInOneYear: false,
+        newPurchase: false,
         newPrimaryDwelling: false,
       });
     }
   }
 
+  taxExemption(){
+    if ( this.state.newPrimaryDwelling ){
+      return true;
+    }
+    return false;
+  }
+
   purchaseWithinYear(e){
     e.preventDefault();
     let fastPurchase = false;
+    console.log("purchaseWithinYear called");
     if(e.target.id === "inOneYear"){
       fastPurchase = true;
     }
     this.setState({
-      newPrimaryDwelling: fastPurchase,
+      purchaseInOneYear: fastPurchase,
     });
   }
 
-  taxExemption(){
-    if ( this.state.purchaseWithinOneYear &&  this.state.newPrimaryDwelling ){
-      return true;
+  newPrimaryDwelling(e){
+    e.preventDefault();
+    let newPrimary = false
+    if(e.target.id === "newPrimary"){
+      newPrimary = true;
     }
-
-    return false;
+    this.setState({
+      newPrimaryDwelling: newPrimary,
+    });
   }
 
   handleClick(e){
     e.preventDefault();
+    const activeYes = 'btn-secondary btn';
+    const activeNo = 'btn-secondary btn ml-2';
+    const neutralYes = 'btn-light btn';
+    const neutralNo = 'btn-light btn ml-2';
 
     // Fixme - needs refactoring
-
     if ( e.target.id === "newDwelling" ){
       this.newDwellingPurchase(e);
       this.setState({
-        newDwelling: 'btn-secondary btn',
-        noNewDwelling: 'btn-light btn ml-2',
+        newDwelling: activeYes,
+        noNewDwelling: neutralNo,
       });
     }
 
     if ( e.target.id === "noNewDwelling"){
       this.newDwellingPurchase(e);
       this.setState({
-        newDwelling: 'btn-light btn',
-        noNewDwelling: 'btn-secondary btn ml-2',
+        newDwelling: neutralYes,
+        noNewDwelling: activeNo,
       });
     }
 
     if (  e.target.id === "inOneYear" ){
       this.purchaseWithinYear(e);
       this.setState({
-        inOneYear: 'btn-secondary btn',
-        notInOneYear: 'btn-light btn ml-2',
+        inOneYear: activeYes,
+        notInOneYear: neutralNo,
       });
     }
 
     if (  e.target.id === "notInOneYear" ){
       this.purchaseWithinYear(e);
       this.setState({
-        inOneYear: 'btn-light btn',
-        notInOneYear: 'btn-secondary btn ml-2',
+        inOneYear: neutralYes,
+        notInOneYear: activeNo,
       });
     }
 
     if (  e.target.id === "newPrimary" ){
-      this.props.handleLastQuestion(e)
+      this.props.taxExemption("true");
       this.setState({
-        newPrimary: 'btn-secondary btn',
-        noNewPrimary: 'btn-light btn ml-2'
+        newPrimary: activeYes,
+        noNewPrimary: neutralNo,
       });
     }
 
     if (  e.target.id === "noNewPrimary" ){
       this.setState({
-        newPrimary: 'btn-light btn',
-        noNewPrimary: 'btn-secondary btn ml-2',
+        newPrimary: neutralYes,
+        noNewPrimary: activeNo,
       });
     }
   }
@@ -109,7 +123,7 @@ class newPurchase extends React.Component {
     const dueYear = parseInt(this.props.sellDate.year, 10) + 1;
     const dateString = dueYear+"-"+this.props.sellDate.month+"-"+this.props.sellDate.day
     const formattedDate = moment(dateString, "YYYY-MM-DD").format("YYYY-MM-DD");
-    const purchaseWithinOneYear = <div className="mt-4">
+    const purchaseInOneYear = <div className="mt-4">
       <p>Ar naujas būstas bus perkamas iki {formattedDate}</p>
       <button
         id="inOneYear"
@@ -147,8 +161,8 @@ class newPurchase extends React.Component {
           className={this.state.noNewDwelling}>Ne</button>
       </div>
 
-      {this.state.purchaseWithinOneYear ?  purchaseWithinOneYear : ""}
-      {this.state.newPrimaryDwelling ?  newPrimaryDwelling : ""}
+      {this.state.newPurchase ?  purchaseInOneYear : ""}
+      {this.state.purchaseInOneYear ?  newPrimaryDwelling : ""}
     </div>;
 
     if ( this.props.isVisible === 5 ){

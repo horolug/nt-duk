@@ -34,11 +34,15 @@ const helpers = {
     return dayRange;
   },
 
-  isTaxRequired (timeDiff, dwellingStatus){
+  isTaxRequired (timeDiff, dwellingStatus, taxExemption){
     // tax exemption applied if
     // a. Sold property is primary dwelling and was occiped more than 2 years
     // b. Sold property is primary dewlling and was occupied for less than 2 years, but money was used
     // to buy another primary dwelling within on 1 year of original primary dwelling sell.
+    if (taxExemption){
+      return false;
+    }
+
     if ( ((timeDiff >= 2)  && (dwellingStatus === "primaryDwelling")) || dwellingStatus === "primaryDwellingInOneYear" ){
       return false;
     } else if ( timeDiff < 10 ){

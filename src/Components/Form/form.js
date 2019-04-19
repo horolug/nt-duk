@@ -25,6 +25,7 @@ class Form extends React.Component {
       purchasePrice: "",
       primaryDwelling: false,
       dwellingStatus: "",
+      taxExemption: false,
       yearRange: helpers.yearRange(),
       monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
       currentYear: new Date().getFullYear(),
@@ -44,6 +45,7 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOptions = this.handleOptions.bind(this);
     this.handleNotaryFee = this.handleNotaryFee.bind(this);
+    this.handleNewPurchase = this.handleNewPurchase.bind(this);
   }
 
   componentWillMount() {
@@ -60,7 +62,7 @@ class Form extends React.Component {
 
   calculateTax( timeDiff, isFormValid ){
     const taxRate = 0.15;
-    const isTaxRequired = helpers.isTaxRequired(timeDiff, this.state.dwellingStatus);
+    const isTaxRequired = helpers.isTaxRequired(timeDiff, this.state.dwellingStatus, this.state.taxExemption);
     let priceDiff = (this.state.sellPrice - this.state.purchasePrice);
     priceDiff = priceDiff.toFixed(2);
     let taxAmount = "Mokėti nereikia";
@@ -133,6 +135,13 @@ class Form extends React.Component {
         primaryDwelling: primaryDwellingFlag
       });
     }
+  }
+
+  handleNewPurchase = (taxExemption) => {
+    console.log("taxExemption", taxExemption);
+    this.setState({
+      taxExemption: taxExemption
+    });
   }
 
   handleOptions(event){
@@ -299,7 +308,7 @@ class Form extends React.Component {
       newPurchase = <NewPurchase
         isVisible={this.state.questionStep}
         sellDate={sell}
-        handleLastQuestion={(e)=>this.handleOptions(e)}
+        taxExemption={this.handleNewPurchase}
         jumpToQuestion={this.jumpToQuestion}/>;
     }
 
