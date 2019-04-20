@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
+import ReactGA from 'react-ga';
 import * as serviceWorker from './serviceWorker';
 
+ReactGA.initialize('UA-138714951-1');
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
