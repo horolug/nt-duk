@@ -7,6 +7,7 @@ import PurchaseCard from '../QuestionCard/purchaseCard';
 import SellCard from '../QuestionCard/sellCard';
 import Expenses from '../QuestionCard/expenses';
 import NewPurchase from '../QuestionCard/newPurchase';
+import DecisionTree from '../DecisionTree/decisionTree';
 
 
 class Form extends React.Component {
@@ -381,6 +382,8 @@ class Form extends React.Component {
           </div>
           {summary}
         </div>
+
+        <DecisionTree/>
       </form>
     );
   }
