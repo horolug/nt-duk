@@ -1,5 +1,5 @@
 import React from 'react';
-import decisionChart from './decisionTree.svg';
+import decisionChart from './decision.svg';
 class DecisionTree extends React.Component {
 
   constructor(props) {
