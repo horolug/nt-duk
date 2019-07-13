@@ -63,7 +63,6 @@ class Summary extends React.Component {
             <p>GPM (Gyventojų pajamų mokestis) pardavus turtą <strong> {this.priceSuffix(this.props.taxAmount)}</strong></p>
           </li>
           <li className="list-group-item">Pajamų deklaraciją užpildyti iki {this.props.taxReportDueDate}</li>
-          <li className="list-group-item">GPM sumokėti iki {this.props.taxDueDate}</li>
         </ul>
       </div>
     );
