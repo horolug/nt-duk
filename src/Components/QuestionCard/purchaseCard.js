@@ -19,7 +19,7 @@ class PurchaseCard extends React.Component {
           <p>Kaina, Eur</p>
           <div className="form-group">
             <input
-              type="number"
+              type="text"
               name="purchasePrice"
               value={this.props.price}
               onChange={this.props.handlePrice}

@@ -40,7 +40,7 @@ class SellCard extends React.Component {
           <p>Kaina, Eur</p>
           <div className="form-group">
             <input
-              type="number"
+              type="text"
               name="sellPrice"
               value={this.props.price}
               onChange={this.props.handlePrice}

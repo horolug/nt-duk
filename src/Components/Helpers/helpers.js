@@ -98,13 +98,18 @@ const helpers = {
 
     return cardFilled;
   },
+  
   validPrice( price ){
-    const formattedPrice = Number.parseFloat(price).toFixed(2);
+    if (  /^[0-9]+?[.,]?[0-9]*?$/.test(price) ){
+      if ( price.indexOf(",") !== -1){
+        price = price.replace(",", ".");
+      }
+      const properNumber = parseInt(price);
+      const formattedPrice = parseFloat(price).toFixed(2);
 
-    if ( isNaN( Number.parseFloat(formattedPrice) ) ){
-      return 'Netinkamas Kainos formatas';
+      return price;
     } else {
-      return Number.parseFloat(formattedPrice);
+      return price.slice(0, -1);
     }
   }
 }
