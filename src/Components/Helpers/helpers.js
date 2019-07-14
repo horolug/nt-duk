@@ -98,14 +98,16 @@ const helpers = {
 
     return cardFilled;
   },
-  
+
   validPrice( price ){
     if (  /^[0-9]+?[.,]?[0-9]*?$/.test(price) ){
-      if ( price.indexOf(",") !== -1){
+
+      if ( price.indexOf(",") !== -1 || price.indexOf(".") !== -1){
         price = price.replace(",", ".");
+        if ( price.substring(price.indexOf(".")).length > 3 ){
+          return price.slice(0, -1);
+        }
       }
-      const properNumber = parseInt(price);
-      const formattedPrice = parseFloat(price).toFixed(2);
 
       return price;
     } else {
