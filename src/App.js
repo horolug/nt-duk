@@ -31,8 +31,6 @@ class App extends Component {
               </div>
 
               <div className="col text-right">
-                <p>Pastebėjote klaidą ar turite minčių kaip pagerinti skaičiuoklę?</p>
-                <p> Rašykite <span className="badge badge-info">info@paskaiciuok.lt</span></p>
                 <p>Autorius Aleksandr Gulbickij</p>
                 <p>Visos teisės saugomos</p>
               </div>
