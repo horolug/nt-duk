@@ -383,7 +383,6 @@ class Form extends React.Component {
           {summary}
         </div>
 
-        <DecisionTree/>
       </form>
     );
   }

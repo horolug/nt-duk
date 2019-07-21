@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
         <header className="mb-4 pb-2 pt-2">
           <div className="container">
-            <h1 className="d-block text-center"> header </h1>
+            <h1 className="d-block text-center"> Paskaičiuok </h1>
             <p className="lead text-center">Įrankis skirtas GPM skaičiavimui parduodant nekilnojamą turtą</p>
           </div>
         </header>
@@ -19,7 +19,7 @@ class App extends Component {
           <Form />
 
           <div className="border p-2 rounded-sm mt-4">
-            {/*<Disqus.DiscussionEmbed shortname={disqusShortname} />*/}
+            <Disqus.DiscussionEmbed shortname={disqusShortname} />
 
           </div>
         </div>
