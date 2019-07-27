@@ -27,7 +27,9 @@ class App extends Component {
           <div className="container">
             <div className="row">
               <div className="col">
-                <p>Visi skaičiavimai yra tik informacinio pobūdžio. Jeigu kyla papildomų klausimų dėl mokėsčių mokėjimo rekomenduojame kreiptis pas mokėsčių apskaitos profesionalus.</p>
+                <p>Visi skaičiavimai yra tik informacinio pobūdžio. 
+                  Skaičiuoklės kūrėjai neprisiima jokios atsakomybės už galimus nuostolius. 
+                  Jeigu kyla papildomų klausimų dėl mokėsčių mokėjimo rekomenduojame kreiptis pas mokėsčių apskaitos profesionalus.</p>
               </div>
 
               <div className="col text-right">
