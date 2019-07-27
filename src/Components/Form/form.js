@@ -48,6 +48,8 @@ class Form extends React.Component {
     this.handleNotaryFee = this.handleNotaryFee.bind(this);
     this.handleNewPurchase = this.handleNewPurchase.bind(this);
     this.resetForm = this.resetForm.bind(this);
+    this.clearInputSet = this.clearInputSet.bind(this);
+
   }
 
   componentWillMount() {
@@ -286,6 +288,43 @@ class Form extends React.Component {
       questionStep: 1,
     });
   }
+  clearInputSet = (fieldSet) => {
+    console.log('clearInputSet called', fieldSet);
+
+    if (fieldSet === "purchaseDate"){
+      this.setState({
+        purchaseYear: new Date().getFullYear(),
+        purchaseMonth: 1,
+        purchaseDay: 1,
+      });
+    }
+    
+    if (fieldSet === "purchasePrice"){
+      this.setState({
+        purchasePrice: ""
+      });
+    }
+
+    if (fieldSet === "sellDate"){
+      this.setState({
+        sellYear: new Date().getFullYear() + 1,
+        sellMonth: 1,
+        sellDay: 1,
+      });
+    }
+
+    if (fieldSet === "sellPrice"){
+      this.setState({
+        sellPrice: "",
+      });
+    }
+
+    if (fieldSet === "expenses"){
+      this.setState({
+        otherExpenses: "",
+      });
+    }
+  }
 
   render() {
     const purchaseDays = helpers.dayRange(this.state.purchaseYear, this.state.purchaseMonth);
@@ -367,6 +406,7 @@ class Form extends React.Component {
               nextQuestion={(e) => this.flipQuestionCard(e)}
               jumpToQuestion={this.jumpToQuestion}
               price={this.state.purchasePrice}
+              clear={this.clearInputSet}
             />
 
             <SellCard
@@ -390,6 +430,7 @@ class Form extends React.Component {
               jumpToQuestion={this.jumpToQuestion}
               price={this.state.sellPrice}
               selectedDate={sell}
+              clear={this.clearInputSet}
               />
 
             <Expenses
@@ -398,7 +439,9 @@ class Form extends React.Component {
               nextQuestion={(e) => this.flipQuestionCard(e)}
               otherExpenses={this.state.otherExpenses}
               jumpToQuestion={this.jumpToQuestion}
-              notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)} />
+              notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)}
+              clear={this.clearInputSet}
+              />
 
             {questionCard}
             {newPurchase}

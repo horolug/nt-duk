@@ -6,7 +6,15 @@ class Expenses extends React.Component {
         <label><strong>Kitos išlaidos</strong></label>
         <p>Ar turėjote kitų išlaidų skirtų padidinti turto vertę, pvz, išlaidų
           remontui?</p>
-        <p>Visų išlaidų suma, Eur:</p>
+          
+        <div className="d-flex align-items-end">
+          <span className="pb-1">Visų išlaidų suma, Eur:</span>
+          <button 
+            type="button" 
+            className="btn btn-link btn-sm"
+            onClick={() => this.props.clear('expenses')}
+          >Išvalyti</button>
+        </div>
         <input
           type="number"
           name="purchasePrice"
