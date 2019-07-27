@@ -47,6 +47,9 @@ class Form extends React.Component {
     this.handleOptions = this.handleOptions.bind(this);
     this.handleNotaryFee = this.handleNotaryFee.bind(this);
     this.handleNewPurchase = this.handleNewPurchase.bind(this);
+    this.resetForm = this.resetForm.bind(this);
+    this.clearInputSet = this.clearInputSet.bind(this);
+
   }
 
   componentWillMount() {
@@ -255,6 +258,74 @@ class Form extends React.Component {
     }
   }
 
+  resetForm(e){
+    e.preventDefault();
+    window.scrollTo(0, 0);
+    this.setState({
+      sellYear: new Date().getFullYear() + 1,
+      sellMonth: 1,
+      sellDay: 1,
+      sellPrice: "",
+      purchaseYear: new Date().getFullYear(),
+      purchaseMonth: 1,
+      purchaseDay: 1,
+      purchasePrice: "",
+      primaryDwelling: false,
+      dwellingStatus: "",
+      taxExemption: false,
+      yearRange: helpers.yearRange(),
+      monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
+      currentYear: new Date().getFullYear(),
+      timeDiff: "",
+      priceDiff: "",
+      taxAmount: "Mokėti nereikia",
+      notaryFee: "",
+      otherExpenses: "",
+      customNotaryFee: "",
+      taxDueDate: "",
+      taxReportDueDate: "",
+      isFormValid: false,
+      questionStep: 1,
+    });
+  }
+  clearInputSet = (fieldSet) => {
+    console.log('clearInputSet called', fieldSet);
+
+    if (fieldSet === "purchaseDate"){
+      this.setState({
+        purchaseYear: new Date().getFullYear(),
+        purchaseMonth: 1,
+        purchaseDay: 1,
+      });
+    }
+    
+    if (fieldSet === "purchasePrice"){
+      this.setState({
+        purchasePrice: ""
+      });
+    }
+
+    if (fieldSet === "sellDate"){
+      this.setState({
+        sellYear: new Date().getFullYear() + 1,
+        sellMonth: 1,
+        sellDay: 1,
+      });
+    }
+
+    if (fieldSet === "sellPrice"){
+      this.setState({
+        sellPrice: "",
+      });
+    }
+
+    if (fieldSet === "expenses"){
+      this.setState({
+        otherExpenses: "",
+      });
+    }
+  }
+
   render() {
     const purchaseDays = helpers.dayRange(this.state.purchaseYear, this.state.purchaseMonth);
     const sellDays = helpers.dayRange(this.state.sellYear, this.state.sellMonth);
@@ -335,6 +406,7 @@ class Form extends React.Component {
               nextQuestion={(e) => this.flipQuestionCard(e)}
               jumpToQuestion={this.jumpToQuestion}
               price={this.state.purchasePrice}
+              clear={this.clearInputSet}
             />
 
             <SellCard
@@ -358,6 +430,7 @@ class Form extends React.Component {
               jumpToQuestion={this.jumpToQuestion}
               price={this.state.sellPrice}
               selectedDate={sell}
+              clear={this.clearInputSet}
               />
 
             <Expenses
@@ -366,18 +439,30 @@ class Form extends React.Component {
               nextQuestion={(e) => this.flipQuestionCard(e)}
               otherExpenses={this.state.otherExpenses}
               jumpToQuestion={this.jumpToQuestion}
-              notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)} />
+              notaryFee={helpers.calculateNotaryFee(this.state.sellPrice)}
+              clear={this.clearInputSet}
+              />
 
             {questionCard}
             {newPurchase}
 
-            <div className="mt-4 mb-4 text-center">
-              <button
-                disabled = {this.isFormValid() ? false : true }
-                onClick={this.handleSubmit}
-                className="btn btn-primary">
-                Skaičiuoti
-              </button>
+            <div className="mt-4 mb-4 row">
+              <div className="col "> 
+                <button
+                  onClick={this.resetForm}
+                  className="btn btn-outline-primary">
+                  Išvalyti formą
+                </button>
+              </div>
+              <div className="col "> 
+                <button
+                  disabled = {this.isFormValid() ? false : true }
+                  onClick={this.handleSubmit}
+                  className="btn btn-primary col">
+                  Skaičiuoti
+                </button>
+              </div>
+              
             </div>
           </div>
           {summary}

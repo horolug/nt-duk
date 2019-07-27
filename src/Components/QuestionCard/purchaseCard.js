@@ -7,7 +7,14 @@ class PurchaseCard extends React.Component {
     const cardContent = <div className="card-body">
       <div className="row">
         <div className="col">
-          <p>Data</p>
+          <div className="d-flex align-items-end">
+            <span className="pb-1">Data </span>
+            <button 
+              type="button" 
+              className="btn btn-link btn-sm"
+              onClick={() => this.props.clear('purchaseDate')}
+              >Išvalyti</button>
+          </div>
           <DateBlock
             blockType="purchase"
             onChange={this.props.dateChange}
@@ -16,7 +23,14 @@ class PurchaseCard extends React.Component {
             months={this.props.months}
             days={this.props.days}
           />
-          <p>Kaina, Eur</p>
+          <div className="d-flex align-items-end">
+            <span className="pb-1">Kaina, Eur </span>
+            <button 
+              type="button" 
+              className="btn btn-link btn-sm"
+              onClick={() => this.props.clear('purchasePrice')}
+              >Išvalyti</button>
+          </div>
           <div className="form-group">
             <input
               type="text"
