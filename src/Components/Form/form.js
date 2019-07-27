@@ -47,6 +47,7 @@ class Form extends React.Component {
     this.handleOptions = this.handleOptions.bind(this);
     this.handleNotaryFee = this.handleNotaryFee.bind(this);
     this.handleNewPurchase = this.handleNewPurchase.bind(this);
+    this.resetForm = this.resetForm.bind(this);
   }
 
   componentWillMount() {
@@ -255,6 +256,37 @@ class Form extends React.Component {
     }
   }
 
+  resetForm(e){
+    e.preventDefault();
+    window.scrollTo(0, 0);
+    this.setState({
+      sellYear: new Date().getFullYear() + 1,
+      sellMonth: 1,
+      sellDay: 1,
+      sellPrice: "",
+      purchaseYear: new Date().getFullYear(),
+      purchaseMonth: 1,
+      purchaseDay: 1,
+      purchasePrice: "",
+      primaryDwelling: false,
+      dwellingStatus: "",
+      taxExemption: false,
+      yearRange: helpers.yearRange(),
+      monthRange: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
+      currentYear: new Date().getFullYear(),
+      timeDiff: "",
+      priceDiff: "",
+      taxAmount: "Mokėti nereikia",
+      notaryFee: "",
+      otherExpenses: "",
+      customNotaryFee: "",
+      taxDueDate: "",
+      taxReportDueDate: "",
+      isFormValid: false,
+      questionStep: 1,
+    });
+  }
+
   render() {
     const purchaseDays = helpers.dayRange(this.state.purchaseYear, this.state.purchaseMonth);
     const sellDays = helpers.dayRange(this.state.sellYear, this.state.sellMonth);
@@ -371,13 +403,23 @@ class Form extends React.Component {
             {questionCard}
             {newPurchase}
 
-            <div className="mt-4 mb-4 text-center">
-              <button
-                disabled = {this.isFormValid() ? false : true }
-                onClick={this.handleSubmit}
-                className="btn btn-primary">
-                Skaičiuoti
-              </button>
+            <div className="mt-4 mb-4 row">
+              <div className="col "> 
+                <button
+                  onClick={this.resetForm}
+                  className="btn btn-outline-primary">
+                  Išvalyti formą
+                </button>
+              </div>
+              <div className="col "> 
+                <button
+                  disabled = {this.isFormValid() ? false : true }
+                  onClick={this.handleSubmit}
+                  className="btn btn-primary col">
+                  Skaičiuoti
+                </button>
+              </div>
+              
             </div>
           </div>
           {summary}
