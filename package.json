@@ -10,7 +10,7 @@
     "moment-business": "^3.0.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-ga": "^2.5.7",
+    "react-ga": "^2.6.0",
     "react-scripts": "^3.0.1"
   },
   "scripts": {

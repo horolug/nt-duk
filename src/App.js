@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Form from './Components/Form/form';
 import Disqus from 'disqus-react';
 
-
 class App extends Component {
   render() {
     const disqusShortname = 'paskaiciuok';
